@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Honestech – Mobile Mechanic | NJ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #181818;
+      --border: #272727;
+      --orange: #f5c800;
+      --orange-light: #ffe033;
+      --white: #f5f5f0;
+      --muted: #888;
+      --text: #c0c0bc;
+    }
+
+```
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 64px;
+  background: rgba(10,10,10,0.93);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--white);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--orange); }
+
+.nav-links {
+  display: flex; gap: 2rem; list-style: none;
+}
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--orange);
+  color: #000 !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 700 !important;
+}
+.nav-cta:hover { background: var(--orange-light); color: #000 !important; }
+
+.nav-phone {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--orange) !important;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 2.5rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 40%, rgba(245,200,0,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(245,200,0,0.06) 0%, transparent 60%),
+    linear-gradient(160deg, #0a0a0a 0%, #111111 100%);
+}
+
+/* Animated grid lines */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridShift 20s linear infinite;
+}
+@keyframes gridShift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(60px); }
+}
+
+.hero-badge {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(245,200,0,0.12);
+  border: 1px solid rgba(245,200,0,0.35);
+  color: var(--orange-light);
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.4rem 1rem; border-radius: 100px;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-title {
+  position: relative;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.9;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+}
+.hero-title .accent { color: var(--orange); }
+
+.hero-sub {
+  position: relative;
+  font-size: 1.15rem;
+  color: var(--text);
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  position: relative;
+  display: flex; gap: 1rem; flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: #000;
+  padding: 0.9rem 2rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.2s;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  color: var(--white);
+  padding: 0.9rem 2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, transform 0.2s;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+.hero-stats {
+  position: absolute;
+  right: 2.5rem; bottom: 5rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.stat {
+  text-align: right;
+}
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  color: var(--white);
+  line-height: 1;
+}
+.stat-num span { color: var(--orange); }
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── SECTION SHARED ── */
+section {
+  padding: 6rem 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-full {
+  max-width: 100%;
+  padding: 6rem 0;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--orange);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--white);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 3rem;
+  font-size: 1rem;
+}
+
+/* ── WHY US ── */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+
+.why-card {
+  background: var(--dark);
+  padding: 2.5rem 2rem;
+  transition: background 0.3s;
+}
+.why-card:hover { background: var(--card); }
+
+.why-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.why-title {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.why-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── SERVICES ── */
+.services-section {
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.service-card {
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-decoration: none;
+  transition: border-color 0.25s, transform 0.25s;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.service-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+}
+
+.service-icon {
+  width: 44px; height: 44px;
+  background: rgba(245,200,0,0.10);
+  border: 1px solid rgba(245,200,0,0.22);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+
+.service-name {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.service-arrow {
+  margin-top: auto;
+  color: var(--orange);
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+.service-card:hover .service-arrow { transform: translateX(4px); }
+
+/* ── LOCATIONS ── */
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.location-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.location-county {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--orange);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.location-towns {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 2;
+}
+
+/* ── QUOTE FORM ── */
+.quote-section {
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+}
+
+.quote-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.quote-info {
+  position: sticky;
+  top: 90px;
+}
+
+.quote-promise {
+  margin-top: 2.5rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+
+.promise-item {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.promise-icon {
+  color: var(--orange);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+.form-group.full { grid-column: 1 / -1; }
+
+.form-group label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--white);
+  padding: 0.75rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  outline: none;
+  width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--orange);
+}
+.form-group select option { background: var(--dark); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+
+.form-check {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  grid-column: 1 / -1;
+}
+.form-check input[type="checkbox"] { margin-top: 3px; accent-color: var(--orange); }
+.form-check a { color: var(--orange); }
+
+.form-note {
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+.form-submit {
+  grid-column: 1 / -1;
+  background: var(--orange);
+  color: #000;
+  border: none;
+  padding: 1rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.2s;
+}
+.form-submit:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 100%;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--white);
+  letter-spacing: 0.08em;
+}
+.footer-logo span { color: var(--orange); }
+
+.footer-links {
+  display: flex; gap: 2rem; list-style: none; flex-wrap: wrap;
+}
+.footer-links a {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .hero { padding: 0 1.25rem 4rem; }
+  .hero-stats { display: none; }
+  section { padding: 4rem 1.25rem; }
+  .section-inner { padding: 0 1.25rem; }
+  .locations-grid { grid-template-columns: 1fr; }
+  .quote-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .quote-info { position: static; }
+  .form-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.25rem; }
+}
+
+/* ── SCROLL FADE-IN ── */
+.fade-up {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+body.js-ready .fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+}
+body.js-ready .fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+```
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="https://i.postimg.cc/nVKWkb3x/EA94BD45_76C3_4A4A_A3B9_504BDFC36093.png" alt="Honestech" style="height:38px; width:auto; display:block;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#quote">Get a Quote</a></li>
+    <li><a href="tel:+17329373734" class="nav-phone">732-937-3734</a></li>
+    <li><a href="#quote" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <img src="https://i.postimg.cc/nVKWkb3x/EA94BD45_76C3_4A4A_A3B9_504BDFC36093.png" alt="Honestech" style="position:relative; height:56px; width:auto; margin-bottom:1.5rem; display:block;" />
+
+  <div class="hero-badge">Now serving NJ — Middlesex, Monmouth &amp; Ocean County</div>
+
+  <h1 class="hero-title">
+    WE COME<br>
+    TO <span class="accent">YOU.</span>
+  </h1>
+
+  <p class="hero-sub">
+    Expert mobile mechanics — brakes, oil changes, batteries &amp; more — fixed right in your driveway. No towing. No waiting rooms.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#quote" class="btn-primary">Get a Free Quote →</a>
+    <a href="tel:+17329373734" class="btn-secondary">📞 732-937-3734</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">3<span>+</span></div>
+      <div class="stat-label">Counties Served</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-label">Mobile Service</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0<span>$</span></div>
+      <div class="stat-label">Tow Fees Ever</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY US -->
+
+<section id="why" class="fade-up">
+  <span class="label">Why Honestech</span>
+  <h2 class="section-title">HONEST WORK.<br>FAIR PRICES.</h2>
+  <p class="section-desc">We built Honestech on a simple promise: no surprises, no upsells — just straight talk and quality repairs.</p>
+
+  <div class="why-grid">
+    <div class="why-card fade-up">
+      <div class="why-icon">🔧</div>
+      <div class="why-title">Certified Technicians</div>
+      <div class="why-desc">Years of hands-on experience working on all makes and models. We know what we're doing.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-icon">💰</div>
+      <div class="why-title">Transparent Pricing</div>
+      <div class="why-desc">Upfront quotes before we touch anything. Honest, affordable, and no hidden fees.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-icon">📍</div>
+      <div class="why-title">We Come to You</div>
+      <div class="why-desc">Your driveway, workplace, or parking lot. We bring the tools — you bring the coffee.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">No Towing Needed</div>
+      <div class="why-desc">Skip the tow truck fees entirely. We fix it right where it sits, fast.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+
+<div class="section-full services-section" id="services">
+  <div class="section-inner fade-up">
+    <span class="label">What We Fix</span>
+    <h2 class="section-title">OUR SERVICES</h2>
+    <p class="section-desc">From routine maintenance to roadside emergencies — we handle it all on-site.</p>
+
+```
+<div class="services-grid">
+  <a href="#quote" class="service-card fade-up">
+    <div class="service-icon">🛑</div>
+    <div class="service-name">Brake Repair &amp; Replacement</div>
+    <div class="service-arrow">→</div>
+  </a>
+  <a href="#quote" class="service-card fade-up">
+    <div class="service-icon">🔋</div>
+    <div class="service-name">Starter &amp; Battery Replacement</div>
+    <div class="service-arrow">→</div>
+  </a>
+  <a href="#quote" class="service-card fade-up">
+    <div class="service-icon">🛢️</div>
+    <div class="service-name">Oil Change &amp; Tune-Ups</div>
+    <div class="service-arrow">→</div>
+  </a>
+  <a href="#quote" class="service-card fade-up">
+    <div class="service-icon">⚙️</div>
+    <div class="service-name">Alternator &amp; Belt Repairs</div>
+    <div class="service-arrow">→</div>
+  </a>
+  <a href="#quote" class="service-card fade-up">
+    <div class="service-icon">🚨</div>
+    <div class="service-name">Emergency Roadside Repairs</div>
+    <div class="service-arrow">→</div>
+  </a>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- LOCATIONS -->
+
+<section id="locations" class="fade-up">
+  <span class="label">Service Area</span>
+  <h2 class="section-title">NEW JERSEY,<br>WE'VE GOT YOU.</h2>
+  <p class="section-desc">Proudly serving three counties across Central and Southern NJ.</p>
+
+  <div class="locations-grid">
+    <div class="location-card fade-up">
+      <div class="location-county">Middlesex County</div>
+      <div class="location-towns">Edison · Piscataway · Woodbridge · New Brunswick · Perth Amboy · South Amboy &amp; more</div>
+    </div>
+    <div class="location-card fade-up">
+      <div class="location-county">Monmouth County</div>
+      <div class="location-towns">Freehold · Middletown · Howell · Red Bank · Long Branch · Asbury Park &amp; more</div>
+    </div>
+    <div class="location-card fade-up">
+      <div class="location-county">Ocean County</div>
+      <div class="location-towns">Toms River · Brick · Lakewood · Jackson · Point Pleasant · Barnegat &amp; more</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+
+<div class="section-full quote-section" id="quote">
+  <div class="section-inner">
+    <div class="quote-layout">
+
+```
+  <div class="quote-info fade-up">
+    <span class="label">Get Started</span>
+    <h2 class="section-title">GET YOUR<br>QUOTE</h2>
+    <p class="section-desc" style="margin-bottom:0;">Tell us what you need. We'll get back to you with pricing and availability. Submitting this form does not confirm an appointment.</p>
+
+    <div class="quote-promise">
+      <div class="promise-item"><span class="promise-icon">✓</span> Fast response — usually within hours</div>
+      <div class="promise-item"><span class="promise-icon">✓</span> Transparent pricing before we begin</div>
+      <div class="promise-item"><span class="promise-icon">✓</span> Certified, vetted technicians only</div>
+      <div class="promise-item"><span class="promise-icon">✓</span> No tow fees, ever</div>
+    </div>
+  </div>
+
+  <div class="fade-up">
+    <form action="https://formspree.io/f/mwvwjnaq" method="POST">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Company (if applicable)</label>
+        <input type="text" name="company" placeholder="ABC Corp (optional)" />
+      </div>
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" name="name" placeholder="John Smith" required />
+      </div>
+      <div class="form-group">
+        <label>Mobile Phone *</label>
+        <input type="tel" name="phone" placeholder="(732) 000-0000" required />
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" name="email" placeholder="you@email.com" required />
+      </div>
+      <div class="form-group">
+        <label>ZIP Code *</label>
+        <input type="text" name="zip" placeholder="08817" required />
+      </div>
+      <div class="form-group full">
+        <label>Street Address *</label>
+        <input type="text" name="address" placeholder="123 Main St" required />
+      </div>
+      <div class="form-group">
+        <label>City *</label>
+        <input type="text" name="city" placeholder="Edison" required />
+      </div>
+      <div class="form-group">
+        <label>State *</label>
+        <input type="text" name="state" placeholder="NJ" required />
+      </div>
+      <div class="form-group full">
+        <label>Year / Make / Model *</label>
+        <input type="text" name="vehicle" placeholder="2018 Honda Accord" required />
+      </div>
+      <div class="form-group full">
+        <label>Choose a Service *</label>
+        <select name="service" required>
+          <option value="" disabled selected>Select a service</option>
+          <option>Brake pads &amp; rotors</option>
+          <option>Oil change &amp; filter (customer supplies parts)</option>
+          <option>Tune-up / spark plugs</option>
+          <option>Battery or starter issue</option>
+          <option>Roadside – jump start</option>
+          <option>Roadside – flat tire change</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>Describe the Issue</label>
+        <textarea name="description" placeholder="Tell us what's going on with your vehicle..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Preferred Day</label>
+        <input type="date" name="preferred_day" />
+      </div>
+      <div class="form-group">
+        <label>Preferred Time</label>
+        <input type="time" name="preferred_time" />
+      </div>
+      <div class="form-group full">
+        <label>How Did You Hear About Us? *</label>
+        <select name="referral" required>
+          <option value="" disabled selected>Select an option</option>
+          <option>Google Search</option>
+          <option>Google Maps</option>
+          <option>TikTok</option>
+          <option>Instagram</option>
+          <option>Facebook</option>
+          <option>Referral / Friend</option>
+          <option>Returning Customer</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="terms" required />
+        <label for="terms">I have read and agree to the <a href="https://honestechservice.com/terms.html" target="_blank">Honestech Terms &amp; Conditions</a>.</label>
+      </div>
+      <div class="form-note">
+        Within Middlesex County, service is performed by the owner of Honestech when available; otherwise, or outside Middlesex County, work may be referred to a trusted, approved independent technician meeting Honestech's standards. Customers must provide correct parts (verified by VIN) and a safe workspace. Stripe adds 3%.
+      </div>
+      <button class="form-submit" type="submit">Get My Quote →</button>
+    </div>
+    </form>
+
+    <div id="thank-you" style="display:none; text-align:center; padding:3rem 2rem; border:1px solid var(--orange); border-radius:8px; background:rgba(245,200,0,0.05);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); letter-spacing:0.05em; margin-bottom:0.75rem;">We Got Your Request!</h3>
+      <p style="color:var(--text); font-size:1rem; max-width:380px; margin:0 auto 1.5rem;">Thanks for reaching out. We'll review your info and get back to you with pricing and availability — usually within a few hours.</p>
+      <p style="font-family:'DM Mono',monospace; color:var(--orange); font-size:0.88rem;">Questions? Call or text us at <a href="tel:+17329373734" style="color:var(--orange);">732-937-3734</a></p>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-logo">
+    <img src="https://i.postimg.cc/nVKWkb3x/EA94BD45_76C3_4A4A_A3B9_504BDFC36093.png" alt="Honestech" style="height:36px; width:auto; display:block;" />
+  </div>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="https://honestechservice.com/blogs.html">Blog</a></li>
+    <li><a href="https://honestechservice.com/pay.html">Pay Now</a></li>
+    <li><a href="/cdn-cgi/l/email-protection#e68e898883959283858e958394908f8583a6818b878f8ac885898b">Email Us</a></li>
+    <li><a href="tel:+17329373734">732-937-3734</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Honestech Mobile Mechanic · New Jersey</div>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.body.classList.add('js-ready');
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Formspree AJAX + thank-you message
+  const quoteForm = document.querySelector('form[action*="formspree"]');
+  const thankYou = document.getElementById('thank-you');
+
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = quoteForm.querySelector('.form-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(quoteForm.action, {
+          method: 'POST',
+          body: new FormData(quoteForm),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          quoteForm.style.display = 'none';
+          thankYou.style.display = 'block';
+          thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          btn.textContent = 'Something went wrong — try again';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        btn.textContent = 'Network error — try again';
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
