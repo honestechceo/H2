@@ -547,6 +547,65 @@ footer {
   footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.25rem; }
 }
 
+
+/* ── BLOG ── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.blog-card {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem 1.75rem;
+  cursor: pointer;
+  transition: border-color 0.25s, transform 0.25s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.blog-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+}
+
+.blog-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.blog-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--white);
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+}
+
+.blog-excerpt {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.blog-read {
+  font-size: 0.85rem;
+  color: var(--orange);
+  font-weight: 600;
+  margin-top: 0.5rem;
+  transition: letter-spacing 0.2s;
+}
+.blog-card:hover .blog-read {
+  letter-spacing: 0.04em;
+}
+
 /* ── SCROLL FADE-IN ── */
 .fade-up {
   opacity: 1;
@@ -571,11 +630,12 @@ body.js-ready .fade-up.visible {
 
 <nav>
   <a class="nav-logo" href="#">
-    <img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="Honestech" style="height:58px; width:auto; max-width:220px; object-fit:contain; display:block;" />
+    <img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="Honestech" style="height:72px; width:auto; max-width:260px; object-fit:contain; display:block;" />
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#locations">Locations</a></li>
+    <li><a href="#blog">Blog</a></li>
     <li><a href="#quote">Get a Quote</a></li>
     <li><a href="tel:+17329373734" class="nav-phone">732-937-3734</a></li>
     <li><a href="#quote" class="nav-cta">Book Now</a></li>
@@ -848,6 +908,75 @@ body.js-ready .fade-up.visible {
   </div>
 </div>
 
+<!-- BLOG -->
+
+<div class="section-full" id="blog" style="border-top: 1px solid var(--border);">
+  <div class="section-inner">
+    <span class="label">Tips & Knowledge</span>
+    <h2 class="section-title fade-up">FROM THE BLOG</h2>
+    <p class="section-desc fade-up">Straight talk from a mechanic — no fluff, just useful info to keep your car running right.</p>
+
+```
+<div class="blog-grid">
+
+  <!-- Blog 1 -->
+  <div class="blog-card fade-up" onclick="openBlog('blog1')">
+    <div class="blog-tag">Maintenance</div>
+    <h3 class="blog-title">Vehicle Service Intervals</h3>
+    <p class="blog-excerpt">Not sure when to service your car? Here's a simple breakdown of what needs attention and when — so nothing sneaks up on you.</p>
+    <div class="blog-read">Read more →</div>
+  </div>
+
+  <!-- Blog 2 -->
+  <div class="blog-card fade-up" onclick="openBlog('blog2')">
+    <div class="blog-tag">Engine</div>
+    <h3 class="blog-title">Engine Air Filters</h3>
+    <p class="blog-excerpt">Your engine needs clean air to run efficiently. A clogged air filter can hurt fuel economy and performance more than you'd think.</p>
+    <div class="blog-read">Read more →</div>
+  </div>
+
+  <!-- Blog 3 -->
+  <div class="blog-card fade-up" onclick="openBlog('blog3')">
+    <div class="blog-tag">Comfort</div>
+    <h3 class="blog-title">Cabin Air Filters</h3>
+    <p class="blog-excerpt">The filter most people forget about. It affects the air you breathe inside your car — and it's one of the easiest things to replace.</p>
+    <div class="blog-read">Read more →</div>
+  </div>
+
+  <!-- Blog 4 -->
+  <div class="blog-card fade-up" onclick="openBlog('blog4')">
+    <div class="blog-tag">Tune-Up</div>
+    <h3 class="blog-title">When to Replace Spark Plugs</h3>
+    <p class="blog-excerpt">Copper, platinum, iridium — they all wear out at different rates. Know which type your car uses and when to swap them out.</p>
+    <div class="blog-read">Read more →</div>
+  </div>
+
+  <!-- Blog 5 -->
+  <div class="blog-card fade-up" onclick="openBlog('blog5')">
+    <div class="blog-tag">Fuel System</div>
+    <h3 class="blog-title">Should You Use a Fuel Additive?</h3>
+    <p class="blog-excerpt">Fuel additives get a lot of hype. Here's the honest truth about when they actually help — and when they're just marketing.</p>
+    <div class="blog-read">Read more →</div>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+<!-- BLOG MODAL -->
+
+<div id="blog-modal" style="display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); overflow-y:auto; padding:2rem 1rem;">
+  <div style="max-width:680px; margin:0 auto; background:var(--dark); border:1px solid var(--border); border-radius:12px; padding:3rem 2.5rem; position:relative;">
+    <button onclick="closeBlog()" style="position:absolute; top:1.25rem; right:1.25rem; background:var(--border); border:none; color:var(--white); width:36px; height:36px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+    <div id="blog-modal-content"></div>
+    <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--border);">
+      <a href="#quote" onclick="closeBlog()" class="btn-primary" style="display:inline-flex;">Book a Service →</a>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 
 <footer>
@@ -857,7 +986,7 @@ body.js-ready .fade-up.visible {
   <ul class="footer-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#locations">Locations</a></li>
-    <li><a href="https://honestechservice.com/blogs.html">Blog</a></li>
+    <li><a href="#blog">Blog</a></li>
     <li><a href="https://honestechservice.com/pay.html">Pay Now</a></li>
     <li><a href="/cdn-cgi/l/email-protection#e68e898883959283858e958394908f8583a6818b878f8ac885898b">Email Us</a></li>
     <li><a href="tel:+17329373734">732-937-3734</a></li>
@@ -910,6 +1039,122 @@ body.js-ready .fade-up.visible {
       }
     });
   }
+</script>
+
+<script>
+  const blogs = {
+    blog1: {
+      tag: 'Maintenance',
+      title: 'Vehicle Service Intervals',
+      content: `
+        <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Maintenance</span>
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Vehicle Service Intervals</h2>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Staying on top of your service schedule is the single best thing you can do for your car's longevity. Here's a simple breakdown:</p>
+        <div style="background:var(--black); border:1px solid var(--border); border-radius:8px; padding:1.5rem; margin-bottom:1.25rem;">
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); color:var(--white); font-weight:600; font-size:0.85rem;">
+            <span>Service</span><span style="color:var(--orange);">Interval</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Oil change & tire rotation</span><span style="color:var(--white);">Every 3k–10k mi</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Engine & cabin air filters</span><span style="color:var(--white);">Around 15k mi</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Fluid checks (brake, coolant, trans)</span><span style="color:var(--white);">Every 30k mi</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Spark plugs</span><span style="color:var(--white);">40k, 60k, or 120k mi</span></div>
+        </div>
+        <p style="color:var(--text);">Always check your owner's manual for your specific vehicle. These are general guidelines — Lexus vehicles in particular often have longer intervals thanks to tighter engineering tolerances.</p>
+      `
+    },
+    blog2: {
+      tag: 'Engine',
+      title: 'Engine Air Filters',
+      content: `
+        <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Engine</span>
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Engine Air Filters</h2>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Your engine mixes air and fuel to create combustion. That air has to pass through a filter first — and when that filter gets clogged, your engine works harder than it needs to.</p>
+        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">Signs your engine air filter needs replacing:</strong></p>
+        <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
+          <li>Decreased fuel economy</li>
+          <li>Sluggish acceleration</li>
+          <li>Engine misfires or rough idle</li>
+          <li>Black smoke from the exhaust</li>
+          <li>Filter looks visibly dirty or gray</li>
+        </ul>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Engine air filters should be replaced around every 15,000 miles. If you drive on dusty roads or in heavy stop-and-go traffic, check it sooner.</p>
+        <p style="color:var(--text);">It's one of the cheapest maintenance items you can do — and skipping it can lead to much bigger problems down the road.</p>
+      `
+    },
+    blog3: {
+      tag: 'Comfort',
+      title: 'Cabin Air Filters',
+      content: `
+        <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Comfort</span>
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Cabin Air Filters</h2>
+        <p style="color:var(--text); margin-bottom:1.25rem;">The cabin air filter cleans the air coming through your vents — the air you and your passengers breathe. It catches dust, pollen, mold spores, and other pollutants before they enter the cabin.</p>
+        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">Signs your cabin filter is overdue:</strong></p>
+        <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
+          <li>Musty or unpleasant smell from the vents</li>
+          <li>Reduced airflow from AC or heat</li>
+          <li>More dust accumulating on your dashboard</li>
+          <li>Allergy symptoms worse than usual while driving</li>
+        </ul>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Replace your cabin air filter every 10,000–15,000 miles, or once a year if you drive in a heavily polluted area.</p>
+        <p style="color:var(--text);">It's a quick, inexpensive swap — and it makes a noticeable difference in how your car smells and how well your HVAC system works.</p>
+      `
+    },
+    blog4: {
+      tag: 'Tune-Up',
+      title: 'When to Replace Spark Plugs',
+      content: `
+        <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Tune-Up</span>
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">When to Replace Spark Plugs</h2>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Spark plugs ignite the air-fuel mixture in your engine. Worn plugs mean incomplete combustion — which means worse fuel economy, rough idling, and hard starts.</p>
+        <div style="background:var(--black); border:1px solid var(--border); border-radius:8px; padding:1.5rem; margin-bottom:1.25rem;">
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); color:var(--white); font-weight:600; font-size:0.85rem;"><span>Type</span><span style="color:var(--orange);">Lifespan</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Copper</span><span style="color:var(--white);">~40,000 mi</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Platinum</span><span style="color:var(--white);">~60,000 mi</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Iridium</span><span style="color:var(--white);">~120,000 mi</span></div>
+        </div>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Always use the plug type specified in your owner's manual. Installing the wrong type can cause misfires or even engine damage.</p>
+        <p style="color:var(--text);">Lexus vehicles typically use iridium plugs and can go longer between changes — but don't push it past the manufacturer's recommendation.</p>
+      `
+    },
+    blog5: {
+      tag: 'Fuel System',
+      title: 'Should You Use a Fuel Additive?',
+      content: `
+        <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Fuel System</span>
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Should You Use a Fuel Additive?</h2>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Walk into any auto parts store and you'll see a wall of fuel additives promising better mileage, cleaner engines, and more power. Here's the honest answer: some work, most don't matter, and none are a substitute for real maintenance.</p>
+        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">When a fuel additive can actually help:</strong></p>
+        <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
+          <li>Fuel injector cleaners (like Techron) every 5,000–10,000 miles can reduce light carbon deposits</li>
+          <li>Fuel stabilizer if your car sits unused for more than 30 days</li>
+          <li>Octane boosters if you're running high-compression or forced-induction engines</li>
+        </ul>
+        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">When they won't help:</strong></p>
+        <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
+          <li>If your check engine light is on — that's a mechanical problem, not a chemical one</li>
+          <li>If your injectors are heavily clogged — at that point you need a professional cleaning</li>
+          <li>If you're chasing better fuel economy — fix your tire pressure and air filter first</li>
+        </ul>
+        <p style="color:var(--text);">Bottom line: use a reputable cleaner occasionally as preventive maintenance. Don't expect miracles — and don't skip your actual service intervals hoping a bottle will cover for it.</p>
+      `
+    }
+  };
+
+  function openBlog(id) {
+    const blog = blogs[id];
+    document.getElementById('blog-modal-content').innerHTML = blog.content;
+    document.getElementById('blog-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBlog() {
+    document.getElementById('blog-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('blog-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeBlog();
+  });
 </script>
 
 </body>
