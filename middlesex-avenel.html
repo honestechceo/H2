@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mobile Mechanic Avenel, NJ | Honestech Mobile Mechanic</title>
+  <meta name="description" content="Mobile mechanic in Avenel, Middlesex County, NJ. Honestech comes to your driveway for brakes, oil changes, batteries & more. No towing needed. Call 732-937-3734."/>
+  <meta name="keywords" content="mobile mechanic Avenel NJ, auto repair Avenel, mobile mechanic Middlesex County NJ, car repair at home Avenel"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--black:#0a0a0a;--dark:#111111;--card:#181818;--border:#272727;--yellow:#f5c800;--yellow-light:#ffe033;--white:#f5f5f0;--muted:#888;--text:#c0c0bc;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:70px;background:rgba(10,10,10,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{background:var(--yellow);color:#000!important;padding:0.5rem 1.2rem;border-radius:4px;font-weight:700!important;}
+    .nav-phone{font-family:'DM Mono',monospace;font-size:0.9rem;color:var(--yellow)!important;}
+    main{max-width:900px;margin:0 auto;padding:7rem 2rem 5rem;}
+    .breadcrumb{font-size:0.8rem;color:var(--muted);margin-bottom:2rem;}
+    .breadcrumb a{color:var(--muted);text-decoration:none;}
+    .breadcrumb a:hover{color:var(--yellow);}
+    .breadcrumb span{margin:0 0.4rem;}
+    .label{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--yellow);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;display:block;}
+    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);color:var(--white);letter-spacing:0.03em;line-height:1;margin-bottom:1rem;}
+    h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white);letter-spacing:0.03em;margin-bottom:0.5rem;}
+    p{margin-bottom:1rem;}
+    .subtitle{font-size:1.1rem;color:var(--text);max-width:600px;margin-bottom:2.5rem;}
+    .btn-primary{background:var(--yellow);color:#000;padding:0.9rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;letter-spacing:0.04em;transition:background 0.2s,transform 0.2s;display:inline-flex;align-items:center;gap:0.5rem;}
+    .btn-primary:hover{background:var(--yellow-light);transform:translateY(-2px);}
+    .btn-secondary{border:1px solid var(--border);color:var(--white);padding:0.9rem 2rem;border-radius:4px;font-weight:500;font-size:0.95rem;text-decoration:none;letter-spacing:0.04em;transition:border-color 0.2s;display:inline-flex;align-items:center;gap:0.5rem;}
+    .btn-secondary:hover{border-color:var(--yellow);color:var(--yellow);}
+    .actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1.5rem 0 3rem;}
+    .service-item{background:var(--dark);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1rem;font-size:0.9rem;color:var(--white);font-weight:500;}
+    .towns-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem;margin:1.5rem 0 3rem;}
+    .town-link{background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:0.9rem 1rem;font-size:0.88rem;color:var(--text);text-decoration:none;transition:border-color 0.2s,color 0.2s;display:block;}
+    .town-link:hover{border-color:var(--yellow);color:var(--white);}
+    .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.5rem 0 3rem;}
+    .why-item{background:var(--dark);padding:1.5rem;}
+    .why-item h4{color:var(--white);font-size:0.95rem;margin-bottom:0.4rem;}
+    .why-item p{font-size:0.85rem;color:var(--muted);}
+    .cta-box{background:var(--dark);border:1px solid var(--yellow);border-radius:8px;padding:2.5rem;text-align:center;margin-top:3rem;}
+    .cta-box h2{margin-bottom:0.75rem;}
+    .cta-box p{color:var(--text);margin-bottom:1.5rem;}
+    footer{border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .footer-links{display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap;}
+    .footer-links a{font-size:0.82rem;color:var(--muted);text-decoration:none;}
+    .footer-links a:hover{color:var(--white);}
+    .footer-copy{font-size:0.78rem;color:var(--muted);}
+    @media(max-width:768px){nav{padding:0 1.25rem;} .nav-links{display:none;} main{padding:6rem 1.25rem 4rem;} footer{flex-direction:column;padding:1.5rem 1.25rem;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/index.html"><img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:58px;width:auto;max-width:200px;object-fit:contain;display:block;"/></a>
+  <ul class="nav-links">
+    <li><a href="/index.html#services">Services</a></li>
+    <li><a href="/index.html#locations">Locations</a></li>
+    <li><a href="/index.html#blog">Blog</a></li>
+    <li><a href="tel:+17329373734" class="nav-phone">732-937-3734</a></li>
+    <li><a href="/index.html#quote" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/middlesex-county.html">Middlesex County</a><span>›</span>
+    Avenel
+  </div>
+
+  <span class="label">Your Primary Mobile Mechanic</span>
+  <h1>Mobile Mechanic<br>Avenel, NJ</h1>
+  <p class="subtitle">Honestech comes directly to your driveway in Avenel, Middlesex County, NJ. Expert automotive repair with 20+ years of experience — no towing, no waiting rooms.</p>
+
+  <div class="actions">
+    <a href="/index.html#quote" class="btn-primary">Get a Free Quote →</a>
+    <a href="tel:+17329373734" class="btn-secondary">📞 732-937-3734</a>
+  </div>
+
+  <span class="label">What We Fix in Avenel</span>
+  <h2>Our Services</h2>
+  <div class="services-grid">
+    <div class="service-item">🛑 Brake Repair & Replacement</div>
+    <div class="service-item">🔋 Starter & Battery Replacement</div>
+    <div class="service-item">🛢️ Oil Change & Tune-Ups</div>
+    <div class="service-item">⚙️ Alternator & Belt Repairs</div>
+    <div class="service-item">🚨 Emergency Roadside (after 5PM)</div>
+  </div>
+
+  <span class="label">Why Avenel Residents Choose Honestech</span>
+  <h2>Why Choose Us</h2>
+  <div class="why-grid">
+    <div class="why-item"><h4>We Come to You</h4><p>Your driveway, workplace, or parking lot in Avenel.</p></div>
+    <div class="why-item"><h4>20+ Years Experience</h4><p>Expert automotive repair you can trust.</p></div>
+    <div class="why-item"><h4>Transparent Pricing</h4><p>Upfront quotes, no hidden fees.</p></div>
+    <div class="why-item"><h4>No Towing Needed</h4><p>We fix it right where it sits.</p></div>
+  </div>
+
+  <span class="label">Also Serving Nearby</span>
+  <h2>Nearby Towns</h2>
+  <div class="towns-grid">
+    <a href="/middlesex-edison.html" class="town-link">Edison</a><a href="/middlesex-piscataway.html" class="town-link">Piscataway</a><a href="/middlesex-woodbridge.html" class="town-link">Woodbridge</a><a href="/middlesex-new-brunswick.html" class="town-link">New Brunswick</a><a href="/middlesex-perth-amboy.html" class="town-link">Perth Amboy</a><a href="/middlesex-south-amboy.html" class="town-link">South Amboy</a>
+  </div>
+
+  <div class="cta-box">
+    <h2>Ready to Book in Avenel?</h2>
+    <p>Tell us what your vehicle needs. We'll get back to you with pricing and availability — usually within a few hours.</p>
+    <a href="/index.html#quote" class="btn-primary">Get My Free Quote →</a>
+  </div>
+</main>
+
+<footer>
+  <img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:36px;width:auto;object-fit:contain;"/>
+  <ul class="footer-links">
+    <li><a href="/index.html#services">Services</a></li>
+    <li><a href="/index.html#locations">Locations</a></li>
+    <li><a href="/index.html#blog">Blog</a></li>
+    <li><a href="/index.html#quote">Get a Quote</a></li>
+    <li><a href="tel:+17329373734">732-937-3734</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Honestech Mobile Mechanic · Avenel, NJ</div>
+</footer>
+</body>
+</html>
