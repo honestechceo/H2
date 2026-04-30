@@ -47,10 +47,26 @@
     .footer-links a:hover{color:var(--white);}
     .footer-copy{font-size:0.78rem;color:var(--muted);}
     @media(max-width:768px){nav{padding:0 1.25rem;} .nav-links{display:none;} main{padding:6rem 1.25rem 4rem;} footer{flex-direction:column;padding:1.5rem 1.25rem;}}
+
+    .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:200;}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .hamburger.open span:nth-child(2){opacity:0;}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;bottom:0;background:rgba(10,10,10,0.98);backdrop-filter:blur(16px);z-index:99;flex-direction:column;align-items:flex-start;padding:2.5rem 2rem;gap:0;border-top:1px solid var(--border);overflow-y:auto;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{display:block;color:var(--white);text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.05em;padding:0.6rem 0;border-bottom:1px solid var(--border);width:100%;transition:color 0.2s;}
+    .mobile-menu a:hover{color:var(--yellow);}
+    .mobile-menu a.highlight{color:var(--yellow);}
+    .mobile-menu .mobile-phone{font-family:'DM Mono',monospace;font-size:1.1rem;color:var(--yellow);margin-top:2rem;border-bottom:none;letter-spacing:0.05em;}
+    .mobile-menu .mobile-cta{background:var(--yellow);color:#000!important;padding:1rem 2rem;border-radius:4px;font-size:1.2rem;text-align:center;margin-top:1.5rem;border-bottom:none!important;font-weight:700;}
+    @media(max-width:900px){.hamburger{display:flex;} .nav-links{display:none!important;}}
+
   </style>
 </head>
 <body>
 <nav>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <a href="/index.html"><img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:58px;width:auto;max-width:200px;object-fit:contain;display:block;"/></a>
   <ul class="nav-links">
     <li><a href="/index.html#services">Services</a></li>
@@ -60,6 +76,16 @@
     <li><a href="/index.html#quote" class="nav-cta">Get a Quote</a></li>
   </ul>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/index.html#services" onclick="closeMenu()">Services</a>
+  <a href="/index.html#locations" onclick="closeMenu()">Locations</a>
+  <a href="/gig-drivers.html" class="highlight" onclick="closeMenu()">Gig Drivers 🎉</a>
+  <a href="/index.html#blog" onclick="closeMenu()">Blog</a>
+  <a href="/index.html#quote" onclick="closeMenu()">Get a Quote</a>
+  <a href="tel:+17329373734" class="mobile-phone">📞 732-937-3734</a>
+  <a href="/index.html#quote" class="mobile-cta" onclick="closeMenu()">Get a Free Quote →</a>
+</div>
 
 <main>
   <div class="breadcrumb">
