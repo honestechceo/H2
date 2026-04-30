@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mobile Mechanic for Gig Drivers | Honestech NJ</title>
+  <meta name="description" content="Mobile mechanic for Uber, Lyft, DoorDash, Amazon Flex, Instacart & Grubhub drivers in NJ. We come to you — fast turnaround, no shop wait. $25 off brake service for gig drivers."/>
+  <meta name="keywords" content="mobile mechanic gig drivers NJ, mechanic Uber drivers NJ, mechanic DoorDash drivers NJ, car repair Lyft drivers New Jersey, mobile mechanic Amazon Flex NJ"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #181818;
+      --border: #272727;
+      --yellow: #f5c800;
+      --yellow-light: #ffe033;
+      --white: #f5f5f0;
+      --muted: #888;
+      --text: #c0c0bc;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; background: rgba(10,10,10,0.93); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { background: var(--yellow); color: #000 !important; padding: 0.5rem 1.2rem; border-radius: 4px; font-weight: 700 !important; }
+    .nav-phone { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--yellow) !important; }
+
+    /* HERO */
+    .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 2.5rem 5rem; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(245,200,0,0.09) 0%, transparent 70%), linear-gradient(160deg, #0a0a0a 0%, #111111 100%); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; animation: gridShift 20s linear infinite; }
+    @keyframes gridShift { 0% { transform: translateY(0); } 100% { transform: translateY(60px); } }
+
+    .hero-badge { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,200,0,0.12); border: 1px solid rgba(245,200,0,0.35); color: var(--yellow); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; width: fit-content; }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+    .hero-title { position: relative; font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 11vw, 9rem); line-height: 0.9; color: var(--white); letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+    .hero-title .accent { color: var(--yellow); }
+
+    .hero-sub { position: relative; font-size: 1.1rem; color: var(--text); max-width: 500px; margin-bottom: 1.5rem; font-weight: 300; }
+
+    /* OFFER BADGE */
+    .offer-strip { position: relative; display: inline-flex; align-items: center; gap: 0.75rem; background: var(--yellow); color: #000; font-weight: 700; font-size: 0.95rem; padding: 0.75rem 1.5rem; border-radius: 6px; margin-bottom: 2rem; letter-spacing: 0.02em; }
+
+    .hero-actions { position: relative; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--yellow); color: #000; padding: 0.9rem 2rem; border-radius: 4px; font-weight: 700; font-size: 0.95rem; text-decoration: none; letter-spacing: 0.04em; transition: background 0.2s, transform 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary:hover { background: var(--yellow-light); transform: translateY(-2px); }
+    .btn-secondary { border: 1px solid var(--border); color: var(--white); padding: 0.9rem 2rem; border-radius: 4px; font-weight: 500; font-size: 0.95rem; text-decoration: none; letter-spacing: 0.04em; transition: border-color 0.2s, transform 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-secondary:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+    /* PLATFORMS */
+    .platforms { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3rem 2.5rem; }
+    .platforms-inner { max-width: 900px; margin: 0 auto; }
+    .label { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--yellow); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
+    .platforms-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+    .platform-pill { background: var(--black); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.25rem; font-size: 0.9rem; color: var(--white); font-weight: 500; transition: border-color 0.2s; }
+    .platform-pill:hover { border-color: var(--yellow); }
+
+    /* SECTIONS */
+    section { max-width: 900px; margin: 0 auto; padding: 5rem 2.5rem; }
+    h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); letter-spacing: 0.03em; line-height: 1; margin-bottom: 0.75rem; }
+    h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--white); letter-spacing: 0.03em; margin-bottom: 0.4rem; }
+    p { margin-bottom: 1rem; color: var(--text); }
+
+    /* WHY GRID */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 2rem; }
+    .why-card { background: var(--dark); padding: 2rem 1.5rem; transition: background 0.2s; }
+    .why-card:hover { background: var(--card); }
+    .why-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .service-item { background: var(--dark); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1rem; font-size: 0.9rem; color: var(--white); font-weight: 500; }
+    .service-item.highlight { border-color: var(--yellow); background: rgba(245,200,0,0.05); }
+    .service-item.highlight span { color: var(--yellow); font-size: 0.78rem; display: block; margin-top: 0.25rem; font-weight: 600; }
+
+    /* OFFER BOX */
+    .offer-box { background: var(--yellow); border-radius: 12px; padding: 3rem 2.5rem; text-align: center; margin: 4rem 0; }
+    .offer-box h2 { color: #000; font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 0.75rem; }
+    .offer-box p { color: rgba(0,0,0,0.7); max-width: 480px; margin: 0 auto 1.5rem; font-size: 1rem; }
+    .btn-dark { background: #000; color: var(--yellow); padding: 1rem 2.5rem; border-radius: 4px; font-weight: 700; font-size: 1rem; text-decoration: none; letter-spacing: 0.04em; transition: background 0.2s, transform 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-dark:hover { background: #1a1a1a; transform: translateY(-2px); }
+    .offer-fine { font-size: 0.78rem; color: rgba(0,0,0,0.5); margin-top: 1rem; }
+
+    /* HOW IT WORKS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .step { position: relative; padding: 1.5rem; background: var(--dark); border: 1px solid var(--border); border-radius: 8px; }
+    .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(245,200,0,0.15); line-height: 1; margin-bottom: 0.5rem; }
+    .step h3 { font-size: 1rem; }
+    .step p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+    /* NOTICE */
+    .notice { background: rgba(245,200,0,0.06); border: 1px solid rgba(245,200,0,0.25); border-radius: 6px; padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--text); line-height: 1.7; margin-top: 2rem; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 0 1.25rem 4rem; }
+      .platforms { padding: 2.5rem 1.25rem; }
+      section { padding: 4rem 1.25rem; }
+      .offer-box { padding: 2rem 1.5rem; }
+      footer { flex-direction: column; padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/index.html"><img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:58px;width:auto;max-width:200px;object-fit:contain;display:block;"/></a>
+  <ul class="nav-links">
+    <li><a href="/index.html#services">Services</a></li>
+    <li><a href="/index.html#locations">Locations</a></li>
+    <li><a href="/index.html#blog">Blog</a></li>
+    <li><a href="tel:+17329373734" class="nav-phone">732-937-3734</a></li>
+    <li><a href="/index.html#quote" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="position:relative; height:100px; width:auto; max-width:280px; object-fit:contain; margin-bottom:1.5rem; display:block;"/>
+
+  <div class="hero-badge">Built for Gig Drivers</div>
+
+  <h1 class="hero-title">
+    STAY ON<br>THE <span class="accent">ROAD.</span>
+  </h1>
+
+  <p class="hero-sub">Your car is your paycheck. We come to your location — fast turnaround, no shop wait, no lost income. Serving Uber, Lyft, DoorDash, Amazon Flex, Instacart & Grubhub drivers across NJ.</p>
+
+  <div class="offer-strip">🎉 $25 OFF Brake Service for Gig Drivers — mention this page when booking</div>
+
+  <div class="hero-actions">
+    <a href="/index.html#quote" class="btn-primary">Claim My $25 Off →</a>
+    <a href="tel:+17329373734" class="btn-secondary">📞 732-937-3734</a>
+  </div>
+</div>
+
+<!-- PLATFORMS -->
+<div class="platforms">
+  <div class="platforms-inner">
+    <span class="label">Platforms We Support</span>
+    <div class="platforms-grid">
+      <div class="platform-pill">🚗 Uber</div>
+      <div class="platform-pill">🚗 Lyft</div>
+      <div class="platform-pill">🍔 DoorDash</div>
+      <div class="platform-pill">📦 Amazon Flex</div>
+      <div class="platform-pill">🛒 Instacart</div>
+      <div class="platform-pill">🍕 Grubhub</div>
+      <div class="platform-pill">🚘 Any Gig Platform</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY GIG DRIVERS LOVE US -->
+<section>
+  <span class="label">Why Gig Drivers Choose Honestech</span>
+  <h2>NO DOWNTIME.<br>NO WAITING ROOMS.</h2>
+  <p>Every hour your car is in a shop is an hour you're not earning. We fix your vehicle right where you are — at home, between shifts, or wherever works for you.</p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <h3>Fast Turnaround</h3>
+      <p style="font-size:0.88rem; color:var(--muted); margin:0;">Most repairs done same day so you can get back to earning.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📍</div>
+      <h3>We Come to You</h3>
+      <p style="font-size:0.88rem; color:var(--muted); margin:0;">Your driveway, apartment parking lot, or anywhere in Middlesex County NJ.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💰</div>
+      <h3>Transparent Pricing</h3>
+      <p style="font-size:0.88rem; color:var(--muted); margin:0;">Upfront quotes before we start — no surprise bills when the job's done.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔧</div>
+      <h3>20+ Years Experience</h3>
+      <p style="font-size:0.88rem; color:var(--muted); margin:0;">We've worked on everything — we know what your car needs to keep running.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER BOX -->
+<div style="max-width:900px; margin:0 auto; padding: 0 2.5rem;">
+  <div class="offer-box">
+    <h2>$25 OFF BRAKE SERVICE</h2>
+    <p>Exclusively for gig drivers. Mention this page when you request your quote and we'll take $25 off your brake service.</p>
+    <a href="/index.html#quote" class="btn-dark">Claim My Discount →</a>
+    <div class="offer-fine">Valid for Uber, Lyft, DoorDash, Amazon Flex, Instacart & Grubhub drivers. One per customer. Middlesex County service area. Passenger vehicles only.</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section>
+  <span class="label">What We Fix</span>
+  <h2>SERVICES FOR<br>GIG DRIVERS</h2>
+  <p>Everything your vehicle needs to stay inspection-ready and on the road.</p>
+
+  <div class="services-grid">
+    <div class="service-item highlight">
+      🛑 Brake Repair & Replacement
+      <span>$25 off for gig drivers</span>
+    </div>
+    <div class="service-item">🔋 Starter & Battery Replacement</div>
+    <div class="service-item">🛢️ Oil Change & Tune-Ups</div>
+    <div class="service-item">⚙️ Alternator & Belt Repairs</div>
+    <div class="service-item">🚨 Emergency Roadside (after 5PM)</div>
+  </div>
+
+  <div class="notice">
+    <strong style="color:var(--white);">ℹ️ Please Note:</strong> Honestech services <strong style="color:var(--white);">passenger vehicles only</strong>. We do not service heavy-duty trucks or cargo vans used for commercial delivery at this time.
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="padding-top:0;">
+  <span class="label">Simple Process</span>
+  <h2>HOW IT WORKS</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Request a Quote</h3>
+      <p>Fill out the form or call/text us. Tell us your vehicle and what you need.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>We Confirm & Schedule</h3>
+      <p>We'll get back to you with pricing and availability as soon as possible — and work around your schedule.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>We Come to You</h3>
+      <p>Our mechanic comes to your location in Middlesex County with all the tools needed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Back to Earning</h3>
+      <p>Car fixed, back on the road — same day in most cases. No waiting room, no tow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding-top:0; text-align:center;">
+  <span class="label">Ready to Book?</span>
+  <h2>GET BACK ON<br>THE ROAD TODAY</h2>
+  <p style="max-width:420px; margin:0 auto 2rem;">Don't let car trouble cost you a day's earnings. We'll come to you and get you moving again.</p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <a href="/index.html#quote" class="btn-primary">Get a Free Quote →</a>
+    <a href="tel:+17329373734" class="btn-secondary">📞 732-937-3734</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:36px;width:auto;object-fit:contain;"/>
+  <ul class="footer-links">
+    <li><a href="/index.html#services">Services</a></li>
+    <li><a href="/index.html#locations">Locations</a></li>
+    <li><a href="/index.html#blog">Blog</a></li>
+    <li><a href="/index.html#quote">Get a Quote</a></li>
+    <li><a href="tel:+17329373734">732-937-3734</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Honestech Mobile Mechanic · NJ</div>
+</footer>
+
+</body>
+</html>
