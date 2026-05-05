@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Honestech – Brake QC Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-soft: #141414;
+    --panel: #1a1a1a;
+    --panel-2: #232323;
+    --line: #2a2a2a;
+    --line-bright: #3a3a3a;
+    --ink: #ffffff;
+    --ink-soft: #a3a3a3;
+    --ink-mute: #6b6b6b;
+    --accent: #f5c518;
+    --accent-dim: #b8930f;
+    --accent-glow: rgba(245,197,24,.18);
+    --ok: #22c55e;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.5;
+    background-image:
+      radial-gradient(ellipse 600px 400px at 50% 0%, var(--accent-glow), transparent 70%),
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: auto, 32px 32px, 32px 32px;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  header {
+    background: rgba(10,10,10,.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #fff;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; max-width: 720px; margin: 0 auto; }
+  .logo-mark {
+    height: 44px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 0 12px var(--accent-glow));
+  }
+  .brand-text { line-height: 1.1; padding-left: 4px; border-left: 1px solid var(--line-bright); padding: 6px 0 6px 12px; }
+  .brand-text .sub {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+  }
+  .doc-header { max-width: 720px; margin: 0 auto; padding: 32px 20px 8px; }
+  .doc-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--accent);
+    color: #000;
+    padding: 4px 10px;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 38px;
+    line-height: .95;
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  h1 .accent { color: var(--accent); }
+  .doc-meta {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 0;
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    letter-spacing: .5px;
+  }
+  form { max-width: 720px; margin: 0 auto; padding: 16px 20px 120px; }
+  .section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-2);
+  }
+  .section-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    background: var(--accent);
+    color: #000;
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    font-weight: 700;
+    border-radius: 4px;
+  }
+  .section-title {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    color: #fff;
+  }
+  .section-body { padding: 16px; }
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+  }
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  input[type="text"], input[type="number"], input[type="date"], textarea, select {
+    width: 100%;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 13px 14px;
+    border: 1px solid var(--line-bright);
+    background: var(--bg-soft);
+    color: var(--ink);
+    border-radius: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input::placeholder, textarea::placeholder { color: var(--ink-mute); }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    user-select: none;
+    transition: background .15s;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:active { background: var(--bg-soft); }
+  .check-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 26px; height: 26px;
+    min-width: 26px;
+    border: 2px solid var(--line-bright);
+    background: var(--bg-soft);
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    border-radius: 5px;
+    transition: all .15s;
+  }
+  .check-item input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .check-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 7px; top: 2px;
+    width: 7px; height: 13px;
+    border: solid #000;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  .check-label { font-size: 15px; line-height: 1.4; padding-top: 2px; color: var(--ink); }
+  .check-item.checked .check-label { color: var(--accent); font-weight: 500; }
+  .meas-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .meas-grid > div { background: var(--bg-soft); padding: 10px 8px; font-size: 13px; }
+  .meas-grid .header-cell {
+    background: #000;
+    color: var(--accent);
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 11px;
+    text-align: center;
+  }
+  .meas-grid .row-label { font-weight: 600; display: flex; align-items: center; color: var(--ink); }
+  .meas-grid input {
+    width: 100%; border: none; background: transparent;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    padding: 4px;
+    color: var(--accent);
+    box-shadow: none;
+  }
+  .meas-grid input:focus { box-shadow: none; background: var(--panel); }
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .photo-slot {
+    border: 2px dashed var(--line-bright);
+    aspect-ratio: 1;
+    display: grid; place-items: center;
+    background: var(--bg-soft);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .15s, background .15s;
+    border-radius: 6px;
+  }
+  .photo-slot:hover, .photo-slot:active { border-color: var(--accent); background: var(--panel-2); }
+  .photo-slot input { display: none; }
+  .photo-slot .placeholder { text-align: center; color: var(--ink-mute); font-size: 12px; padding: 12px; }
+  .photo-slot .placeholder svg { display: block; margin: 0 auto 8px; color: var(--accent); }
+  .photo-slot .placeholder strong {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink);
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+  .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-slot.has-photo { border-style: solid; border-color: var(--accent); }
+  .photo-remove {
+    position: absolute;
+    top: 6px; right: 6px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    width: 28px; height: 28px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    display: none;
+    border-radius: 4px;
+  }
+  .photo-slot.has-photo .photo-remove { display: block; }
+  .status-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .status-opt {
+    border: 2px solid var(--line-bright);
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--bg-soft);
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 14px;
+    transition: all .15s;
+    color: var(--ink-soft);
+    border-radius: 6px;
+  }
+  .status-opt input { display: none; }
+  .status-opt.pass.selected {
+    background: var(--ok); color: #000; border-color: var(--ok);
+    box-shadow: 0 0 16px rgba(34,197,94,.3);
+  }
+  .status-opt.recheck.selected {
+    background: var(--warn); color: #000; border-color: var(--warn);
+    box-shadow: 0 0 16px rgba(245,158,11,.3);
+  }
+  .sig-wrap {
+    border: 2px solid var(--line-bright);
+    background: var(--bg-soft);
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  canvas { display: block; width: 100%; height: 160px; touch-action: none; }
+  .sig-line {
+    position: absolute;
+    bottom: 28px; left: 16px; right: 16px;
+    border-bottom: 1px solid var(--line-bright);
+    pointer-events: none;
+  }
+  .sig-x {
+    position: absolute;
+    bottom: 8px; left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    pointer-events: none;
+  }
+  .sig-clear {
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid var(--line-bright);
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-radius: 4px;
+  }
+  .sig-clear:hover { border-color: var(--accent); color: var(--accent); }
+  .submit-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(10,10,10,.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line-bright);
+    padding: 12px 16px;
+    z-index: 20;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .submit-bar-inner { max-width: 720px; margin: 0 auto; display: flex; gap: 12px; align-items: center; }
+  .progress-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    flex-shrink: 0;
+    letter-spacing: .5px;
+  }
+  button.submit-btn {
+    flex: 1;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 16px;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s;
+    border-radius: 6px;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  button.submit-btn:hover { background: #fcd535; box-shadow: 0 0 28px rgba(245,197,24,.35); }
+  button.submit-btn:disabled {
+    background: var(--line-bright);
+    color: var(--ink-mute);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .success {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 100;
+    padding: 40px 20px;
+    overflow-y: auto;
+    background-image: radial-gradient(ellipse 600px 400px at 50% 20%, var(--accent-glow), transparent 70%);
+  }
+  .success.show { display: block; }
+  .success-card {
+    max-width: 500px;
+    margin: 40px auto;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 32px 24px;
+    text-align: center;
+    border-radius: 12px;
+  }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--accent);
+    margin: 0 auto 20px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    box-shadow: 0 0 30px var(--accent-glow);
+  }
+  .success h2 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 8px;
+    color: #fff;
+  }
+  .success p { color: var(--ink-soft); margin-bottom: 20px; }
+  .success-summary {
+    text-align: left;
+    background: var(--bg-soft);
+    padding: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    margin: 16px 0;
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    color: var(--ink-soft);
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .success button {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 12px 28px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .row { grid-template-columns: 1fr; }
+    .meas-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+    .doc-header { padding-top: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img class="logo-mark" src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="Honestech Mobile Mechanic">
+    <div class="brand-text">
+      <div class="sub">Brake QC System</div>
+    </div>
+  </div>
+</header>
+
+<div class="doc-header">
+  <span class="doc-tag">FORM-BR-001</span>
+  <h1>Brake Service<br><span class="accent">QC Checklist</span></h1>
+  <div class="doc-meta">
+    <span id="doc-date">—</span>
+    <span id="doc-id">JOB #<span></span></span>
+  </div>
+</div>
+
+<form id="qc-form">
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">1</div><div class="section-title">Job Information</div></div>
+    <div class="section-body">
+      <div class="field"><label>Customer Name</label><input type="text" name="customer" required></div>
+      <div class="row">
+        <div class="field"><label>Vehicle Year/Make/Model</label><input type="text" name="vehicle" placeholder="e.g. 2019 Honda Civic" required></div>
+        <div class="field"><label>Mileage</label><input type="number" name="mileage" required></div>
+      </div>
+      <div class="field"><label>Technician Name</label><input type="text" name="technician" required></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">2</div><div class="section-title">Service Completed</div></div>
+    <div class="section-body">
+      <div class="check-item"><input type="checkbox" name="svc_pads_front"><span class="check-label">Front brake pads replaced</span></div>
+      <div class="check-item"><input type="checkbox" name="svc_pads_rear"><span class="check-label">Rear brake pads replaced</span></div>
+      <div class="check-item"><input type="checkbox" name="svc_rotors_front"><span class="check-label">Front rotors replaced/resurfaced</span></div>
+      <div class="check-item"><input type="checkbox" name="svc_rotors_rear"><span class="check-label">Rear rotors replaced/resurfaced</span></div>
+      <div class="check-item"><input type="checkbox" name="svc_calipers"><span class="check-label">Calipers inspected & lubricated</span></div>
+      <div class="check-item"><input type="checkbox" name="svc_hardware"><span class="check-label">Hardware/clips replaced</span></div>
+      <div class="check-item"><input type="checkbox" name="svc_fluid"><span class="check-label">Brake fluid checked / topped off</span></div>
+      <div class="check-item"><input type="checkbox" name="svc_bleed"><span class="check-label">System bled (if applicable)</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">3</div><div class="section-title">Pad & Rotor Measurements</div></div>
+    <div class="section-body">
+      <div class="meas-grid">
+        <div class="header-cell">Position</div><div class="header-cell">Pad (mm)</div><div class="header-cell">Rotor (mm)</div>
+        <div class="row-label">Front Left</div>
+        <div><input type="text" inputmode="decimal" name="m_fl_pad" placeholder="—"></div>
+        <div><input type="text" inputmode="decimal" name="m_fl_rotor" placeholder="—"></div>
+        <div class="row-label">Front Right</div>
+        <div><input type="text" inputmode="decimal" name="m_fr_pad" placeholder="—"></div>
+        <div><input type="text" inputmode="decimal" name="m_fr_rotor" placeholder="—"></div>
+        <div class="row-label">Rear Left</div>
+        <div><input type="text" inputmode="decimal" name="m_rl_pad" placeholder="—"></div>
+        <div><input type="text" inputmode="decimal" name="m_rl_rotor" placeholder="—"></div>
+        <div class="row-label">Rear Right</div>
+        <div><input type="text" inputmode="decimal" name="m_rr_pad" placeholder="—"></div>
+        <div><input type="text" inputmode="decimal" name="m_rr_rotor" placeholder="—"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">4</div><div class="section-title">Torque & Verification</div></div>
+    <div class="section-body">
+      <div class="check-item"><input type="checkbox" name="tq_caliper" required><span class="check-label">Caliper bracket bolts torqued to spec</span></div>
+      <div class="check-item"><input type="checkbox" name="tq_guide" required><span class="check-label">Caliper guide pins torqued to spec</span></div>
+      <div class="check-item"><input type="checkbox" name="tq_lugs" required><span class="check-label">Lug nuts torqued to spec (star pattern)</span></div>
+      <div class="field" style="margin-top:14px"><label>Lug Torque Value (ft-lbs)</label><input type="number" name="lug_torque" placeholder="e.g. 80"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">5</div><div class="section-title">Road Test</div></div>
+    <div class="section-body">
+      <div class="check-item"><input type="checkbox" name="rt_completed" required><span class="check-label">Road test completed</span></div>
+      <div class="check-item"><input type="checkbox" name="rt_pedal"><span class="check-label">Pedal feel firm — no sponginess</span></div>
+      <div class="check-item"><input type="checkbox" name="rt_noise"><span class="check-label">No abnormal noise / vibration</span></div>
+      <div class="check-item"><input type="checkbox" name="rt_pull"><span class="check-label">Vehicle tracks straight under braking</span></div>
+      <div class="check-item"><input type="checkbox" name="rt_warning"><span class="check-label">No dash warning lights</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">6</div><div class="section-title">Before / After Photos</div></div>
+    <div class="section-body">
+      <div class="photo-grid">
+        <label class="photo-slot" data-slot="before">
+          <input type="file" accept="image/*" capture="environment">
+          <div class="placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+            <strong>Before</strong>
+            <span>Tap to add photo</span>
+          </div>
+          <button type="button" class="photo-remove" aria-label="Remove">×</button>
+        </label>
+        <label class="photo-slot" data-slot="after">
+          <input type="file" accept="image/*" capture="environment">
+          <div class="placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+            <strong>After</strong>
+            <span>Tap to add photo</span>
+          </div>
+          <button type="button" class="photo-remove" aria-label="Remove">×</button>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">7</div><div class="section-title">Technician Notes</div></div>
+    <div class="section-body">
+      <textarea name="notes" placeholder="Any concerns, recommendations, or follow-up items..."></textarea>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">8</div><div class="section-title">QC Status</div></div>
+    <div class="section-body">
+      <div class="status-row">
+        <label class="status-opt pass"><input type="radio" name="status" value="pass" required>✓ Pass</label>
+        <label class="status-opt recheck"><input type="radio" name="status" value="recheck">⚠ Recheck</label>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div class="section-num">9</div><div class="section-title">Technician Signature</div></div>
+    <div class="section-body">
+      <div class="sig-wrap">
+        <canvas id="sig-pad"></canvas>
+        <div class="sig-line"></div>
+        <div class="sig-x">× SIGN ABOVE</div>
+      </div>
+      <button type="button" class="sig-clear" id="sig-clear">Clear Signature</button>
+    </div>
+  </section>
+
+</form>
+
+<div class="submit-bar">
+  <div class="submit-bar-inner">
+    <div class="progress-text" id="progress">0/0 CHECKS</div>
+    <button type="button" class="submit-btn" id="submit-btn">Submit Report</button>
+  </div>
+</div>
+
+<div class="success" id="success-screen">
+  <div class="success-card">
+    <div class="success-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Report Submitted</h2>
+    <p>The QC report has been recorded.</p>
+    <div class="success-summary" id="success-summary"></div>
+    <button type="button" id="new-report">Start New Report</button>
+  </div>
+</div>
+
+<script>
+const today = new Date();
+const dateStr = today.toLocaleDateString('en-US', { year:'numeric', month:'short', day:'2-digit' }).toUpperCase();
+const jobId = 'BR-' + today.getFullYear().toString().slice(-2) +
+              String(today.getMonth()+1).padStart(2,'0') +
+              String(today.getDate()).padStart(2,'0') + '-' +
+              Math.floor(Math.random()*900+100);
+document.getElementById('doc-date').textContent = dateStr;
+document.querySelector('#doc-id span').textContent = jobId;
+
+document.querySelectorAll('.check-item').forEach(item => {
+  const cb = item.querySelector('input[type="checkbox"]');
+  const update = () => item.classList.toggle('checked', cb.checked);
+  cb.addEventListener('change', () => { update(); updateProgress(); });
+  item.addEventListener('click', e => {
+    if (e.target !== cb) { cb.checked = !cb.checked; update(); updateProgress(); }
+  });
+});
+
+function updateProgress() {
+  const all = document.querySelectorAll('.check-item input[type="checkbox"]');
+  const done = document.querySelectorAll('.check-item input[type="checkbox"]:checked');
+  document.getElementById('progress').textContent = done.length + '/' + all.length + ' CHECKS';
+}
+updateProgress();
+
+document.querySelectorAll('.status-opt input').forEach(r => {
+  r.addEventListener('change', () => {
+    document.querySelectorAll('.status-opt').forEach(o => o.classList.remove('selected'));
+    r.closest('.status-opt').classList.add('selected');
+  });
+});
+
+document.querySelectorAll('.photo-slot').forEach(slot => {
+  const input = slot.querySelector('input[type="file"]');
+  const removeBtn = slot.querySelector('.photo-remove');
+
+  // Compress an image file to a max dimension and JPEG quality
+  function compressImage(file, maxDim = 1280, quality = 0.7) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          let { width, height } = img;
+          // Scale down if larger than maxDim on either side
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round(height * (maxDim / width));
+              width = maxDim;
+            } else {
+              width = Math.round(width * (maxDim / height));
+              height = maxDim;
+            }
+          }
+          const c = document.createElement('canvas');
+          c.width = width;
+          c.height = height;
+          const cx = c.getContext('2d');
+          cx.drawImage(img, 0, 0, width, height);
+          resolve(c.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  input.addEventListener('change', async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Show a loading state on the slot while compressing
+    slot.classList.add('compressing');
+    const placeholder = slot.querySelector('.placeholder');
+    const originalPlaceholderHTML = placeholder ? placeholder.innerHTML : '';
+    if (placeholder) placeholder.innerHTML = '<strong>Processing…</strong>';
+
+    try {
+      const compressed = await compressImage(file);
+
+      const oldImg = slot.querySelector('img');
+      if (oldImg) oldImg.remove();
+      if (placeholder) placeholder.style.display = 'none';
+
+      const img = document.createElement('img');
+      img.src = compressed;
+      slot.insertBefore(img, removeBtn);
+      slot.classList.add('has-photo');
+      slot.dataset.photo = compressed;
+    } catch (err) {
+      console.error('Image processing failed:', err);
+      alert('Could not process that photo. Try a different one.');
+      if (placeholder) placeholder.innerHTML = originalPlaceholderHTML;
+    } finally {
+      slot.classList.remove('compressing');
+    }
+  });
+
+  removeBtn.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    const img = slot.querySelector('img');
+    if (img) img.remove();
+    const placeholder = slot.querySelector('.placeholder');
+    if (placeholder) placeholder.style.display = '';
+    slot.classList.remove('has-photo');
+    delete slot.dataset.photo;
+    input.value = '';
+  });
+});
+
+const canvas = document.getElementById('sig-pad');
+const ctx = canvas.getContext('2d');
+let drawing = false, hasSignature = false;
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.strokeStyle = '#f5c518';
+}
+resizeCanvas();
+window.addEventListener('resize', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  resizeCanvas();
+  hasSignature = false;
+});
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const t = e.touches ? e.touches[0] : e;
+  return { x: t.clientX - rect.left, y: t.clientY - rect.top };
+}
+function start(e) { e.preventDefault(); drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
+function draw(e) { if (!drawing) return; e.preventDefault(); const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSignature = true; }
+function stop() { drawing = false; }
+canvas.addEventListener('mousedown', start);
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', stop);
+canvas.addEventListener('mouseleave', stop);
+canvas.addEventListener('touchstart', start, { passive: false });
+canvas.addEventListener('touchmove', draw, { passive: false });
+canvas.addEventListener('touchend', stop);
+document.getElementById('sig-clear').addEventListener('click', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hasSignature = false;
+});
+
+document.getElementById('submit-btn').addEventListener('click', () => {
+  const form = document.getElementById('qc-form');
+  const requiredFields = form.querySelectorAll('[required]');
+  let firstMissing = null;
+  for (const f of requiredFields) {
+    if (f.type === 'checkbox' && !f.checked) { firstMissing = f; break; }
+    if (f.type === 'radio') {
+      const grp = form.querySelectorAll(`[name="${f.name}"]`);
+      if (![...grp].some(r => r.checked)) { firstMissing = f; break; }
+    } else if (f.type !== 'checkbox' && f.type !== 'radio' && !f.value.trim()) {
+      firstMissing = f; break;
+    }
+  }
+  if (firstMissing) {
+    firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    firstMissing.focus({ preventScroll: true });
+    alert('Please complete all required fields before submitting.');
+    return;
+  }
+  if (!hasSignature) {
+    document.getElementById('sig-pad').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    alert('Technician signature is required.');
+    return;
+  }
+  const data = Object.fromEntries(new FormData(form).entries());
+  data.jobId = jobId;
+  data.submittedAt = new Date().toISOString();
+  data.signature = canvas.toDataURL('image/png');
+  data.beforePhoto = document.querySelector('[data-slot="before"]').dataset.photo || null;
+  data.afterPhoto = document.querySelector('[data-slot="after"]').dataset.photo || null;
+  form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    if (!(cb.name in data)) data[cb.name] = false;
+    else data[cb.name] = true;
+  });
+  const btn = document.getElementById('submit-btn');
+  const originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  const checkSummary = [];
+  form.querySelectorAll('.check-item').forEach(item => {
+    const cb = item.querySelector('input[type="checkbox"]');
+    const label = item.querySelector('.check-label').textContent.trim();
+    checkSummary.push((cb.checked ? '✓ ' : '✗ ') + label);
+  });
+  const payload = {
+    _subject: `Brake QC ${data.jobId} — ${data.customer} (${data.status?.toUpperCase() || 'NO STATUS'})`,
+    job_id: data.jobId,
+    submitted_at: data.submittedAt,
+    status: data.status,
+    customer: data.customer,
+    vehicle: data.vehicle,
+    mileage: data.mileage,
+    technician: data.technician,
+    checklist: checkSummary.join('\n'),
+    measurements: `FL pad/rotor: ${data.m_fl_pad||'—'} / ${data.m_fl_rotor||'—'}
+FR pad/rotor: ${data.m_fr_pad||'—'} / ${data.m_fr_rotor||'—'}
+RL pad/rotor: ${data.m_rl_pad||'—'} / ${data.m_rl_rotor||'—'}
+RR pad/rotor: ${data.m_rr_pad||'—'} / ${data.m_rr_rotor||'—'}`,
+    lug_torque: data.lug_torque,
+    notes: data.notes,
+    signature: data.signature,
+    before_photo: data.beforePhoto,
+    after_photo: data.afterPhoto
+  };
+  fetch('https://formspree.io/f/xdabgjpl', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Submission failed');
+    const summary = `JOB ID:    ${data.jobId}
+DATE:      ${dateStr}
+CUSTOMER:  ${data.customer}
+VEHICLE:   ${data.vehicle}
+TECH:      ${data.technician}
+STATUS:    ${data.status?.toUpperCase() || '—'}`;
+    document.getElementById('success-summary').textContent = summary;
+    document.getElementById('success-screen').classList.add('show');
+    window.scrollTo(0, 0);
+  })
+  .catch(err => {
+    console.error(err);
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+    alert('Could not send the report. Check your internet connection and try again.');
+  });
+});
+
+document.getElementById('new-report').addEventListener('click', () => { location.reload(); });
+</script>
+
+</body>
+</html>
