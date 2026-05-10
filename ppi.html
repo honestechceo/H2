@@ -93,7 +93,7 @@ section { background:var(--bg-elev); border:1px solid var(--border); border-radi
     <div class="brand">HonesTech Mobile Mechanic</div>
     <h1>Pre-Purchase Inspection</h1>
     <div class="subtitle">Internal Inspection Tool</div>
-    <div class="build-tag">BUILD V8 · STATIC SELECT FIX</div>
+    <div class="build-tag">BUILD V9 · FORMSPREE SUBMIT FIX</div>
   </header>
 
   <section>
@@ -1660,29 +1660,100 @@ section { background:var(--bg-elev); border:1px solid var(--border); border-radi
     w.document.close();
   });
 
+  function nativeFormspreeFallback(report) {
+    var veh = report.vehicle;
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = FORMSPREE_ENDPOINT;
+    form.style.display = 'none';
+
+    function add(name, value) {
+      var input = document.createElement('textarea');
+      input.name = name;
+      input.value = value == null ? '' : String(value);
+      form.appendChild(input);
+    }
+
+    add('_subject', 'PPI: ' + veh.year + ' ' + veh.make + ' ' + veh.model + ' — ' + report.summary.fail + ' fail / ' + report.summary.attention + ' attn');
+    add('summary', buildTextSummary(report));
+    add('report_json', JSON.stringify(report, null, 2));
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
   q('submitBtn').addEventListener('click', function() {
     var btn = q('submitBtn');
     var report = buildReport();
     var veh = report.vehicle;
-    if (!veh.year && !veh.make && !veh.model && !veh.vin) { showToast('Add vehicle info before submitting', 'error'); hideToast(); return; }
+
+    if (!veh.year && !veh.make && !veh.model && !veh.vin) {
+      showToast('Add vehicle info before submitting', 'error');
+      hideToast();
+      return;
+    }
 
     btn.disabled = true;
     btn.textContent = 'Submitting...';
 
     var formData = new FormData();
-    formData.append('subject', 'PPI: ' + veh.year + ' ' + veh.make + ' ' + veh.model + ' — ' + report.summary.fail + ' fail / ' + report.summary.attention + ' attn');
+
+    // Formspree prefers _subject. Keeping subject too does not hurt.
+    var subject = 'PPI: ' + veh.year + ' ' + veh.make + ' ' + veh.model + ' — ' + report.summary.fail + ' fail / ' + report.summary.attention + ' attn';
+    formData.append('_subject', subject);
+    formData.append('subject', subject);
+
+    // Keep payload lighter for mobile Safari/Formspree.
     formData.append('summary', buildTextSummary(report));
-    formData.append('report_html', buildHtmlReport(report));
     formData.append('report_json', JSON.stringify(report, null, 2));
 
+    // Attach photos only if present. Very large photos can cause mobile submit failure.
     photos.forEach(function(photo, i) {
-      formData.append('photo_' + (i + 1), dataURLtoBlob(photo.dataUrl), String(i + 1).padStart(2, '0') + '_photo.jpg');
+      try {
+        formData.append('photo_' + (i + 1), dataURLtoBlob(photo.dataUrl), String(i + 1).padStart(2, '0') + '_photo.jpg');
+      } catch (e) {}
     });
 
-    fetch(FORMSPREE_ENDPOINT, { method:'POST', body:formData, headers:{Accept:'application/json'} })
-      .then(function(res) { if (!res.ok) throw new Error('Server returned ' + res.status); showToast('Inspection submitted ✓', 'success'); btn.textContent = 'Submitted ✓'; setTimeout(function() { btn.disabled = false; btn.textContent = 'Submit Inspection'; }, 3000); })
-      .catch(function(err) { showToast('Submit failed — ' + err.message, 'error'); btn.disabled = false; btn.textContent = 'Submit Inspection'; })
-      .finally(hideToast);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', FORMSPREE_ENDPOINT, true);
+    xhr.setRequestHeader('Accept', 'application/json');
+
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        showToast('Inspection submitted ✓', 'success');
+        btn.textContent = 'Submitted ✓';
+        setTimeout(function() {
+          btn.disabled = false;
+          btn.textContent = 'Submit Inspection';
+        }, 3000);
+        hideToast();
+        return;
+      }
+
+      // If Formspree returns a server response, show the status.
+      showToast('Submit failed — server returned ' + xhr.status, 'error');
+      btn.disabled = false;
+      btn.textContent = 'Submit Inspection';
+      hideToast();
+    };
+
+    xhr.onerror = function() {
+      // iPhone/Safari sometimes reports "Load failed" even when standard form POST works.
+      showToast('Trying backup submit...', 'error');
+      setTimeout(function() {
+        nativeFormspreeFallback(report);
+      }, 700);
+    };
+
+    xhr.ontimeout = function() {
+      showToast('Submit timed out — trying backup...', 'error');
+      setTimeout(function() {
+        nativeFormspreeFallback(report);
+      }, 700);
+    };
+
+    xhr.timeout = 30000;
+    xhr.send(formData);
   });
 
   q('resetBtn').addEventListener('click', function() {
