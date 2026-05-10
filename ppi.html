@@ -4,6 +4,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Pre-Purchase Inspection — HonesTech</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -454,6 +457,7 @@ box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     <div class="brand">HonesTech Mobile Mechanic</div>
     <h1>Pre-Purchase Inspection</h1>
     <div class="subtitle">Internal Inspection Tool</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#444;margin-top:8px;letter-spacing:0.1em;">BUILD 2026-05-10-V2</div>
   </header>
 
   <!-- 1. CUSTOMER + VEHICLE INFO -->
@@ -648,7 +652,7 @@ box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       <span class="section-title">Photos</span>
       <span class="section-progress" id="photoCount">0 photos</span>
     </div>
-    <input type="file" id="photoInput" accept="image/*" multiple capture="environment" style="display:none" />
+    <input type="file" id="photoInput" accept="image/*" multiple style="display:none" />
     <div class="photo-zone" id="photoZone">
       <div class="photo-zone-text">Tap to add photos</div>
       <div class="photo-zone-hint">Damage · VIN · Odometer · Tires · Codes · Anything noteworthy</div>
@@ -708,7 +712,16 @@ box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 /* ============================================================
    PRE-PURCHASE INSPECTION — HonesTech Mobile Mechanic
    Internal tool. Submits via Formspree.
+   Build: 2026-05-10-v2 (View Report + cache-bust)
    ============================================================ */
+
+// Global error visibility — if anything crashes the script, the user sees it
+window.addEventListener('error', function(e) {
+  const banner = document.createElement('div');
+  banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9b1c1c;color:#fff;padding:12px;font-family:monospace;font-size:12px;z-index:9999;';
+  banner.textContent = 'Script error: ' + e.message + ' (line ' + e.lineno + ')';
+  document.body.appendChild(banner);
+});
 
 // CONFIG — replace with your PPI Formspree endpoint
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mykobqdk';
