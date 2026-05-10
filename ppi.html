@@ -404,6 +404,20 @@ letter-spacing: 0.06em;
 cursor: pointer;
 }
 .reset-btn:hover { border-color: var(–fail); color: var(–fail); }
+.view-btn {
+background: transparent;
+border: 1px solid var(–yellow);
+color: var(–yellow);
+padding: 14px 18px;
+border-radius: 8px;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+cursor: pointer;
+font-weight: 600;
+}
+.view-btn:hover { background: var(–yellow-soft); }
 
 /* TOAST */
 .toast {
@@ -682,6 +696,7 @@ box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 
   <div class="submit-bar">
     <button type="button" class="reset-btn" id="resetBtn">Reset</button>
+    <button type="button" class="view-btn" id="viewBtn">View Report</button>
     <button type="button" class="submit-btn" id="submitBtn">Submit Inspection</button>
   </div>
 
@@ -1013,19 +1028,13 @@ function hideToast() {
 
 function val(id) { return document.getElementById(id).value.trim(); }
 
-// ---------- SUBMIT ----------
-document.getElementById('submitBtn').addEventListener('click', submit);
-
-async function submit() {
-  const btn = document.getElementById('submitBtn');
-
-  // Gather OBD codes
+// Build the full report data structure from current form state
+function buildReport() {
   const obdRows = [...document.querySelectorAll('#obdList .obd-row')].map(r => ({
     code: r.querySelector('.obd-code').value.trim().toUpperCase(),
     description: r.querySelector('.obd-desc').value.trim(),
   })).filter(r => r.code);
 
-  // Build report
   const report = {
     inspection_date: val('inspectionDate'),
     location: val('inspectionLocation'),
@@ -1073,7 +1082,6 @@ async function submit() {
     inspector_notes: val('inspectorNotes'),
   };
 
-  // Inspection details — flatten by section
   Object.entries(state.items).forEach(([section, items]) => {
     report.inspection[section] = {};
     Object.entries(items).forEach(([name, data]) => {
@@ -1085,6 +1093,17 @@ async function submit() {
       }
     });
   });
+
+  return report;
+}
+
+// ---------- SUBMIT ----------
+document.getElementById('submitBtn').addEventListener('click', submit);
+
+async function submit() {
+  const btn = document.getElementById('submitBtn');
+
+  const report = buildReport();
 
   // Build email-friendly text summary
   const textSummary = buildTextSummary(report);
@@ -1105,6 +1124,7 @@ async function submit() {
     formData.append('subject',
       `PPI: ${veh.year} ${veh.make} ${veh.model} — ${report.summary.fail} fail / ${report.summary.attention} attn`);
     formData.append('summary', textSummary);
+    formData.append('report_html', buildHtmlReport(report));
     formData.append('report_json', JSON.stringify(report, null, 2));
 
     // Attach photos
@@ -1206,17 +1226,435 @@ function buildTextSummary(r) {
   return lines.join('\n');
 }
 
-// ---------- RESET ----------
-document.getElementById('resetBtn').addEventListener('click', () => {
-  if (!confirm('Reset the entire inspection? This cannot be undone.')) return;
-  location.reload();
+// ---------- HTML REPORT (customer-facing) ----------
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function buildHtmlReport(r) {
+  const v = r.vehicle;
+  const m = r.measurements;
+  const STATUS_META = {
+    good: { label: 'GOOD',  color: '#0a7a4a', bg: '#e6f7ee' },
+    warn: { label: 'ATTENTION', color: '#8a6d00', bg: '#fff8d6' },
+    fail: { label: 'FAIL',  color: '#9b1c1c', bg: '#fde2e2' },
+    na:   { label: 'N/A',   color: '#555',    bg: '#ececec' },
+  };
+
+  // Photo grid HTML
+  const photoHtml = state.photos.length ? `
+    <div class="photo-section">
+      <h2>Photos</h2>
+      <div class="photos">
+        ${state.photos.map(p => `
+          <div class="photo">
+            <img src="${p.dataUrl}" alt="${escapeHtml(p.label)}" />
+            ${p.label ? `<div class="photo-cap">${escapeHtml(p.label)}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>` : '';
+
+  // Sections
+  const sectionsHtml = Object.entries(r.inspection).map(([section, items]) => {
+    const rows = Object.entries(items);
+    if (rows.length === 0) return '';
+    return `
+      <div class="section">
+        <h2>${escapeHtml(section)}</h2>
+        <table class="items">
+          ${rows.map(([name, data]) => {
+            const meta = STATUS_META[data.status] || STATUS_META.na;
+            return `
+              <tr>
+                <td class="item-name">${escapeHtml(name)}</td>
+                <td class="item-status">
+                  <span class="badge" style="color:${meta.color};background:${meta.bg};">${meta.label}</span>
+                </td>
+                <td class="item-note">${escapeHtml(data.note || '')}</td>
+              </tr>`;
+          }).join('')}
+        </table>
+      </div>`;
+  }).join('');
+
+  // OBD section
+  const obdCodesHtml = r.obd.codes.length ? `
+    <table class="kv">
+      ${r.obd.codes.map(c => `
+        <tr><td class="k">${escapeHtml(c.code)}</td><td>${escapeHtml(c.description || '—')}</td></tr>
+      `).join('')}
+    </table>` : '<p class="muted">No diagnostic codes reported.</p>';
+
+  // Measurements helper
+  const has = x => x !== undefined && x !== null && x !== '';
+  const dash = x => has(x) ? escapeHtml(x) : '—';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PPI Report — ${escapeHtml(v.year)} ${escapeHtml(v.make)} ${escapeHtml(v.model)}</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f4f4f4;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px 44px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #f5c518;
+    margin-bottom: 28px;
+  }
+  .header img { width: 64px; height: 64px; }
+  .header .brand-text { flex: 1; }
+  .header .brand-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #0a0a0a;
+  }
+  .header .brand-tag {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #555;
+    margin-top: 2px;
+  }
+  .header .doc-title {
+    text-align: right;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #555;
+  }
+  .header .doc-title strong {
+    display: block;
+    font-size: 16px;
+    color: #0a0a0a;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #0a0a0a;
+    margin: 28px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 24px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 8px;
+  }
+  .meta-grid .row { display: flex; gap: 8px; font-size: 13px; padding: 2px 0; }
+  .meta-grid .label {
+    color: #777;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    flex: 0 0 90px;
+    padding-top: 2px;
+  }
+  .meta-grid .value { flex: 1; color: #1a1a1a; font-weight: 500; }
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0 8px;
+  }
+  .summary-cell {
+    text-align: center;
+    padding: 14px 8px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+  }
+  .summary-cell .n { font-size: 26px; font-weight: 700; line-height: 1; }
+  .summary-cell .l {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #555;
+    margin-top: 6px;
+  }
+  .summary-cell.good { background: #e6f7ee; border-color: #b6e3cb; }
+  .summary-cell.good .n { color: #0a7a4a; }
+  .summary-cell.warn { background: #fff8d6; border-color: #f0d97a; }
+  .summary-cell.warn .n { color: #8a6d00; }
+  .summary-cell.fail { background: #fde2e2; border-color: #f0b8b8; }
+  .summary-cell.fail .n { color: #9b1c1c; }
+  .summary-cell.na { background: #ececec; border-color: #d0d0d0; }
+  .summary-cell.na .n { color: #555; }
+  .recommendation {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: #0a0a0a;
+    color: #fff;
+    border-radius: 6px;
+    border-left: 4px solid #f5c518;
+  }
+  .recommendation .l {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #f5c518;
+    margin-bottom: 4px;
+  }
+  .recommendation .v { font-size: 16px; font-weight: 600; }
+  table.items {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  table.items td {
+    padding: 9px 6px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  table.items tr:last-child td { border-bottom: none; }
+  td.item-name { font-weight: 500; width: 40%; }
+  td.item-status { width: 110px; }
+  td.item-note { color: #555; font-size: 12px; font-style: italic; }
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  table.kv {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  table.kv td {
+    padding: 7px 6px;
+    border-bottom: 1px solid #eee;
+  }
+  table.kv td.k {
+    font-weight: 600;
+    width: 35%;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+  .photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .photo {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fafafa;
+  }
+  .photo img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-cap {
+    padding: 6px 8px;
+    font-size: 11px;
+    color: #555;
+    border-top: 1px solid #eee;
+    background: #fff;
+  }
+  .notes-block {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-left: 3px solid #f5c518;
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    white-space: pre-wrap;
+  }
+  .muted { color: #888; font-size: 12px; font-style: italic; }
+  .footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+    color: #777;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .footer strong { color: #1a1a1a; }
+  .print-bar {
+    position: sticky;
+    top: 0;
+    background: #0a0a0a;
+    padding: 12px 20px;
+    text-align: right;
+    z-index: 10;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .print-bar button {
+    background: #f5c518;
+    color: #0a0a0a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  .print-bar button.secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #444;
+  }
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; max-width: 100%; padding: 20px; }
+    .print-bar { display: none; }
+    .section, .photo-section { page-break-inside: avoid; }
+  }
+</style>
+
+</head>
+<body>
+<div class="print-bar">
+  <button class="secondary" onclick="window.close()">Close</button>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+<div class="page">
+
+  <div class="header">
+    <img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="HonesTech" />
+    <div class="brand-text">
+      <div class="brand-name">HonesTech</div>
+      <div class="brand-tag">Mobile Mechanic · Middlesex County, NJ</div>
+    </div>
+    <div class="doc-title">
+      Report
+      <strong>Pre-Purchase Inspection</strong>
+    </div>
+  </div>
+
+  <h2>Inspection Details</h2>
+  <div class="meta-grid">
+    <div class="row"><div class="label">Date</div><div class="value">${dash(r.inspection_date)}</div></div>
+    <div class="row"><div class="label">Location</div><div class="value">${dash(r.location)}</div></div>
+    <div class="row"><div class="label">Customer</div><div class="value">${dash(r.customer.name)}</div></div>
+    <div class="row"><div class="label">Phone</div><div class="value">${dash(r.customer.phone)}</div></div>
+  </div>
+
+  <h2>Vehicle</h2>
+  <div class="meta-grid">
+    <div class="row"><div class="label">Year</div><div class="value">${dash(v.year)}</div></div>
+    <div class="row"><div class="label">Make</div><div class="value">${dash(v.make)}</div></div>
+    <div class="row"><div class="label">Model</div><div class="value">${dash(v.model)}</div></div>
+    <div class="row"><div class="label">Trim</div><div class="value">${dash(v.trim)}</div></div>
+    <div class="row"><div class="label">VIN</div><div class="value" style="font-family:monospace;">${dash(v.vin)}</div></div>
+    <div class="row"><div class="label">Plate</div><div class="value">${dash(v.plate)}</div></div>
+    <div class="row"><div class="label">Odometer</div><div class="value">${has(v.odometer) ? escapeHtml(v.odometer) + ' mi' : '—'}</div></div>
+  </div>
+
+  <h2>Summary</h2>
+  <div class="summary-bar">
+    <div class="summary-cell good"><div class="n">${r.summary.good}</div><div class="l">Good</div></div>
+    <div class="summary-cell warn"><div class="n">${r.summary.attention}</div><div class="l">Attention</div></div>
+    <div class="summary-cell fail"><div class="n">${r.summary.fail}</div><div class="l">Fail</div></div>
+    <div class="summary-cell na"><div class="n">${r.summary.na}</div><div class="l">N/A</div></div>
+  </div>
+  ${r.recommendation ? `
+    <div class="recommendation">
+      <div class="l">Recommendation</div>
+      <div class="v">${escapeHtml(r.recommendation)}</div>
+      ${r.repair_estimate ? `<div style="font-size:12px;margin-top:6px;color:#ccc;">Est. repair: ${escapeHtml(r.repair_estimate)}</div>` : ''}
+    </div>` : ''}
+
+${sectionsHtml}
+
+  <h2>Measurements</h2>
+  <table class="kv">
+    <tr><td class="k">Brake Pads</td><td>Front ${dash(m.brake_pads.front)} mm &nbsp; · &nbsp; Rear ${dash(m.brake_pads.rear)} mm</td></tr>
+    <tr><td class="k">Rotors</td><td>Front ${dash(m.rotors.front)} &nbsp; · &nbsp; Rear ${dash(m.rotors.rear)}</td></tr>
+    <tr><td class="k">Tread Depth (32nds)</td><td>LF ${dash(m.tread_depth_32nds.LF)} &nbsp; · &nbsp; RF ${dash(m.tread_depth_32nds.RF)} &nbsp; · &nbsp; LR ${dash(m.tread_depth_32nds.LR)} &nbsp; · &nbsp; RR ${dash(m.tread_depth_32nds.RR)}</td></tr>
+    ${m.tires_info ? `<tr><td class="k">Tires</td><td>${escapeHtml(m.tires_info)}</td></tr>` : ''}
+    <tr><td class="k">Battery</td><td>${dash(m.battery_voltage_resting)} resting${has(m.cranking_voltage) ? ` · ${escapeHtml(m.cranking_voltage)} cranking` : ''}${has(m.alternator_output) ? ` · ${escapeHtml(m.alternator_output)} alt` : ''}${has(m.battery_info) ? ` · ${escapeHtml(m.battery_info)}` : ''}</td></tr>
+  </table>
+
+  <h2>OBD-II Scan</h2>
+  <table class="kv">
+    <tr><td class="k">Status</td><td>${dash(r.obd.status)}</td></tr>
+    <tr><td class="k">Readiness</td><td>${dash(r.obd.readiness)}</td></tr>
+  </table>
+  ${r.obd.codes.length ? '<h2 style="margin-top:18px;">Diagnostic Codes</h2>' + obdCodesHtml : ''}
+  ${r.obd.notes ? `<div class="notes-block" style="margin-top:12px;">${escapeHtml(r.obd.notes)}</div>` : ''}
+
+${r.inspector_notes ? `<h2>Inspector Notes</h2> <div class="notes-block">${escapeHtml(r.inspector_notes)}</div>` : ‘’}
+
+${photoHtml}
+
+  <div class="footer">
+    <strong>HonesTech Mobile Mechanic</strong><br />
+    honestechmobilemechanic.com · Middlesex County, NJ<br />
+    <span style="font-size:10px;color:#999;margin-top:8px;display:inline-block;">This report reflects the vehicle's condition at the time of inspection only. Hidden defects not visible without disassembly may exist.</span>
+  </div>
+</div>
+</body>
+</html>`;
+}
+
+// ––––– VIEW REPORT –––––
+document.getElementById(‘viewBtn’).addEventListener(‘click’, () => {
+const report = buildReport();
+const html = buildHtmlReport(report);
+const w = window.open(’’, ‘_blank’);
+if (!w) {
+showToast(‘Pop-up blocked — allow pop-ups for this site’, ‘error’);
+hideToast();
+return;
+}
+w.document.open();
+w.document.write(html);
+w.document.close();
 });
 
-// ---------- INIT ----------
+// ––––– RESET –––––
+document.getElementById(‘resetBtn’).addEventListener(‘click’, () => {
+if (!confirm(‘Reset the entire inspection? This cannot be undone.’)) return;
+location.reload();
+});
+
+// ––––– INIT –––––
 buildItems();
 Object.keys(INSPECTION_ITEMS).forEach(updateSectionProgress);
 // Default date to today
-document.getElementById('inspectionDate').valueAsDate = new Date();
+document.getElementById(‘inspectionDate’).valueAsDate = new Date();
 </script>
 
 </body>
