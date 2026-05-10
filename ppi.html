@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Pre-Purchase Inspection — HonesTech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg:#0a0a0a; --bg-elev:#141414; --bg-elev-2:#1c1c1c; --border:#2a2a2a; --border-strong:#3a3a3a;
+  --text:#ffffff; --text-dim:#b8b8b8; --text-faint:#707070; --yellow:#f5c518; --yellow-soft:rgba(245,197,24,.12);
+  --good:#3ecf8e; --good-soft:rgba(62,207,142,.12); --warn:#f5c518; --warn-soft:rgba(245,197,24,.14);
+  --fail:#ef4444; --fail-soft:rgba(239,68,68,.14); --na:#707070; --na-soft:rgba(112,112,112,.14);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { background:var(--bg); color:var(--text); font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; -webkit-font-smoothing:antialiased; }
+body { background:radial-gradient(ellipse 800px 400px at 50% -100px,var(--yellow-soft),transparent 70%),var(--bg); min-height:100vh; padding:24px 16px 80px; }
+.wrap { max-width:880px; margin:0 auto; }
+header { text-align:center; padding:24px 0 32px; border-bottom:1px solid var(--border); margin-bottom:32px; }
+.logo { width:72px; height:72px; margin:0 auto 16px; display:block; }
+.brand { font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:.32em; color:var(--yellow); text-transform:uppercase; margin-bottom:8px; }
+h1 { font-family:'Oswald',sans-serif; font-size:32px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; line-height:1.1; }
+.subtitle { margin-top:10px; color:var(--text-dim); font-size:13px; letter-spacing:.06em; text-transform:uppercase; }
+.build-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:#444; margin-top:8px; letter-spacing:.1em; }
+section { background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
+.section-head { display:flex; align-items:center; gap:12px; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+.section-num { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--yellow); background:var(--yellow-soft); padding:4px 8px; border-radius:4px; font-weight:600; }
+.section-title { font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; letter-spacing:.06em; font-weight:600; flex:1; }
+.section-progress { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-faint); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+.field { display:flex; flex-direction:column; gap:6px; }
+.field label { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--text-faint); font-weight:600; }
+.field input,.field textarea,.field select { background:var(--bg); border:1px solid var(--border-strong); color:var(--text); padding:10px 12px; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:14px; }
+.field input:focus,.field textarea:focus,.field select:focus { outline:none; border-color:var(--yellow); }
+.field textarea { resize:vertical; min-height:70px; font-family:'Inter',sans-serif; }
+.field.full { grid-column:1/-1; }
+.bulk-actions { display:flex; flex-wrap:wrap; gap:8px; margin:-6px 0 16px; padding:10px; background:var(--bg); border:1px dashed var(--border-strong); border-radius:8px; }
+.bulk-label { width:100%; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--text-faint); }
+.bulk-btn { background:var(--bg-elev-2); border:1px solid var(--border-strong); color:var(--text-dim); padding:8px 10px; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; text-transform:uppercase; cursor:pointer; }
+.bulk-btn.good { border-color:var(--good); color:var(--good); }
+.bulk-btn.warn { border-color:var(--warn); color:var(--warn); }
+.bulk-btn.fail { border-color:var(--fail); color:var(--fail); }
+.bulk-btn.na { border-color:var(--na); color:var(--text-dim); }
+.item { border-top:1px solid var(--border); padding:16px 0; }
+.item:first-child { border-top:none; padding-top:0; }
+.item-row { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.item-name { font-size:15px; font-weight:500; flex:1; min-width:180px; }
+.status-group { display:flex; gap:6px; flex-wrap:wrap; }
+.status-btn { background:var(--bg); border:1px solid var(--border-strong); color:var(--text-dim); padding:8px 12px; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; text-transform:uppercase; cursor:pointer; }
+.status-btn.active.good { background:var(--good-soft); border-color:var(--good); color:var(--good); }
+.status-btn.active.warn { background:var(--warn-soft); border-color:var(--warn); color:var(--warn); }
+.status-btn.active.fail { background:var(--fail-soft); border-color:var(--fail); color:var(--fail); }
+.status-btn.active.na { background:var(--na-soft); border-color:var(--na); color:var(--text-dim); }
+.item-note { width:100%; margin-top:10px; background:var(--bg); border:1px solid var(--border); color:var(--text); padding:8px 10px; border-radius:5px; font-family:'Inter',sans-serif; font-size:13px; display:none; }
+.item.has-status .item-note { display:block; }
+.obd-list { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.obd-row { display:grid; grid-template-columns:120px 1fr auto; gap:8px; align-items:center; }
+.obd-row input { background:var(--bg); border:1px solid var(--border-strong); color:var(--text); padding:8px 10px; border-radius:5px; font-family:'JetBrains Mono',monospace; font-size:13px; }
+.obd-row .remove-row { background:var(--bg); border:1px solid var(--border-strong); color:var(--text-dim); width:32px; height:32px; border-radius:5px; cursor:pointer; }
+.add-btn { background:transparent; border:1px dashed var(--border-strong); color:var(--text-dim); padding:8px 14px; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer; text-transform:uppercase; }
+.photo-zone { border:2px dashed var(--border-strong); border-radius:8px; padding:24px; text-align:center; cursor:pointer; background:var(--bg); }
+.photo-zone-text { color:var(--text-dim); font-size:14px; margin-bottom:4px; }
+.photo-zone-hint { color:var(--text-faint); font-size:11px; text-transform:uppercase; letter-spacing:.08em; font-family:'JetBrains Mono',monospace; }
+.photo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; margin-top:14px; }
+.photo-thumb { position:relative; aspect-ratio:1; border-radius:6px; overflow:hidden; border:1px solid var(--border); }
+.photo-thumb img { width:100%; height:100%; object-fit:cover; }
+.photo-thumb .remove { position:absolute; top:4px; right:4px; background:rgba(0,0,0,.75); border:1px solid var(--border-strong); color:var(--text); width:24px; height:24px; border-radius:50%; cursor:pointer; }
+.photo-thumb .label { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,.85)); color:var(--text); font-size:10px; padding:14px 6px 5px; font-family:'JetBrains Mono',monospace; border:none; }
+.summary-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+.summary-tile { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:14px 10px; text-align:center; }
+.summary-tile .num { font-family:'Oswald',sans-serif; font-size:28px; font-weight:700; line-height:1; }
+.summary-tile .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--text-faint); margin-top:6px; }
+.summary-tile.good .num { color:var(--good); } .summary-tile.warn .num { color:var(--warn); } .summary-tile.fail .num { color:var(--fail); } .summary-tile.na .num { color:var(--text-dim); }
+.submit-bar { position:sticky; bottom:16px; margin-top:24px; background:var(--bg-elev); border:1px solid var(--border-strong); border-radius:12px; padding:16px; display:flex; gap:10px; flex-wrap:wrap; box-shadow:0 8px 32px rgba(0,0,0,.6); }
+.submit-btn { flex:1 1 100%; background:var(--yellow); color:var(--bg); border:none; padding:14px; border-radius:8px; font-family:'Oswald',sans-serif; font-size:16px; font-weight:700; text-transform:uppercase; cursor:pointer; }
+.view-btn,.reset-btn { flex:1; background:transparent; border:1px solid var(--border-strong); color:var(--text-dim); padding:12px 14px; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; cursor:pointer; }
+.view-btn { border-color:var(--yellow); color:var(--yellow); }
+.toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:var(--bg-elev-2); border:1px solid var(--yellow); color:var(--text); padding:12px 20px; border-radius:8px; font-size:14px; z-index:1000; display:none; box-shadow:0 4px 20px rgba(0,0,0,.5); }
+.toast.show { display:block; } .toast.success { border-color:var(--good); } .toast.error { border-color:var(--fail); }
+@media(max-width:600px) { h1{font-size:26px} .summary-grid{grid-template-columns:repeat(2,1fr)} .obd-row{grid-template-columns:1fr} .obd-row .remove-row{width:100%} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo" src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="HonesTech" />
+    <div class="brand">HonesTech Mobile Mechanic</div>
+    <h1>Pre-Purchase Inspection</h1>
+    <div class="subtitle">Internal Inspection Tool</div>
+    <div class="build-tag">BUILD V8 · STATIC SELECT FIX</div>
+  </header>
+
+  <section>
+    <div class="section-head"><span class="section-num">01</span><span class="section-title">Customer &amp; Vehicle</span></div>
+    <div class="grid">
+      <div class="field"><label>Inspection Date</label><input type="date" id="inspectionDate" /></div>
+      <div class="field"><label>Inspection Location</label><input type="text" id="inspectionLocation" /></div>
+      <div class="field"><label>Customer Name</label><input type="text" id="customerName" /></div>
+      <div class="field"><label>Customer Phone</label><input type="tel" id="customerPhone" /></div>
+      <div class="field"><label>Year</label><input type="text" id="vehYear" /></div>
+      <div class="field"><label>Make</label><input type="text" id="vehMake" /></div>
+      <div class="field"><label>Model</label><input type="text" id="vehModel" /></div>
+      <div class="field"><label>Trim</label><input type="text" id="vehTrim" /></div>
+      <div class="field full"><label>VIN</label><input type="text" id="vehVin" maxlength="17" style="text-transform:uppercase" /></div>
+      <div class="field"><label>Odometer (mi)</label><input type="text" inputmode="numeric" id="odometer" /></div>
+      <div class="field"><label>Plate</label><input type="text" id="plate" style="text-transform:uppercase" /></div>
+    </div>
+  </section>
+
+  
+    <section class="inspection-section" data-section="Exterior &amp; Body">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <span class="section-title">Exterior &amp; Body</span>
+        <span class="section-progress" data-progress>0/9</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Exterior &amp; Body" data-item="Body panels — dents/scratches">
+          <div class="item-row">
+            <div class="item-name">Body panels — dents/scratches</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Paint condition / mismatched panels">
+          <div class="item-row">
+            <div class="item-name">Paint condition / mismatched panels</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Rust (visible, body)">
+          <div class="item-row">
+            <div class="item-name">Rust (visible, body)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Glass — windshield &amp; windows">
+          <div class="item-row">
+            <div class="item-name">Glass — windshield &amp; windows</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Headlights / taillights">
+          <div class="item-row">
+            <div class="item-name">Headlights / taillights</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Mirrors">
+          <div class="item-row">
+            <div class="item-name">Mirrors</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Door operation &amp; alignment">
+          <div class="item-row">
+            <div class="item-name">Door operation &amp; alignment</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Hood &amp; trunk operation">
+          <div class="item-row">
+            <div class="item-name">Hood &amp; trunk operation</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Exterior &amp; Body" data-item="Bumpers / trim">
+          <div class="item-row">
+            <div class="item-name">Bumpers / trim</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+    </section>
+    <section class="inspection-section" data-section="Interior">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <span class="section-title">Interior</span>
+        <span class="section-progress" data-progress>0/10</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Interior" data-item="Seats — wear / damage">
+          <div class="item-row">
+            <div class="item-name">Seats — wear / damage</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="Seatbelts — operation &amp; condition">
+          <div class="item-row">
+            <div class="item-name">Seatbelts — operation &amp; condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="Dashboard — warning lights">
+          <div class="item-row">
+            <div class="item-name">Dashboard — warning lights</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="HVAC — heat">
+          <div class="item-row">
+            <div class="item-name">HVAC — heat</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="HVAC — A/C">
+          <div class="item-row">
+            <div class="item-name">HVAC — A/C</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="Power windows">
+          <div class="item-row">
+            <div class="item-name">Power windows</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="Power locks">
+          <div class="item-row">
+            <div class="item-name">Power locks</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="Radio / infotainment">
+          <div class="item-row">
+            <div class="item-name">Radio / infotainment</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="Carpet / headliner / odors">
+          <div class="item-row">
+            <div class="item-name">Carpet / headliner / odors</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Interior" data-item="Sunroof / moonroof (if equipped)">
+          <div class="item-row">
+            <div class="item-name">Sunroof / moonroof (if equipped)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+    </section>
+    <section class="inspection-section" data-section="Engine">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <span class="section-title">Engine</span>
+        <span class="section-progress" data-progress>0/9</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Engine" data-item="Cold start behavior">
+          <div class="item-row">
+            <div class="item-name">Cold start behavior</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Idle quality">
+          <div class="item-row">
+            <div class="item-name">Idle quality</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Unusual noises (knocks/ticks)">
+          <div class="item-row">
+            <div class="item-name">Unusual noises (knocks/ticks)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Visible leaks (oil, coolant)">
+          <div class="item-row">
+            <div class="item-name">Visible leaks (oil, coolant)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Belts — condition">
+          <div class="item-row">
+            <div class="item-name">Belts — condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Hoses — condition">
+          <div class="item-row">
+            <div class="item-name">Hoses — condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Air filter">
+          <div class="item-row">
+            <div class="item-name">Air filter</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Engine mounts">
+          <div class="item-row">
+            <div class="item-name">Engine mounts</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Engine" data-item="Smoke from exhaust (cold/warm)">
+          <div class="item-row">
+            <div class="item-name">Smoke from exhaust (cold/warm)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+    </section>
+    <section class="inspection-section" data-section="Fluids">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <span class="section-title">Fluids</span>
+        <span class="section-progress" data-progress>0/7</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Fluids" data-item="Engine oil — level &amp; condition">
+          <div class="item-row">
+            <div class="item-name">Engine oil — level &amp; condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Fluids" data-item="Coolant — level &amp; condition">
+          <div class="item-row">
+            <div class="item-name">Coolant — level &amp; condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Fluids" data-item="Transmission fluid — level &amp; condition">
+          <div class="item-row">
+            <div class="item-name">Transmission fluid — level &amp; condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Fluids" data-item="Brake fluid — level &amp; condition">
+          <div class="item-row">
+            <div class="item-name">Brake fluid — level &amp; condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Fluids" data-item="Power steering fluid">
+          <div class="item-row">
+            <div class="item-name">Power steering fluid</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Fluids" data-item="Differential / transfer case (if applicable)">
+          <div class="item-row">
+            <div class="item-name">Differential / transfer case (if applicable)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Fluids" data-item="Windshield washer fluid">
+          <div class="item-row">
+            <div class="item-name">Windshield washer fluid</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+    </section>
+    <section class="inspection-section" data-section="Brakes">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <span class="section-title">Brakes</span>
+        <span class="section-progress" data-progress>0/8</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Brakes" data-item="Brake pedal feel">
+          <div class="item-row">
+            <div class="item-name">Brake pedal feel</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Brakes" data-item="Front pads — thickness">
+          <div class="item-row">
+            <div class="item-name">Front pads — thickness</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Brakes" data-item="Rear pads / shoes — thickness">
+          <div class="item-row">
+            <div class="item-name">Rear pads / shoes — thickness</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Brakes" data-item="Front rotors — condition">
+          <div class="item-row">
+            <div class="item-name">Front rotors — condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Brakes" data-item="Rear rotors / drums — condition">
+          <div class="item-row">
+            <div class="item-name">Rear rotors / drums — condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Brakes" data-item="Brake lines / hoses">
+          <div class="item-row">
+            <div class="item-name">Brake lines / hoses</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Brakes" data-item="Parking brake operation">
+          <div class="item-row">
+            <div class="item-name">Parking brake operation</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Brakes" data-item="ABS warning light">
+          <div class="item-row">
+            <div class="item-name">ABS warning light</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+        <div class="grid" style="margin-top:14px">
+          <div class="field"><label>Front Pad Thickness (mm)</label><input type="text" id="padFront" /></div>
+          <div class="field"><label>Rear Pad Thickness (mm)</label><input type="text" id="padRear" /></div>
+          <div class="field"><label>Front Rotor</label><input type="text" id="rotorFront" /></div>
+          <div class="field"><label>Rear Rotor</label><input type="text" id="rotorRear" /></div>
+        </div>
+    </section>
+    <section class="inspection-section" data-section="Suspension &amp; Steering">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <span class="section-title">Suspension &amp; Steering</span>
+        <span class="section-progress" data-progress>0/9</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Shocks / struts">
+          <div class="item-row">
+            <div class="item-name">Shocks / struts</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Springs">
+          <div class="item-row">
+            <div class="item-name">Springs</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Control arms / bushings">
+          <div class="item-row">
+            <div class="item-name">Control arms / bushings</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Ball joints">
+          <div class="item-row">
+            <div class="item-name">Ball joints</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Tie rod ends">
+          <div class="item-row">
+            <div class="item-name">Tie rod ends</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Sway bar links">
+          <div class="item-row">
+            <div class="item-name">Sway bar links</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="CV axles / boots">
+          <div class="item-row">
+            <div class="item-name">CV axles / boots</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Steering response &amp; centering">
+          <div class="item-row">
+            <div class="item-name">Steering response &amp; centering</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Suspension &amp; Steering" data-item="Wheel bearings">
+          <div class="item-row">
+            <div class="item-name">Wheel bearings</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+    </section>
+    <section class="inspection-section" data-section="Tires">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <span class="section-title">Tires &amp; Wheels</span>
+        <span class="section-progress" data-progress>0/7</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Tires" data-item="Tread depth (overall)">
+          <div class="item-row">
+            <div class="item-name">Tread depth (overall)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Tires" data-item="Even wear pattern">
+          <div class="item-row">
+            <div class="item-name">Even wear pattern</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Tires" data-item="Sidewall — cracks/bulges">
+          <div class="item-row">
+            <div class="item-name">Sidewall — cracks/bulges</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Tires" data-item="Tire age (DOT date)">
+          <div class="item-row">
+            <div class="item-name">Tire age (DOT date)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Tires" data-item="Spare tire / kit">
+          <div class="item-row">
+            <div class="item-name">Spare tire / kit</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Tires" data-item="Wheels — damage / curb rash">
+          <div class="item-row">
+            <div class="item-name">Wheels — damage / curb rash</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Tires" data-item="Lug nuts present &amp; tight">
+          <div class="item-row">
+            <div class="item-name">Lug nuts present &amp; tight</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+        <div class="grid" style="margin-top:14px">
+          <div class="field"><label>LF Tread (32nds)</label><input type="text" id="treadLF" /></div>
+          <div class="field"><label>RF Tread (32nds)</label><input type="text" id="treadRF" /></div>
+          <div class="field"><label>LR Tread (32nds)</label><input type="text" id="treadLR" /></div>
+          <div class="field"><label>RR Tread (32nds)</label><input type="text" id="treadRR" /></div>
+          <div class="field full"><label>Tire Brand / Size / DOT</label><input type="text" id="tireInfo" /></div>
+        </div>
+    </section>
+    <section class="inspection-section" data-section="Electrical">
+      <div class="section-head">
+        <span class="section-num">09</span>
+        <span class="section-title">Electrical</span>
+        <span class="section-progress" data-progress>0/8</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Electrical" data-item="Battery condition / terminals">
+          <div class="item-row">
+            <div class="item-name">Battery condition / terminals</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Electrical" data-item="Starter operation">
+          <div class="item-row">
+            <div class="item-name">Starter operation</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Electrical" data-item="Alternator charging">
+          <div class="item-row">
+            <div class="item-name">Alternator charging</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Electrical" data-item="All exterior lights working">
+          <div class="item-row">
+            <div class="item-name">All exterior lights working</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Electrical" data-item="All interior lights working">
+          <div class="item-row">
+            <div class="item-name">All interior lights working</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Electrical" data-item="Horn">
+          <div class="item-row">
+            <div class="item-name">Horn</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Electrical" data-item="Wipers (front / rear)">
+          <div class="item-row">
+            <div class="item-name">Wipers (front / rear)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Electrical" data-item="Backup camera (if equipped)">
+          <div class="item-row">
+            <div class="item-name">Backup camera (if equipped)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+        <div class="grid" style="margin-top:14px">
+          <div class="field"><label>Battery Voltage (resting)</label><input type="text" id="battVolt" /></div>
+          <div class="field"><label>Cranking Voltage</label><input type="text" id="crankVolt" /></div>
+          <div class="field"><label>Alternator Output</label><input type="text" id="altOutput" /></div>
+          <div class="field"><label>Battery Date / CCA</label><input type="text" id="battInfo" /></div>
+        </div>
+    </section>
+    <section class="inspection-section" data-section="Safety">
+      <div class="section-head">
+        <span class="section-num">10</span>
+        <span class="section-title">Safety Inspection</span>
+        <span class="section-progress" data-progress>0/8</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Safety" data-item="Airbag warning light">
+          <div class="item-row">
+            <div class="item-name">Airbag warning light</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Safety" data-item="Seatbelt pretensioners">
+          <div class="item-row">
+            <div class="item-name">Seatbelt pretensioners</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Safety" data-item="Brake lights operation">
+          <div class="item-row">
+            <div class="item-name">Brake lights operation</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Safety" data-item="Turn signals / hazards">
+          <div class="item-row">
+            <div class="item-name">Turn signals / hazards</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Safety" data-item="Tire pressure monitoring (TPMS)">
+          <div class="item-row">
+            <div class="item-name">Tire pressure monitoring (TPMS)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Safety" data-item="Emergency / parking brake">
+          <div class="item-row">
+            <div class="item-name">Emergency / parking brake</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Safety" data-item="Wiper blade condition">
+          <div class="item-row">
+            <div class="item-name">Wiper blade condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Safety" data-item="State inspection sticker (if NJ-required)">
+          <div class="item-row">
+            <div class="item-name">State inspection sticker (if NJ-required)</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+    </section>
+    <section class="inspection-section" data-section="Undercarriage &amp; Frame">
+      <div class="section-head">
+        <span class="section-num">11</span>
+        <span class="section-title">Undercarriage &amp; Frame</span>
+        <span class="section-progress" data-progress>0/8</span>
+      </div>
+      <div class="bulk-actions">
+        <div class="bulk-label">Quick select this full section</div>
+        <button type="button" class="bulk-btn good" data-bulk="good">All Good</button>
+        <button type="button" class="bulk-btn warn" data-bulk="warn">All Attn</button>
+        <button type="button" class="bulk-btn fail" data-bulk="fail">All Fail</button>
+        <button type="button" class="bulk-btn na" data-bulk="na">All N/A</button>
+        <button type="button" class="bulk-btn clear" data-bulk="clear">Clear</button>
+      </div>
+      <div class="items">
+        
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Frame — rust / damage">
+          <div class="item-row">
+            <div class="item-name">Frame — rust / damage</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Subframe — condition">
+          <div class="item-row">
+            <div class="item-name">Subframe — condition</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Floor pans">
+          <div class="item-row">
+            <div class="item-name">Floor pans</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Exhaust system — leaks/damage">
+          <div class="item-row">
+            <div class="item-name">Exhaust system — leaks/damage</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Catalytic converter present">
+          <div class="item-row">
+            <div class="item-name">Catalytic converter present</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Heat shields">
+          <div class="item-row">
+            <div class="item-name">Heat shields</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Skid plates / underbody panels">
+          <div class="item-row">
+            <div class="item-name">Skid plates / underbody panels</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+        <div class="item" data-section="Undercarriage &amp; Frame" data-item="Fuel tank / lines">
+          <div class="item-row">
+            <div class="item-name">Fuel tank / lines</div>
+            <div class="status-group">
+              <button type="button" class="status-btn good" data-status="good">Good</button>
+              <button type="button" class="status-btn warn" data-status="warn">Attn</button>
+              <button type="button" class="status-btn fail" data-status="fail">Fail</button>
+              <button type="button" class="status-btn na" data-status="na">N/A</button>
+            </div>
+          </div>
+          <input type="text" class="item-note" placeholder="Note (optional)" />
+        </div>
+      </div>
+      
+    </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">12</span><span class="section-title">OBD-II Scan Results</span></div>
+    <div class="grid" style="margin-bottom:16px">
+      <div class="field"><label>Scan Status</label><select id="obdStatus"><option value="">— Select —</option><option value="No codes">No codes — all monitors ready</option><option value="No codes - monitors not ready">No codes — monitors not ready</option><option value="Codes present">Codes present</option><option value="Pending codes">Pending codes only</option><option value="Unable to scan">Unable to scan</option></select></div>
+      <div class="field"><label>Readiness Monitors</label><input type="text" id="obdReadiness" /></div>
+    </div>
+    <label style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);font-weight:600;margin-bottom:10px;display:block;">Diagnostic Trouble Codes</label>
+    <div class="obd-list" id="obdList"></div>
+    <button type="button" class="add-btn" id="addObdBtn">+ Add Code</button>
+    <div class="field full" style="margin-top:16px"><label>OBD Notes</label><textarea id="obdNotes"></textarea></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">13</span><span class="section-title">Photos</span><span class="section-progress" id="photoCount">0 photos</span></div>
+    <input type="file" id="photoInput" accept="image/*" multiple style="display:none" />
+    <div class="photo-zone" id="photoZone"><div class="photo-zone-text">Tap to add photos</div><div class="photo-zone-hint">Damage · VIN · Odometer · Tires · Codes</div></div>
+    <div class="photo-grid" id="photoGrid"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">14</span><span class="section-title">Overall Assessment</span></div>
+    <div class="summary-grid">
+      <div class="summary-tile good"><div class="num" id="cntGood">0</div><div class="lbl">Good</div></div>
+      <div class="summary-tile warn"><div class="num" id="cntWarn">0</div><div class="lbl">Attention</div></div>
+      <div class="summary-tile fail"><div class="num" id="cntFail">0</div><div class="lbl">Fail</div></div>
+      <div class="summary-tile na"><div class="num" id="cntNa">0</div><div class="lbl">N/A</div></div>
+    </div>
+    <div class="grid">
+      <div class="field full"><label>Recommendation</label><select id="recommendation"><option value="">— Select —</option><option value="Buy - solid vehicle">Buy — solid vehicle</option><option value="Buy with negotiation">Buy with negotiation on listed issues</option><option value="Buy only after repairs">Buy only after seller addresses items</option><option value="Pass - too many issues">Pass — too many issues</option><option value="Pass - safety concerns">Pass — safety concerns</option></select></div>
+      <div class="field full"><label>Estimated Repair Cost</label><input type="text" id="repairEstimate" /></div>
+      <div class="field full"><label>Inspector Notes</label><textarea id="inspectorNotes" rows="5"></textarea></div>
+    </div>
+  </section>
+
+  <div class="submit-bar">
+    <button type="button" class="submit-btn" id="submitBtn">Submit Inspection</button>
+    <button type="button" class="view-btn" id="viewBtn">View Report</button>
+    <button type="button" class="reset-btn" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mykobqdk';
+  var photos = [];
+
+  function q(id) { return document.getElementById(id); }
+  function val(id) { var el = q(id); return el ? el.value.trim() : ''; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function showToast(msg, type) {
+    var t = q('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (type ? ' ' + type : '');
+  }
+
+  function hideToast() {
+    setTimeout(function () { q('toast').classList.remove('show'); }, 1500);
+  }
+
+  function updateProgress(sectionEl) {
+    var items = sectionEl.querySelectorAll('.item');
+    var done = sectionEl.querySelectorAll('.item[data-value]').length;
+    var prog = sectionEl.querySelector('[data-progress]');
+    if (prog) prog.textContent = done + '/' + items.length;
+  }
+
+  function updateSummary() {
+    var counts = { good:0, warn:0, fail:0, na:0 };
+    document.querySelectorAll('.item[data-value]').forEach(function(item) {
+      var st = item.getAttribute('data-value');
+      if (counts[st] !== undefined) counts[st]++;
+    });
+    q('cntGood').textContent = counts.good;
+    q('cntWarn').textContent = counts.warn;
+    q('cntFail').textContent = counts.fail;
+    q('cntNa').textContent = counts.na;
+  }
+
+  function setItemStatus(item, status) {
+    var current = item.getAttribute('data-value');
+    var next = current === status ? '' : status;
+
+    item.querySelectorAll('.status-btn').forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+
+    if (next) {
+      item.setAttribute('data-value', next);
+      var active = item.querySelector('.status-btn[data-status="' + next + '"]');
+      if (active) active.classList.add('active');
+      item.classList.add('has-status');
+    } else {
+      item.removeAttribute('data-value');
+      item.classList.remove('has-status');
+    }
+
+    var section = item.closest('.inspection-section');
+    if (section) updateProgress(section);
+    updateSummary();
+  }
+
+  function setSectionStatus(section, status) {
+    section.querySelectorAll('.item').forEach(function(item) {
+      item.querySelectorAll('.status-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      if (status === 'clear') {
+        item.removeAttribute('data-value');
+        item.classList.remove('has-status');
+      } else {
+        item.setAttribute('data-value', status);
+        var active = item.querySelector('.status-btn[data-status="' + status + '"]');
+        if (active) active.classList.add('active');
+        item.classList.add('has-status');
+      }
+    });
+    updateProgress(section);
+    updateSummary();
+  }
+
+  document.addEventListener('click', function(e) {
+    var statusBtn = e.target.closest('.status-btn');
+    if (statusBtn) {
+      var item = statusBtn.closest('.item');
+      if (item) setItemStatus(item, statusBtn.getAttribute('data-status'));
+      return;
+    }
+
+    var bulkBtn = e.target.closest('.bulk-btn');
+    if (bulkBtn) {
+      var section = bulkBtn.closest('.inspection-section');
+      if (section) setSectionStatus(section, bulkBtn.getAttribute('data-bulk'));
+      return;
+    }
+  });
+
+  function addObdRow(code, desc) {
+    var row = document.createElement('div');
+    row.className = 'obd-row';
+    row.innerHTML = '<input type="text" placeholder="P0420" class="obd-code" style="text-transform:uppercase" value="' + esc(code || '') + '" />' +
+      '<input type="text" placeholder="Description" class="obd-desc" value="' + esc(desc || '') + '" />' +
+      '<button type="button" class="remove-row">×</button>';
+    row.querySelector('.remove-row').addEventListener('click', function() { row.remove(); });
+    q('obdList').appendChild(row);
+  }
+
+  q('addObdBtn').addEventListener('click', function() { addObdRow(); });
+
+  q('photoZone').addEventListener('click', function() { q('photoInput').click(); });
+  q('photoInput').addEventListener('change', function(e) { handleFiles(e.target.files); });
+
+  function handleFiles(files) {
+    if (!files || !files.length) return;
+    Array.prototype.forEach.call(files, function(file) {
+      if (!file.type || file.type.indexOf('image/') !== 0) return;
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        var photo = { name:file.name, dataUrl:ev.target.result, label:'' };
+        photos.push(photo);
+        renderPhoto(photo);
+        updatePhotoCount();
+      };
+      reader.readAsDataURL(file);
+    });
+    q('photoInput').value = '';
+  }
+
+  function renderPhoto(photo) {
+    var div = document.createElement('div');
+    div.className = 'photo-thumb';
+    div.innerHTML = '<img src="' + photo.dataUrl + '" alt="" /><button type="button" class="remove">×</button><input class="label" placeholder="Label" />';
+    div.querySelector('.remove').addEventListener('click', function() {
+      photos = photos.filter(function(p) { return p !== photo; });
+      div.remove();
+      updatePhotoCount();
+    });
+    div.querySelector('.label').addEventListener('input', function(e) { photo.label = e.target.value; });
+    q('photoGrid').appendChild(div);
+  }
+
+  function updatePhotoCount() {
+    q('photoCount').textContent = photos.length + ' photo' + (photos.length === 1 ? '' : 's');
+  }
+
+  function buildReport() {
+    var inspection = {};
+    document.querySelectorAll('.inspection-section').forEach(function(section) {
+      var sectionName = section.getAttribute('data-section');
+      inspection[sectionName] = {};
+      section.querySelectorAll('.item[data-value]').forEach(function(item) {
+        inspection[sectionName][item.getAttribute('data-item')] = {
+          status: item.getAttribute('data-value'),
+          note: item.querySelector('.item-note').value.trim()
+        };
+      });
+    });
+
+    var obd = [];
+    document.querySelectorAll('#obdList .obd-row').forEach(function(row) {
+      var code = row.querySelector('.obd-code').value.trim().toUpperCase();
+      var desc = row.querySelector('.obd-desc').value.trim();
+      if (code) obd.push({ code:code, description:desc });
+    });
+
+    return {
+      inspection_date: val('inspectionDate'),
+      location: val('inspectionLocation'),
+      customer: { name: val('customerName'), phone: val('customerPhone') },
+      vehicle: {
+        year: val('vehYear'), make: val('vehMake'), model: val('vehModel'), trim: val('vehTrim'),
+        vin: val('vehVin').toUpperCase(), odometer: val('odometer'), plate: val('plate').toUpperCase()
+      },
+      inspection: inspection,
+      measurements: {
+        brake_pads: { front: val('padFront'), rear: val('padRear') },
+        rotors: { front: val('rotorFront'), rear: val('rotorRear') },
+        tread_depth_32nds: { LF: val('treadLF'), RF: val('treadRF'), LR: val('treadLR'), RR: val('treadRR') },
+        tires_info: val('tireInfo'),
+        battery_voltage_resting: val('battVolt'),
+        cranking_voltage: val('crankVolt'),
+        alternator_output: val('altOutput'),
+        battery_info: val('battInfo')
+      },
+      obd: { status: val('obdStatus'), readiness: val('obdReadiness'), codes: obd, notes: val('obdNotes') },
+      summary: {
+        good: parseInt(q('cntGood').textContent, 10) || 0,
+        attention: parseInt(q('cntWarn').textContent, 10) || 0,
+        fail: parseInt(q('cntFail').textContent, 10) || 0,
+        na: parseInt(q('cntNa').textContent, 10) || 0
+      },
+      recommendation: val('recommendation'),
+      repair_estimate: val('repairEstimate'),
+      inspector_notes: val('inspectorNotes')
+    };
+  }
+
+  function buildTextSummary(r) {
+    var v = r.vehicle, m = r.measurements;
+    var lines = [];
+    lines.push('PRE-PURCHASE INSPECTION — HonesTech');
+    lines.push('================================');
+    lines.push('Date: ' + (r.inspection_date || '—') + '   Location: ' + (r.location || '—'));
+    lines.push('Customer: ' + (r.customer.name || '—') + ' (' + (r.customer.phone || '—') + ')');
+    lines.push('');
+    lines.push('VEHICLE: ' + [v.year,v.make,v.model,v.trim].filter(Boolean).join(' '));
+    lines.push('VIN: ' + (v.vin || '—') + '   Plate: ' + (v.plate || '—'));
+    lines.push('Odometer: ' + (v.odometer || '—') + ' mi');
+    lines.push('');
+    lines.push('SUMMARY');
+    lines.push('Good: ' + r.summary.good + '   Attention: ' + r.summary.attention + '   Fail: ' + r.summary.fail + '   N/A: ' + r.summary.na);
+    lines.push('Recommendation: ' + (r.recommendation || '—'));
+    if (r.repair_estimate) lines.push('Est. Repair: ' + r.repair_estimate);
+    lines.push('');
+    Object.keys(r.inspection).forEach(function(section) {
+      var items = r.inspection[section];
+      var keys = Object.keys(items).filter(function(k) { return items[k].status === 'warn' || items[k].status === 'fail'; });
+      if (!keys.length) return;
+      lines.push('-- ' + section.toUpperCase() + ' --');
+      keys.forEach(function(k) {
+        var d = items[k];
+        lines.push((d.status === 'fail' ? '[FAIL] ' : '[ATTN] ') + k + (d.note ? ' — ' + d.note : ''));
+      });
+      lines.push('');
+    });
+    lines.push('MEASUREMENTS');
+    lines.push('Brake Pads: F ' + (m.brake_pads.front || '—') + ' / R ' + (m.brake_pads.rear || '—'));
+    lines.push('Tread: LF ' + (m.tread_depth_32nds.LF || '—') + ' RF ' + (m.tread_depth_32nds.RF || '—') + ' LR ' + (m.tread_depth_32nds.LR || '—') + ' RR ' + (m.tread_depth_32nds.RR || '—'));
+    lines.push('');
+    lines.push('OBD-II: ' + (r.obd.status || '—') + ' / ' + (r.obd.readiness || '—'));
+    r.obd.codes.forEach(function(c) { lines.push(c.code + ' — ' + (c.description || '—')); });
+    if (r.inspector_notes) { lines.push(''); lines.push('INSPECTOR NOTES'); lines.push(r.inspector_notes); }
+    return lines.join('\n');
+  }
+
+  function badge(status) {
+    var meta = {
+      good:['GOOD','#0a7a4a','#e6f7ee'],
+      warn:['ATTENTION','#8a6d00','#fff8d6'],
+      fail:['FAIL','#9b1c1c','#fde2e2'],
+      na:['N/A','#555','#ececec']
+    }[status] || ['N/A','#555','#ececec'];
+    return '<span style="display:inline-block;padding:3px 8px;border-radius:3px;font-size:10px;font-weight:700;color:' + meta[1] + ';background:' + meta[2] + '">' + meta[0] + '</span>';
+  }
+
+  function buildHtmlReport(r) {
+    var v = r.vehicle, m = r.measurements;
+    var sectionsHtml = Object.keys(r.inspection).map(function(section) {
+      var items = r.inspection[section];
+      var keys = Object.keys(items);
+      if (!keys.length) return '';
+      return '<h2>' + esc(section) + '</h2><table>' + keys.map(function(k) {
+        var d = items[k];
+        return '<tr><td style="font-weight:600;width:40%">' + esc(k) + '</td><td style="width:110px">' + badge(d.status) + '</td><td style="color:#555;font-style:italic">' + esc(d.note || '') + '</td></tr>';
+      }).join('') + '</table>';
+    }).join('');
+
+    var photoHtml = photos.length ? '<h2>Photos</h2><div class="photos">' + photos.map(function(p) {
+      return '<div><img src="' + p.dataUrl + '"><div>' + esc(p.label || '') + '</div></div>';
+    }).join('') + '</div>' : '';
+
+    return '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>PPI Report</title><style>' +
+      'body{margin:0;background:#f4f4f4;font-family:Arial,sans-serif;color:#1a1a1a}.bar{position:sticky;top:0;background:#0a0a0a;padding:12px;text-align:right}.bar button{background:#f5c518;border:0;border-radius:6px;padding:10px 16px;font-weight:700;margin-left:8px}.page{max-width:820px;margin:0 auto;background:#fff;padding:36px}.header{display:flex;gap:16px;align-items:center;border-bottom:3px solid #f5c518;padding-bottom:18px;margin-bottom:24px}.header img{width:60px;height:60px}h1{font-size:22px;margin:0}h2{font-size:13px;text-transform:uppercase;letter-spacing:.14em;border-bottom:1px solid #ddd;padding-bottom:6px;margin-top:26px}.meta,.sum{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;background:#fafafa;border:1px solid #eee;padding:14px;border-radius:6px}.sum{grid-template-columns:repeat(4,1fr);text-align:center}table{width:100%;border-collapse:collapse;font-size:13px}td{padding:8px 6px;border-bottom:1px solid #eee;vertical-align:top}.rec{background:#0a0a0a;color:#fff;border-left:4px solid #f5c518;padding:14px;border-radius:6px;margin-top:14px}.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.photos img{width:100%;height:150px;object-fit:cover}@media print{.bar{display:none}.page{box-shadow:none}}' +
+      '</style></head><body><div class="bar"><button onclick="window.close()">Close</button><button onclick="window.print()">Print / Save PDF</button></div><div class="page">' +
+      '<div class="header"><img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png"><div><h1>HonesTech Pre-Purchase Inspection</h1><div>Mobile Mechanic · Middlesex County, NJ</div></div></div>' +
+      '<h2>Inspection Details</h2><div class="meta"><div>Date: ' + esc(r.inspection_date || '—') + '</div><div>Location: ' + esc(r.location || '—') + '</div><div>Customer: ' + esc(r.customer.name || '—') + '</div><div>Phone: ' + esc(r.customer.phone || '—') + '</div></div>' +
+      '<h2>Vehicle</h2><div class="meta"><div>Year: ' + esc(v.year || '—') + '</div><div>Make: ' + esc(v.make || '—') + '</div><div>Model: ' + esc(v.model || '—') + '</div><div>Trim: ' + esc(v.trim || '—') + '</div><div>VIN: ' + esc(v.vin || '—') + '</div><div>Odometer: ' + esc(v.odometer || '—') + ' mi</div></div>' +
+      '<h2>Summary</h2><div class="sum"><div><b>' + r.summary.good + '</b><br>Good</div><div><b>' + r.summary.attention + '</b><br>Attention</div><div><b>' + r.summary.fail + '</b><br>Fail</div><div><b>' + r.summary.na + '</b><br>N/A</div></div>' +
+      (r.recommendation ? '<div class="rec"><b>Recommendation:</b> ' + esc(r.recommendation) + (r.repair_estimate ? '<br><small>Est. Repair: ' + esc(r.repair_estimate) + '</small>' : '') + '</div>' : '') +
+      sectionsHtml +
+      '<h2>Measurements</h2><table><tr><td>Brake Pads</td><td>Front ' + esc(m.brake_pads.front || '—') + ' / Rear ' + esc(m.brake_pads.rear || '—') + '</td></tr><tr><td>Rotors</td><td>Front ' + esc(m.rotors.front || '—') + ' / Rear ' + esc(m.rotors.rear || '—') + '</td></tr><tr><td>Tread</td><td>LF ' + esc(m.tread_depth_32nds.LF || '—') + ' RF ' + esc(m.tread_depth_32nds.RF || '—') + ' LR ' + esc(m.tread_depth_32nds.LR || '—') + ' RR ' + esc(m.tread_depth_32nds.RR || '—') + '</td></tr><tr><td>Battery</td><td>' + esc(m.battery_voltage_resting || '—') + ' resting / ' + esc(m.cranking_voltage || '—') + ' cranking / ' + esc(m.alternator_output || '—') + ' alt</td></tr></table>' +
+      '<h2>OBD-II</h2><div class="meta"><div>Status: ' + esc(r.obd.status || '—') + '</div><div>Readiness: ' + esc(r.obd.readiness || '—') + '</div></div>' +
+      (r.inspector_notes ? '<h2>Inspector Notes</h2><p style="white-space:pre-wrap">' + esc(r.inspector_notes) + '</p>' : '') +
+      photoHtml +
+      '<p style="margin-top:30px;border-top:1px solid #ddd;padding-top:12px;font-size:11px;color:#777;text-align:center"><b>HonesTech Mobile Mechanic</b><br>honestechservice.com</p>' +
+      '</div></body></html>';
+  }
+
+  function dataURLtoBlob(dataUrl) {
+    var parts = dataUrl.split(',');
+    var mime = (parts[0].match(/:(.*?);/) || [,'image/jpeg'])[1];
+    var bin = atob(parts[1]);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new Blob([bytes], { type:mime });
+  }
+
+  q('viewBtn').addEventListener('click', function() {
+    var w = window.open('', '_blank');
+    if (!w) { showToast('Pop-up blocked — allow pop-ups for this site', 'error'); hideToast(); return; }
+    w.document.open();
+    w.document.write(buildHtmlReport(buildReport()));
+    w.document.close();
+  });
+
+  q('submitBtn').addEventListener('click', function() {
+    var btn = q('submitBtn');
+    var report = buildReport();
+    var veh = report.vehicle;
+    if (!veh.year && !veh.make && !veh.model && !veh.vin) { showToast('Add vehicle info before submitting', 'error'); hideToast(); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    var formData = new FormData();
+    formData.append('subject', 'PPI: ' + veh.year + ' ' + veh.make + ' ' + veh.model + ' — ' + report.summary.fail + ' fail / ' + report.summary.attention + ' attn');
+    formData.append('summary', buildTextSummary(report));
+    formData.append('report_html', buildHtmlReport(report));
+    formData.append('report_json', JSON.stringify(report, null, 2));
+
+    photos.forEach(function(photo, i) {
+      formData.append('photo_' + (i + 1), dataURLtoBlob(photo.dataUrl), String(i + 1).padStart(2, '0') + '_photo.jpg');
+    });
+
+    fetch(FORMSPREE_ENDPOINT, { method:'POST', body:formData, headers:{Accept:'application/json'} })
+      .then(function(res) { if (!res.ok) throw new Error('Server returned ' + res.status); showToast('Inspection submitted ✓', 'success'); btn.textContent = 'Submitted ✓'; setTimeout(function() { btn.disabled = false; btn.textContent = 'Submit Inspection'; }, 3000); })
+      .catch(function(err) { showToast('Submit failed — ' + err.message, 'error'); btn.disabled = false; btn.textContent = 'Submit Inspection'; })
+      .finally(hideToast);
+  });
+
+  q('resetBtn').addEventListener('click', function() {
+    if (confirm('Reset the entire inspection? This cannot be undone.')) location.reload();
+  });
+
+  if (q('inspectionDate')) q('inspectionDate').valueAsDate = new Date();
+  document.querySelectorAll('.inspection-section').forEach(updateProgress);
+  updateSummary();
+})();
+</script>
+</body>
+</html>
