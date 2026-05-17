@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<meta name="googlebot" content="noindex, nofollow" />
+<title>Repair Order — HonesTech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-2: #141414;
+  --bg-3: #1c1c1c;
+  --line: #2a2a2a;
+  --line-2: #3a3a3a;
+  --text: #ffffff;
+  --muted: #9a9a9a;
+  --yellow: #f5c518;
+  --yellow-dim: #c99c0a;
+  --red: #ef4444;
+  --green: #22c55e;
+  --radius: 6px;
+}
+
+- { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+  font-family: ‘Inter’, -apple-system, sans-serif;
+  background: var(–bg);
+  color: var(–text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  }
+
+/* radial yellow glow */
+body::before {
+content: ‘’;
+position: fixed;
+top: -20%;
+right: -10%;
+width: 600px;
+height: 600px;
+background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 60%);
+pointer-events: none;
+z-index: 0;
+}
+
+/* ===================== LOGIN ===================== */
+#login-screen {
+position: fixed;
+inset: 0;
+background: var(–bg);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+padding: 24px;
+}
+#login-screen::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: radial-gradient(circle at 50% 30%, rgba(245,197,24,0.12) 0%, transparent 50%);
+pointer-events: none;
+}
+.login-card {
+position: relative;
+background: var(–bg-2);
+border: 1px solid var(–line);
+border-radius: var(–radius);
+padding: 40px 32px;
+width: 100%;
+max-width: 380px;
+text-align: center;
+}
+.login-card img {
+width: 90px;
+height: 90px;
+object-fit: contain;
+margin-bottom: 16px;
+}
+.login-card h1 {
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 2px;
+font-size: 22px;
+margin: 0 0 4px;
+text-transform: uppercase;
+}
+.login-card .sub {
+color: var(–muted);
+font-size: 12px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+margin-bottom: 28px;
+}
+.login-card input {
+width: 100%;
+background: var(–bg);
+border: 1px solid var(–line);
+color: var(–text);
+padding: 12px 14px;
+border-radius: var(–radius);
+font-family: ‘Inter’, sans-serif;
+font-size: 14px;
+margin-bottom: 12px;
+}
+.login-card input:focus {
+outline: none;
+border-color: var(–yellow);
+}
+.login-card button {
+width: 100%;
+background: var(–yellow);
+color: #000;
+border: none;
+padding: 13px;
+border-radius: var(–radius);
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 2px;
+text-transform: uppercase;
+font-size: 14px;
+cursor: pointer;
+margin-top: 8px;
+transition: background 0.15s;
+}
+.login-card button:hover { background: #ffd633; }
+.login-error {
+color: var(–red);
+font-size: 12px;
+margin-top: 12px;
+min-height: 16px;
+}
+
+/* ===================== APP ===================== */
+#app { display: none; position: relative; z-index: 1; }
+#app.visible { display: block; }
+
+.topbar {
+position: sticky;
+top: 0;
+background: rgba(10,10,10,0.95);
+backdrop-filter: blur(8px);
+border-bottom: 1px solid var(–line);
+padding: 14px 24px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+z-index: 100;
+}
+.topbar .brand {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.topbar .brand img { width: 36px; height: 36px; object-fit: contain; }
+.topbar .brand-text {
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 2px;
+text-transform: uppercase;
+font-size: 14px;
+}
+.topbar .brand-text span { color: var(–yellow); }
+.topbar .actions { display: flex; gap: 8px; }
+.topbar button {
+background: transparent;
+border: 1px solid var(–line);
+color: var(–muted);
+padding: 7px 12px;
+border-radius: var(–radius);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+cursor: pointer;
+letter-spacing: 0.5px;
+transition: all 0.15s;
+}
+.topbar button:hover { color: var(–text); border-color: var(–line-2); }
+
+.container { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+
+.page-title {
+font-family: ‘Oswald’, sans-serif;
+text-transform: uppercase;
+letter-spacing: 3px;
+font-size: 28px;
+font-weight: 600;
+margin: 0 0 4px;
+}
+.page-title span { color: var(–yellow); }
+.page-sub {
+color: var(–muted);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+margin-bottom: 32px;
+letter-spacing: 0.5px;
+}
+
+.section {
+background: var(–bg-2);
+border: 1px solid var(–line);
+border-radius: var(–radius);
+padding: 24px;
+margin-bottom: 20px;
+}
+.section h2 {
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 2px;
+text-transform: uppercase;
+font-size: 13px;
+color: var(–yellow);
+margin: 0 0 18px;
+padding-bottom: 12px;
+border-bottom: 1px solid var(–line);
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.section h2::before {
+content: ‘’;
+width: 4px;
+height: 14px;
+background: var(–yellow);
+display: inline-block;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media (max-width: 600px) {
+.grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+color: var(–muted);
+letter-spacing: 1px;
+text-transform: uppercase;
+}
+.field input, .field textarea, .field select {
+background: var(–bg);
+border: 1px solid var(–line);
+color: var(–text);
+padding: 10px 12px;
+border-radius: var(–radius);
+font-family: ‘Inter’, sans-serif;
+font-size: 14px;
+width: 100%;
+font-family: ‘JetBrains Mono’, monospace;
+}
+.field textarea {
+font-family: ‘Inter’, sans-serif;
+resize: vertical;
+min-height: 80px;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+outline: none;
+border-color: var(–yellow);
+}
+
+/* labor line items */
+.line-item {
+display: grid;
+grid-template-columns: 1fr 90px 90px 90px 32px;
+gap: 8px;
+margin-bottom: 8px;
+align-items: center;
+}
+.line-item input {
+background: var(–bg);
+border: 1px solid var(–line);
+color: var(–text);
+padding: 9px 10px;
+border-radius: var(–radius);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 13px;
+}
+.line-item .total {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 13px;
+color: var(–yellow);
+text-align: right;
+padding: 9px 10px;
+background: var(–bg);
+border: 1px solid var(–line);
+border-radius: var(–radius);
+}
+.line-item .remove-btn {
+background: transparent;
+border: 1px solid var(–line);
+color: var(–muted);
+border-radius: var(–radius);
+cursor: pointer;
+width: 32px;
+height: 32px;
+font-size: 16px;
+line-height: 1;
+padding: 0;
+}
+.line-item .remove-btn:hover { color: var(–red); border-color: var(–red); }
+.line-header {
+display: grid;
+grid-template-columns: 1fr 90px 90px 90px 32px;
+gap: 8px;
+margin-bottom: 8px;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+color: var(–muted);
+letter-spacing: 1px;
+text-transform: uppercase;
+padding: 0 10px;
+}
+@media (max-width: 600px) {
+.line-item, .line-header { grid-template-columns: 1fr; }
+.line-header { display: none; }
+.line-item input, .line-item .total { font-size: 14px; }
+}
+
+.add-btn {
+background: transparent;
+border: 1px dashed var(–line-2);
+color: var(–muted);
+padding: 10px;
+border-radius: var(–radius);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+letter-spacing: 1px;
+text-transform: uppercase;
+cursor: pointer;
+width: 100%;
+margin-top: 8px;
+transition: all 0.15s;
+}
+.add-btn:hover { color: var(–yellow); border-color: var(–yellow); }
+
+/* totals */
+.totals {
+margin-top: 20px;
+padding-top: 16px;
+border-top: 1px solid var(–line);
+}
+.total-row {
+display: flex;
+justify-content: space-between;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 14px;
+padding: 6px 0;
+}
+.total-row.grand {
+font-size: 20px;
+color: var(–yellow);
+font-weight: 700;
+border-top: 1px solid var(–line);
+margin-top: 8px;
+padding-top: 14px;
+}
+
+/* photo upload */
+.photo-upload {
+border: 1px dashed var(–line-2);
+border-radius: var(–radius);
+padding: 24px;
+text-align: center;
+cursor: pointer;
+transition: all 0.15s;
+color: var(–muted);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+letter-spacing: 1px;
+text-transform: uppercase;
+}
+.photo-upload:hover { color: var(–yellow); border-color: var(–yellow); }
+.photo-upload input { display: none; }
+.photo-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+gap: 10px;
+margin-top: 14px;
+}
+.photo-thumb {
+position: relative;
+aspect-ratio: 1;
+background: var(–bg);
+border: 1px solid var(–line);
+border-radius: var(–radius);
+overflow: hidden;
+}
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.photo-thumb .x {
+position: absolute;
+top: 4px;
+right: 4px;
+background: rgba(0,0,0,0.8);
+color: #fff;
+border: none;
+width: 22px;
+height: 22px;
+border-radius: 50%;
+cursor: pointer;
+font-size: 13px;
+line-height: 1;
+}
+
+/* submit */
+.submit-bar {
+display: flex;
+gap: 10px;
+margin-top: 24px;
+}
+.submit-bar button {
+flex: 1;
+padding: 14px;
+border-radius: var(–radius);
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 2px;
+text-transform: uppercase;
+font-size: 14px;
+cursor: pointer;
+border: none;
+transition: all 0.15s;
+}
+.submit-bar .primary {
+background: var(–yellow);
+color: #000;
+}
+.submit-bar .primary:hover { background: #ffd633; }
+.submit-bar .primary:disabled { opacity: 0.5; cursor: wait; }
+.submit-bar .secondary {
+background: transparent;
+color: var(–text);
+border: 1px solid var(–line-2);
+}
+.submit-bar .secondary:hover { border-color: var(–yellow); color: var(–yellow); }
+
+.status-msg {
+margin-top: 14px;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+letter-spacing: 0.5px;
+text-align: center;
+min-height: 20px;
+}
+.status-msg.success { color: var(–green); }
+.status-msg.error { color: var(–red); }
+
+/* ===================== PRINT VIEW ===================== */
+.print-view { display: none; }
+.print-view.visible {
+display: block;
+position: fixed;
+inset: 0;
+background: #fff;
+color: #000;
+overflow-y: auto;
+z-index: 200;
+padding: 0;
+}
+.print-controls {
+position: sticky;
+top: 0;
+background: #1c1c1c;
+padding: 12px 24px;
+display: flex;
+gap: 10px;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid #333;
+z-index: 10;
+}
+.print-controls .left { color: #f5c518; font-family: ‘Oswald’, sans-serif; letter-spacing: 2px; font-size: 13px; }
+.print-controls .right { display: flex; gap: 8px; }
+.print-controls button {
+background: #f5c518;
+color: #000;
+border: none;
+padding: 9px 16px;
+border-radius: 4px;
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+font-size: 12px;
+cursor: pointer;
+}
+.print-controls button.ghost {
+background: transparent;
+color: #fff;
+border: 1px solid #444;
+}
+
+.invoice-doc {
+max-width: 800px;
+margin: 0 auto;
+padding: 48px 56px;
+font-family: ‘Inter’, sans-serif;
+color: #000;
+background: #fff;
+}
+.invoice-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+padding-bottom: 24px;
+border-bottom: 3px solid #0a0a0a;
+margin-bottom: 32px;
+}
+.invoice-header .biz img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; }
+.invoice-header .biz h1 {
+font-family: ‘Oswald’, sans-serif;
+font-weight: 700;
+letter-spacing: 3px;
+text-transform: uppercase;
+font-size: 22px;
+margin: 0 0 4px;
+}
+.invoice-header .biz h1 span { color: #c99c0a; }
+.invoice-header .biz .tag {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+color: #555;
+letter-spacing: 1px;
+text-transform: uppercase;
+}
+.invoice-header .biz .contact {
+font-size: 12px;
+color: #333;
+margin-top: 10px;
+line-height: 1.6;
+}
+.invoice-header .meta { text-align: right; }
+.invoice-header .meta .label {
+font-family: ‘Oswald’, sans-serif;
+font-weight: 700;
+letter-spacing: 3px;
+text-transform: uppercase;
+font-size: 24px;
+background: #f5c518;
+color: #000;
+padding: 6px 14px;
+display: inline-block;
+margin-bottom: 12px;
+}
+.invoice-header .meta .row {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+color: #333;
+margin: 4px 0;
+}
+.invoice-header .meta .row strong { color: #000; font-weight: 700; }
+
+.inv-section { margin-bottom: 24px; }
+.inv-section h3 {
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 2px;
+text-transform: uppercase;
+font-size: 11px;
+color: #555;
+border-bottom: 1px solid #ddd;
+padding-bottom: 6px;
+margin: 0 0 10px;
+}
+.inv-twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.inv-field { margin-bottom: 8px; font-size: 13px; color: #222; }
+.inv-field strong { display: block; font-size: 10px; color: #777; text-transform: uppercase; letter-spacing: 1px; font-family: ‘JetBrains Mono’, monospace; margin-bottom: 2px; }
+
+.inv-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.inv-table th {
+background: #0a0a0a;
+color: #f5c518;
+font-family: ‘Oswald’, sans-serif;
+font-weight: 600;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+font-size: 10px;
+padding: 10px 12px;
+text-align: left;
+}
+.inv-table th.num { text-align: right; }
+.inv-table td {
+padding: 12px;
+border-bottom: 1px solid #eee;
+font-size: 13px;
+vertical-align: top;
+}
+.inv-table td.num { text-align: right; font-family: ‘JetBrains Mono’, monospace; }
+
+.inv-totals { margin-top: 16px; display: flex; justify-content: flex-end; }
+.inv-totals-box { min-width: 280px; }
+.inv-totals .row {
+display: flex;
+justify-content: space-between;
+padding: 6px 0;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 13px;
+}
+.inv-totals .grand {
+background: #0a0a0a;
+color: #f5c518;
+padding: 12px 16px;
+margin-top: 8px;
+font-family: ‘Oswald’, sans-serif;
+font-weight: 700;
+font-size: 18px;
+letter-spacing: 2px;
+text-transform: uppercase;
+display: flex;
+justify-content: space-between;
+}
+
+.inv-notes {
+background: #fafafa;
+border-left: 3px solid #f5c518;
+padding: 14px 18px;
+font-size: 13px;
+line-height: 1.6;
+white-space: pre-wrap;
+}
+.inv-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.inv-photos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border: 1px solid #ddd; }
+
+.inv-footer {
+margin-top: 40px;
+padding-top: 20px;
+border-top: 2px solid #0a0a0a;
+text-align: center;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+color: #666;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+}
+.inv-footer .thanks {
+font-family: ‘Oswald’, sans-serif;
+font-size: 14px;
+letter-spacing: 3px;
+color: #000;
+margin-bottom: 6px;
+}
+
+@media print {
+body { background: #fff; }
+body::before { display: none; }
+.print-controls, #app, #login-screen { display: none !important; }
+.print-view { position: static; }
+.invoice-doc { padding: 24px; max-width: 100%; }
+.inv-section { page-break-inside: avoid; }
+.inv-photos { page-break-inside: avoid; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+
+<div id="login-screen">
+  <div class="login-card">
+    <img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="HonesTech" />
+    <h1>Repair Order</h1>
+    <div class="sub">Authorized Access Only</div>
+    <input type="text" id="login-user" placeholder="Username" autocomplete="off" />
+    <input type="password" id="login-pass" placeholder="Password" autocomplete="off" />
+    <button id="login-btn">Sign In</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+
+<div id="app">
+  <div class="topbar">
+    <div class="brand">
+      <img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="" />
+      <div class="brand-text">Hones<span>Tech</span> &middot; Repair Order</div>
+    </div>
+    <div class="actions">
+      <button id="reset-btn">New Order</button>
+      <button id="logout-btn">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Repair <span>Order</span></h1>
+    <div class="page-sub">// Internal tool · not indexed · session only</div>
+
+```
+<form id="order-form" autocomplete="off">
+
+  <!-- Order info -->
+  <div class="section">
+    <h2>Order Info</h2>
+    <div class="grid-3">
+      <div class="field">
+        <label>Order #</label>
+        <input type="text" id="order-num" name="order_num" readonly />
+      </div>
+      <div class="field">
+        <label>Date</label>
+        <input type="date" id="order-date" name="order_date" />
+      </div>
+      <div class="field">
+        <label>Technician</label>
+        <input type="text" id="technician" name="technician" placeholder="Juan" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer -->
+  <div class="section">
+    <h2>Customer</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" name="customer_name" required />
+      </div>
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" name="customer_phone" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="customer_email" />
+      </div>
+      <div class="field">
+        <label>Service Address</label>
+        <input type="text" name="customer_address" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Vehicle -->
+  <div class="section">
+    <h2>Vehicle</h2>
+    <div class="grid-3">
+      <div class="field">
+        <label>Year</label>
+        <input type="text" name="vehicle_year" />
+      </div>
+      <div class="field">
+        <label>Make</label>
+        <input type="text" name="vehicle_make" />
+      </div>
+      <div class="field">
+        <label>Model</label>
+        <input type="text" name="vehicle_model" />
+      </div>
+      <div class="field">
+        <label>Mileage</label>
+        <input type="text" name="vehicle_mileage" />
+      </div>
+      <div class="field">
+        <label>License Plate</label>
+        <input type="text" name="vehicle_plate" />
+      </div>
+      <div class="field">
+        <label>VIN (optional)</label>
+        <input type="text" name="vehicle_vin" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Service -->
+  <div class="section">
+    <h2>Repair / Service Performed</h2>
+    <div class="field">
+      <label>Description of work</label>
+      <textarea name="service_description" rows="4" placeholder="e.g. Front brake pad replacement, rotor resurfacing, brake fluid top-off..." required></textarea>
+    </div>
+  </div>
+
+  <!-- Labor lines -->
+  <div class="section">
+    <h2>Labor Line Items</h2>
+    <div class="line-header">
+      <div>Description</div>
+      <div style="text-align:right">Hours</div>
+      <div style="text-align:right">Rate</div>
+      <div style="text-align:right">Total</div>
+      <div></div>
+    </div>
+    <div id="lines"></div>
+    <button type="button" class="add-btn" id="add-line">+ Add Line</button>
+
+    <div class="totals">
+      <div class="total-row grand">
+        <span>Total</span>
+        <span id="grand-total">$0.00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="section">
+    <h2>Notes &amp; Recommendations</h2>
+    <div class="field">
+      <label>Visible to customer</label>
+      <textarea name="notes" rows="4" placeholder="e.g. Recommend rear brake service within next 5,000 mi. Tires showing inner wear — suggest alignment check."></textarea>
+    </div>
+  </div>
+
+  <!-- Photos -->
+  <div class="section">
+    <h2>Photos of Work</h2>
+    <label class="photo-upload" id="photo-upload-btn">
+      <span>+ Tap to add photos</span>
+      <input type="file" id="photo-input" accept="image/*" multiple capture="environment" />
+    </label>
+    <div class="photo-grid" id="photo-grid"></div>
+  </div>
+
+  <div class="submit-bar">
+    <button type="button" class="secondary" id="preview-btn">Preview</button>
+    <button type="submit" class="primary" id="submit-btn">Submit &amp; Generate</button>
+  </div>
+  <div class="status-msg" id="status-msg"></div>
+</form>
+```
+
+  </div>
+</div>
+
+<!-- ============ PRINT VIEW ============ -->
+
+<div class="print-view" id="print-view">
+  <div class="print-controls">
+    <div class="left">HonesTech · Repair Order Preview</div>
+    <div class="right">
+      <button class="ghost" id="back-btn">← Back to Edit</button>
+      <button id="print-btn">Print / Save PDF</button>
+    </div>
+  </div>
+  <div class="invoice-doc" id="invoice-doc"></div>
+</div>
+
+<script>
+/* ===================== CONFIG ===================== */
+const AUTH = {
+  // change these to whatever you like
+  user: 'juan',
+  pass: 'honestech2026'
+};
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOUR_ENDPOINT'; // <-- update
+
+const BUSINESS = {
+  name: 'HonesTech Mobile Mechanic',
+  phone: '(555) 555-5555',          // <-- update
+  email: 'info@honestechmobilemechanic.com',
+  web:   'honestechmobilemechanic.com',
+  area:  'Middlesex County, NJ'
+};
+
+/* ===================== LOGIN ===================== */
+const SESSION_KEY = 'ht_repair_session';
+
+function checkSession() {
+  if (sessionStorage.getItem(SESSION_KEY) === 'ok') showApp();
+}
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  init();
+}
+document.getElementById('login-btn').addEventListener('click', tryLogin);
+document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+function tryLogin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value;
+  const err = document.getElementById('login-error');
+  if (u === AUTH.user && p === AUTH.pass) {
+    sessionStorage.setItem(SESSION_KEY, 'ok');
+    showApp();
+  } else {
+    err.textContent = 'Invalid credentials.';
+    setTimeout(() => err.textContent = '', 2500);
+  }
+}
+document.addEventListener('DOMContentLoaded', checkSession);
+
+/* ===================== APP ===================== */
+let photos = []; // {id, dataUrl}
+
+function init() {
+  // order number + date
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const ord = `HT-${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}`;
+  document.getElementById('order-num').value = ord;
+  document.getElementById('order-date').value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+
+  // first labor line
+  addLine();
+
+  // events
+  document.getElementById('add-line').addEventListener('click', () => addLine());
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  });
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    if (confirm('Start a new repair order? Current data will be cleared.')) location.reload();
+  });
+
+  document.getElementById('photo-input').addEventListener('change', handlePhotos);
+  document.getElementById('preview-btn').addEventListener('click', () => buildPreview(false));
+  document.getElementById('order-form').addEventListener('submit', handleSubmit);
+  document.getElementById('back-btn').addEventListener('click', () => {
+    document.getElementById('print-view').classList.remove('visible');
+  });
+  document.getElementById('print-btn').addEventListener('click', () => window.print());
+}
+
+/* ----- labor lines ----- */
+function addLine(desc='', hours='', rate='') {
+  const wrap = document.getElementById('lines');
+  const row = document.createElement('div');
+  row.className = 'line-item';
+  row.innerHTML = `
+    <input type="text" class="li-desc" placeholder="Description (e.g. Replace front brake pads)" value="${desc}">
+    <input type="number" class="li-hours" placeholder="0" step="0.25" min="0" value="${hours}">
+    <input type="number" class="li-rate" placeholder="0" step="1" min="0" value="${rate}">
+    <div class="total" data-total>$0.00</div>
+    <button type="button" class="remove-btn" title="Remove">×</button>
+  `;
+  wrap.appendChild(row);
+  row.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));
+  row.querySelector('.remove-btn').addEventListener('click', () => {
+    if (wrap.children.length > 1) { row.remove(); recalc(); }
+  });
+  recalc();
+}
+
+function recalc() {
+  let grand = 0;
+  document.querySelectorAll('.line-item').forEach(row => {
+    const h = parseFloat(row.querySelector('.li-hours').value) || 0;
+    const r = parseFloat(row.querySelector('.li-rate').value) || 0;
+    const t = h * r;
+    row.querySelector('[data-total]').textContent = `$${t.toFixed(2)}`;
+    grand += t;
+  });
+  document.getElementById('grand-total').textContent = `$${grand.toFixed(2)}`;
+}
+
+/* ----- photo handling (compress like brake QC) ----- */
+function handlePhotos(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(f => compressImage(f).then(dataUrl => {
+    const id = 'p' + Date.now() + Math.random().toString(36).slice(2,6);
+    photos.push({ id, dataUrl });
+    renderPhotos();
+  }));
+  e.target.value = '';
+}
+function compressImage(file, maxDim=1280, quality=0.7) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+          else { width = Math.round(width * maxDim / height); height = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = ev.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+function renderPhotos() {
+  const grid = document.getElementById('photo-grid');
+  grid.innerHTML = '';
+  photos.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'photo-thumb';
+    div.innerHTML = `<img src="${p.dataUrl}" alt=""><button type="button" class="x" data-id="${p.id}">×</button>`;
+    div.querySelector('.x').addEventListener('click', () => {
+      photos = photos.filter(x => x.id !== p.id);
+      renderPhotos();
+    });
+    grid.appendChild(div);
+  });
+}
+
+/* ----- gather form data ----- */
+function gather() {
+  const form = document.getElementById('order-form');
+  const fd = new FormData(form);
+  const data = {};
+  for (const [k,v] of fd.entries()) data[k] = v;
+  data.lines = [];
+  document.querySelectorAll('.line-item').forEach(row => {
+    const d = row.querySelector('.li-desc').value.trim();
+    const h = parseFloat(row.querySelector('.li-hours').value) || 0;
+    const r = parseFloat(row.querySelector('.li-rate').value) || 0;
+    if (d || h || r) data.lines.push({ desc: d, hours: h, rate: r, total: h*r });
+  });
+  data.grand_total = data.lines.reduce((s,l) => s + l.total, 0);
+  data.photos = photos.map(p => p.dataUrl);
+  return data;
+}
+
+/* ----- preview / print doc ----- */
+function buildPreview(afterSubmit) {
+  const d = gather();
+  const html = `
+    <div class="invoice-header">
+      <div class="biz">
+        <img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="">
+        <h1>Hones<span>Tech</span></h1>
+        <div class="tag">Mobile Mechanic</div>
+        <div class="contact">
+          ${BUSINESS.area}<br>
+          ${BUSINESS.phone} · ${BUSINESS.email}<br>
+          ${BUSINESS.web}
+        </div>
+      </div>
+      <div class="meta">
+        <div class="label">Repair Order</div>
+        <div class="row"><strong>Order #</strong> ${escape(d.order_num)}</div>
+        <div class="row"><strong>Date</strong> ${escape(d.order_date)}</div>
+        <div class="row"><strong>Technician</strong> ${escape(d.technician || '—')}</div>
+      </div>
+    </div>
+
+    <div class="inv-section">
+      <h3>Customer &amp; Vehicle</h3>
+      <div class="inv-twocol">
+        <div>
+          <div class="inv-field"><strong>Name</strong>${escape(d.customer_name || '—')}</div>
+          <div class="inv-field"><strong>Phone</strong>${escape(d.customer_phone || '—')}</div>
+          <div class="inv-field"><strong>Email</strong>${escape(d.customer_email || '—')}</div>
+          <div class="inv-field"><strong>Address</strong>${escape(d.customer_address || '—')}</div>
+        </div>
+        <div>
+          <div class="inv-field"><strong>Vehicle</strong>${escape([d.vehicle_year, d.vehicle_make, d.vehicle_model].filter(Boolean).join(' ') || '—')}</div>
+          <div class="inv-field"><strong>Mileage</strong>${escape(d.vehicle_mileage || '—')}</div>
+          <div class="inv-field"><strong>Plate</strong>${escape(d.vehicle_plate || '—')}</div>
+          <div class="inv-field"><strong>VIN</strong>${escape(d.vehicle_vin || '—')}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-section">
+      <h3>Service Performed</h3>
+      <div class="inv-notes">${escape(d.service_description || '—')}</div>
+    </div>
+
+    <div class="inv-section">
+      <h3>Labor</h3>
+      <table class="inv-table">
+        <thead>
+          <tr><th>Description</th><th class="num">Hours</th><th class="num">Rate</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          ${d.lines.length ? d.lines.map(l => `
+            <tr>
+              <td>${escape(l.desc || '—')}</td>
+              <td class="num">${l.hours.toFixed(2)}</td>
+              <td class="num">$${l.rate.toFixed(2)}</td>
+              <td class="num">$${l.total.toFixed(2)}</td>
+            </tr>`).join('') : '<tr><td colspan="4" style="color:#999;text-align:center">No labor lines</td></tr>'}
+        </tbody>
+      </table>
+      <div class="inv-totals">
+        <div class="inv-totals-box">
+          <div class="grand"><span>Total Due</span><span>$${d.grand_total.toFixed(2)}</span></div>
+        </div>
+      </div>
+    </div>
+
+    ${d.notes ? `
+    <div class="inv-section">
+      <h3>Notes &amp; Recommendations</h3>
+      <div class="inv-notes">${escape(d.notes)}</div>
+    </div>` : ''}
+
+    ${d.photos.length ? `
+    <div class="inv-section">
+      <h3>Photos</h3>
+      <div class="inv-photos">
+        ${d.photos.map(p => `<img src="${p}" alt="">`).join('')}
+      </div>
+    </div>` : ''}
+
+    <div class="inv-footer">
+      <div class="thanks">Thank You For Your Business</div>
+      ${BUSINESS.web} · ${BUSINESS.phone}
+    </div>
+  `;
+  document.getElementById('invoice-doc').innerHTML = html;
+  document.getElementById('print-view').classList.add('visible');
+  window.scrollTo(0, 0);
+}
+function escape(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ----- submit ----- */
+async function handleSubmit(e) {
+  e.preventDefault();
+  const data = gather();
+  const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('status-msg');
+  status.className = 'status-msg';
+  status.textContent = '';
+
+  if (!data.customer_name || !data.service_description) {
+    status.className = 'status-msg error';
+    status.textContent = 'Customer name and service description are required.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  status.textContent = 'Submitting...';
+
+  // build flat payload for Formspree (photos as compressed base64, like brake-qc)
+  const payload = {
+    _subject: `Repair Order ${data.order_num} — ${data.customer_name}`,
+    order_num: data.order_num,
+    date: data.order_date,
+    technician: data.technician,
+    customer_name: data.customer_name,
+    customer_phone: data.customer_phone,
+    customer_email: data.customer_email,
+    customer_address: data.customer_address,
+    vehicle: [data.vehicle_year, data.vehicle_make, data.vehicle_model].filter(Boolean).join(' '),
+    mileage: data.vehicle_mileage,
+    plate: data.vehicle_plate,
+    vin: data.vehicle_vin,
+    service_description: data.service_description,
+    labor_lines: data.lines.map(l => `${l.desc} | ${l.hours}h × $${l.rate} = $${l.total.toFixed(2)}`).join('\n'),
+    grand_total: `$${data.grand_total.toFixed(2)}`,
+    notes: data.notes,
+    photo_count: data.photos.length
+  };
+  data.photos.forEach((p, i) => payload[`photo_${i+1}`] = p);
+
+  try {
+    if (FORMSPREE_ENDPOINT.includes('REPLACE_WITH')) {
+      // skip network if not configured — still build preview
+      console.warn('Formspree not configured — skipping email submit.');
+    } else {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Network error ' + res.status);
+    }
+    status.className = 'status-msg success';
+    status.textContent = '✓ Submitted. Opening printable view...';
+    setTimeout(() => buildPreview(true), 500);
+  } catch (err) {
+    status.className = 'status-msg error';
+    status.textContent = 'Submit failed: ' + err.message + ' (preview still available)';
+    setTimeout(() => buildPreview(true), 800);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit & Generate';
+  }
+}
+</script>
+
+</body>
+</html>
