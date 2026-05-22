@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>A/C Diagnostic · Honestech</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .fade-in { animation: fadeIn 0.35s ease; }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type=number] { -moz-appearance: textfield; }
+</style>
+</head>
+<body class="bg-neutral-950 text-neutral-100 min-h-screen">
+
+<div class="fixed inset-0 pointer-events-none opacity-[0.04]"
+     style="background-image: linear-gradient(rgba(250,204,21,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(250,204,21,0.5) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+<!-- LOGIN GATE -->
+<div id="gate" class="relative min-h-screen flex items-center justify-center px-5">
+  <div class="w-full max-w-sm">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-10 h-10 bg-yellow-400 flex items-center justify-center">
+        <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div>
+        <h1 class="text-lg font-black tracking-tight uppercase">A/C Diagnostic</h1>
+        <p class="text-[10px] text-yellow-400/80 tracking-[0.2em] uppercase">Honestech · Restricted</p>
+      </div>
+    </div>
+    <label class="block border border-neutral-700 focus-within:border-yellow-400 bg-neutral-900/60 p-3 mb-3">
+      <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Username</span>
+      <input id="user-input" type="text" autocomplete="username" class="w-full bg-transparent text-lg font-bold outline-none mt-1" />
+    </label>
+    <label class="block border border-neutral-700 focus-within:border-yellow-400 bg-neutral-900/60 p-3 mb-3">
+      <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Password</span>
+      <input id="pw-input" type="password" autocomplete="current-password" class="w-full bg-transparent text-lg font-bold outline-none mt-1" />
+    </label>
+    <p id="pw-error" class="text-xs text-red-400 mb-3 hidden">Incorrect credentials</p>
+    <button id="pw-submit" class="w-full bg-yellow-400 text-black font-black uppercase tracking-wider py-3 hover:bg-yellow-300 text-sm">Enter</button>
+    <p class="mt-6 text-[10px] text-neutral-600 text-center">Private tool · Honestech Mobile Mechanic</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="relative max-w-2xl mx-auto px-5 py-6 hidden">
+  <header class="mb-6 border-b border-yellow-400/30 pb-4">
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-yellow-400 flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-black tracking-tight uppercase">A/C Diagnostic</h1>
+          <p class="text-[10px] text-yellow-400/80 tracking-[0.2em] uppercase">Honestech · Field Tool</p>
+        </div>
+      </div>
+      <button id="logout-btn" class="text-[10px] uppercase tracking-wider text-neutral-500 hover:text-yellow-400">Lock</button>
+    </div>
+    <nav class="flex gap-1">
+      <button data-tab="diagnose" class="tab-btn flex-1 py-2 text-[10px] font-bold uppercase tracking-wider border">Diagnose</button>
+      <button data-tab="garage" class="tab-btn flex-1 py-2 text-[10px] font-bold uppercase tracking-wider border">Garage <span id="garage-count">(0)</span></button>
+      <button data-tab="history" class="tab-btn flex-1 py-2 text-[10px] font-bold uppercase tracking-wider border">History <span id="history-count">(0)</span></button>
+    </nav>
+  </header>
+
+  <section id="view-diagnose">
+    <div id="active-vehicle-banner"></div>
+    <div class="space-y-4 mb-6">
+      <div class="flex gap-2" id="refrigerant-select">
+        <button data-ref="R-134a" class="ref-btn flex-1 py-2 text-xs font-bold uppercase tracking-wider border">R-134a</button>
+        <button data-ref="R-1234yf" class="ref-btn flex-1 py-2 text-xs font-bold uppercase tracking-wider border">R-1234yf</button>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="block border border-neutral-700 focus-within:border-yellow-400 bg-neutral-900/60 p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Ambient</span>
+            <span class="text-[10px] text-neutral-500 font-bold">°F</span>
+          </div>
+          <input id="in-ambient" type="number" inputmode="decimal" placeholder="85" class="w-full bg-transparent text-2xl font-black tracking-tight outline-none placeholder:text-neutral-700" />
+        </label>
+        <label class="block border border-neutral-700 focus-within:border-yellow-400 bg-neutral-900/60 p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Humidity</span>
+            <span class="text-[10px] text-neutral-500 font-bold">% RH</span>
+          </div>
+          <input id="in-humidity" type="number" inputmode="decimal" placeholder="opt." class="w-full bg-transparent text-2xl font-black tracking-tight outline-none placeholder:text-neutral-700" />
+        </label>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="block border border-blue-400/40 focus-within:border-blue-400 bg-neutral-900/60 p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Low Side</span>
+            <span class="text-[10px] text-neutral-500 font-bold">PSI</span>
+          </div>
+          <input id="in-low" type="number" inputmode="decimal" placeholder="35" class="w-full bg-transparent text-2xl font-black tracking-tight outline-none placeholder:text-neutral-700" />
+        </label>
+        <label class="block border border-red-400/40 focus-within:border-red-400 bg-neutral-900/60 p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">High Side</span>
+            <span class="text-[10px] text-neutral-500 font-bold">PSI</span>
+          </div>
+          <input id="in-high" type="number" inputmode="decimal" placeholder="200" class="w-full bg-transparent text-2xl font-black tracking-tight outline-none placeholder:text-neutral-700" />
+        </label>
+      </div>
+      <div class="flex gap-2 pt-2">
+        <button id="analyze-btn" class="flex-1 bg-yellow-400 text-black font-black uppercase tracking-wider py-4 hover:bg-yellow-300 active:bg-yellow-500 text-sm">Analyze</button>
+        <button id="reset-btn" class="px-5 border border-neutral-700 text-neutral-400 font-bold uppercase tracking-wider hover:border-yellow-400 hover:text-yellow-400 text-sm">Reset</button>
+      </div>
+    </div>
+    <div id="result-area"></div>
+    <div id="reference-area"></div>
+  </section>
+
+  <section id="view-garage" class="hidden"></section>
+  <section id="view-history" class="hidden"></section>
+
+  <footer class="mt-10 pt-5 border-t border-neutral-800 text-[10px] text-neutral-500 leading-relaxed">
+    <p class="uppercase tracking-wider text-yellow-400/60 mb-1">Disclaimer</p>
+    <p>Rule-of-thumb diagnostic. Always confirm with manifold gauges at idle + 1500 RPM, max A/C, doors open, ambient ≥70°F. System must be stable. Saved data is private to this device.</p>
+  </footer>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────────── */
+/* CREDENTIALS — change here                                           */
+/* ─────────────────────────────────────────────────────────────────── */
+const USERNAME = "Juan";
+const PASSWORD = "HonesTech";
+const STORAGE_PREFIX = "honestech-ac-";
+
+/* ───── GATE ───── */
+const gate = document.getElementById("gate");
+const app = document.getElementById("app");
+const userInput = document.getElementById("user-input");
+const pwInput = document.getElementById("pw-input");
+const pwSubmit = document.getElementById("pw-submit");
+const pwError = document.getElementById("pw-error");
+
+function checkAuth() {
+  if (sessionStorage.getItem(STORAGE_PREFIX + "auth") === "ok") {
+    gate.classList.add("hidden");
+    app.classList.remove("hidden");
+    initApp();
+  }
+}
+function tryLogin() {
+  if (userInput.value.trim() === USERNAME && pwInput.value === PASSWORD) {
+    sessionStorage.setItem(STORAGE_PREFIX + "auth", "ok");
+    checkAuth();
+  } else {
+    pwError.classList.remove("hidden");
+    pwInput.value = "";
+  }
+}
+pwSubmit.addEventListener("click", tryLogin);
+userInput.addEventListener("keydown", e => { if (e.key === "Enter") pwInput.focus(); });
+pwInput.addEventListener("keydown", e => { if (e.key === "Enter") tryLogin(); });
+checkAuth();
+
+/* ───── STATE ───── */
+let state = {
+  view: "diagnose",
+  refrigerant: "R-134a",
+  vehicles: [],
+  sessions: [],
+  activeVehicleId: null,
+  result: null,
+  saved: false,
+  garageMode: "list",
+  editingId: null,
+  historyFilter: "all",
+};
+
+function loadStorage() {
+  try { state.vehicles = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "vehicles") || "[]"); } catch {}
+  try { state.sessions = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "sessions") || "[]"); } catch {}
+  try { state.activeVehicleId = localStorage.getItem(STORAGE_PREFIX + "active") || null; } catch {}
+}
+function saveVehicles() { localStorage.setItem(STORAGE_PREFIX + "vehicles", JSON.stringify(state.vehicles)); updateCounts(); }
+function saveSessions() { localStorage.setItem(STORAGE_PREFIX + "sessions", JSON.stringify(state.sessions)); updateCounts(); }
+function saveActive() {
+  if (state.activeVehicleId) localStorage.setItem(STORAGE_PREFIX + "active", state.activeVehicleId);
+  else localStorage.removeItem(STORAGE_PREFIX + "active");
+}
+function activeVehicle() { return state.vehicles.find(v => v.id === state.activeVehicleId) || null; }
+function escapeHtml(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+/* ───── INIT ───── */
+function initApp() {
+  loadStorage();
+  const av = activeVehicle();
+  if (av?.refrigerant) state.refrigerant = av.refrigerant;
+  renderRefrigerant();
+  renderTabs();
+
+  document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => switchTab(btn.dataset.tab)));
+  document.querySelectorAll(".ref-btn").forEach(btn => btn.addEventListener("click", () => {
+    state.refrigerant = btn.dataset.ref;
+    renderRefrigerant();
+  }));
+  document.getElementById("analyze-btn").addEventListener("click", analyze);
+  document.getElementById("reset-btn").addEventListener("click", resetForm);
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    sessionStorage.removeItem(STORAGE_PREFIX + "auth");
+    location.reload();
+  });
+
+  updateCounts();
+  renderActiveBanner();
+  renderReference();
+}
+
+function renderTabs() {
+  document.querySelectorAll(".tab-btn").forEach(b => {
+    const active = b.dataset.tab === state.view;
+    b.className = "tab-btn flex-1 py-2 text-[10px] font-bold uppercase tracking-wider border " +
+      (active ? "bg-yellow-400 text-black border-yellow-400" : "bg-transparent text-neutral-400 border-neutral-800 hover:border-neutral-600");
+  });
+}
+function switchTab(tab) {
+  state.view = tab;
+  renderTabs();
+  document.getElementById("view-diagnose").classList.toggle("hidden", tab !== "diagnose");
+  document.getElementById("view-garage").classList.toggle("hidden", tab !== "garage");
+  document.getElementById("view-history").classList.toggle("hidden", tab !== "history");
+  if (tab === "garage") { state.garageMode = "list"; renderGarage(); }
+  if (tab === "history") renderHistory();
+  if (tab === "diagnose") renderActiveBanner();
+}
+function updateCounts() {
+  document.getElementById("garage-count").textContent = `(${state.vehicles.length})`;
+  document.getElementById("history-count").textContent = `(${state.sessions.length})`;
+}
+function renderRefrigerant() {
+  document.querySelectorAll(".ref-btn").forEach(b => {
+    const active = b.dataset.ref === state.refrigerant;
+    b.className = "ref-btn flex-1 py-2 text-xs font-bold uppercase tracking-wider border " +
+      (active ? "bg-yellow-400 text-black border-yellow-400" : "bg-transparent text-neutral-400 border-neutral-700 hover:border-neutral-500");
+  });
+}
+
+/* ───── ACTIVE BANNER ───── */
+function renderActiveBanner() {
+  const av = activeVehicle();
+  const el = document.getElementById("active-vehicle-banner");
+  if (!av) {
+    el.innerHTML = `<button id="select-vehicle-btn" class="w-full mb-4 border border-dashed border-neutral-700 hover:border-yellow-400 hover:text-yellow-400 text-neutral-500 py-3 text-xs font-bold uppercase tracking-wider transition-colors">${state.vehicles.length > 0 ? "Select Vehicle" : "Add Vehicle (Optional)"}</button>`;
+    document.getElementById("select-vehicle-btn").addEventListener("click", () => switchTab("garage"));
+    return;
+  }
+  el.innerHTML = `
+    <div class="mb-4 border border-yellow-400/40 bg-yellow-400/5 p-3 flex items-center justify-between gap-3">
+      <div class="min-w-0">
+        <p class="text-sm font-bold truncate">${escapeHtml(av.year)} ${escapeHtml(av.make)} ${escapeHtml(av.model)}</p>
+        <p class="text-[10px] text-neutral-400 uppercase tracking-wider truncate">
+          ${escapeHtml(av.refrigerant)}${av.capacity ? " · " + escapeHtml(av.capacity) + " oz" : ""}${av.plate ? " · " + escapeHtml(av.plate) : ""}
+        </p>
+      </div>
+      <button id="clear-vehicle-btn" class="text-[10px] uppercase tracking-wider text-neutral-500 hover:text-yellow-400 shrink-0">Clear</button>
+    </div>`;
+  document.getElementById("clear-vehicle-btn").addEventListener("click", () => {
+    state.activeVehicleId = null;
+    saveActive();
+    renderActiveBanner();
+  });
+}
+
+/* ───── ANALYZE / RESET ───── */
+function analyze() {
+  const T = parseFloat(document.getElementById("in-ambient").value);
+  const RHraw = document.getElementById("in-humidity").value;
+  const RH = RHraw === "" ? null : parseFloat(RHraw);
+  const L = parseFloat(document.getElementById("in-low").value);
+  const H = parseFloat(document.getElementById("in-high").value);
+  if (isNaN(T) || isNaN(L) || isNaN(H)) return;
+  state.result = diagnose(T, L, H, state.refrigerant, RH);
+  state.saved = false;
+  state.lastInputs = { T, L, H, RH };
+  renderResult();
+  document.getElementById("reference-area").innerHTML = "";
+}
+function resetForm() {
+  ["in-ambient","in-humidity","in-low","in-high"].forEach(id => document.getElementById(id).value = "");
+  state.result = null;
+  state.saved = false;
+  document.getElementById("result-area").innerHTML = "";
+  renderReference();
+}
+
+/* ───── RESULT ───── */
+function renderResult() {
+  const r = state.result;
+  if (!r) { document.getElementById("result-area").innerHTML = ""; return; }
+  const styles = {
+    good: { text: "text-green-400", border: "border-green-500/40" },
+    warn: { text: "text-yellow-400", border: "border-yellow-400/40" },
+    bad:  { text: "text-red-400",    border: "border-red-500/40" },
+  }[r.color];
+  const lowIn = r.readings.low >= r.expected.low.min && r.readings.low <= r.expected.low.max;
+  const highIn = r.readings.high >= r.expected.high.min && r.readings.high <= r.expected.high.max;
+
+  document.getElementById("result-area").innerHTML = `
+    <section class="space-y-4 fade-in">
+      <div class="border ${styles.border} bg-neutral-900/60 p-4">
+        <p class="text-xs font-black uppercase tracking-[0.2em] ${styles.text} mb-3">${escapeHtml(r.status)}</p>
+        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-neutral-800">
+          <div>
+            <p class="text-[10px] uppercase tracking-wider text-neutral-500">Low</p>
+            <p class="text-2xl font-black ${lowIn ? "text-green-400" : "text-red-400"}">${r.readings.low}<span class="text-xs text-neutral-500 ml-1">PSI</span></p>
+            <p class="text-[10px] text-neutral-500 mt-0.5">Target: ${r.expected.low.min}–${r.expected.low.max}</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-wider text-neutral-500">High</p>
+            <p class="text-2xl font-black ${highIn ? "text-green-400" : "text-red-400"}">${r.readings.high}<span class="text-xs text-neutral-500 ml-1">PSI</span></p>
+            <p class="text-[10px] text-neutral-500 mt-0.5">Target: ${r.expected.high.min}–${r.expected.high.max}</p>
+          </div>
+        </div>
+        ${r.humidityNote ? `<p class="text-[10px] text-neutral-400 mt-3 pt-3 border-t border-neutral-800">${escapeHtml(r.humidityNote)}</p>` : ""}
+      </div>
+      ${r.issues.length > 0 ? `
+        <div class="space-y-3">
+          <h2 class="text-xs font-black uppercase tracking-[0.2em] text-yellow-400">Possible Causes</h2>
+          ${r.issues.map((issue, i) => `
+            <div class="border border-neutral-800 bg-neutral-900/40 p-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-yellow-400 text-black font-black text-xs flex items-center justify-center shrink-0">${i + 1}</div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-sm font-bold text-neutral-100 mb-1">${escapeHtml(issue.title)}</h3>
+                  <p class="text-xs text-neutral-400 leading-relaxed mb-2">${escapeHtml(issue.desc)}</p>
+                  ${issue.checks ? `
+                    <div class="mt-2 pt-2 border-t border-neutral-800">
+                      <p class="text-[10px] uppercase tracking-wider text-yellow-400/70 mb-1">Check</p>
+                      <ul class="text-xs text-neutral-400 space-y-1">
+                        ${issue.checks.map(c => `<li class="flex gap-2"><span class="text-yellow-400">→</span><span>${escapeHtml(c)}</span></li>`).join("")}
+                      </ul>
+                    </div>` : ""}
+                </div>
+              </div>
+            </div>`).join("")}
+        </div>` : ""}
+      <button id="save-session-btn" class="w-full py-3 border font-bold uppercase tracking-wider text-xs ${state.saved ? "border-green-500/40 text-green-400 bg-green-500/5" : "border-yellow-400/40 text-yellow-400 hover:bg-yellow-400 hover:text-black"}">
+        ${state.saved ? "✓ Saved to History" : "Save Session"}
+      </button>
+    </section>`;
+  document.getElementById("save-session-btn").addEventListener("click", saveCurrentSession);
+}
+function saveCurrentSession() {
+  if (!state.result || state.saved) return;
+  const av = activeVehicle();
+  const { T, L, H, RH } = state.lastInputs;
+  state.sessions.unshift({
+    id: Date.now().toString(),
+    vehicleId: av?.id || null,
+    vehicleLabel: av ? `${av.year} ${av.make} ${av.model}` : "Unknown vehicle",
+    timestamp: Date.now(),
+    ambient: T, humidity: RH, lowSide: L, highSide: H,
+    refrigerant: state.refrigerant,
+    status: state.result.status, color: state.result.color,
+  });
+  saveSessions();
+  state.saved = true;
+  renderResult();
+}
+
+/* ───── REFERENCE ───── */
+function renderReference() {
+  document.getElementById("reference-area").innerHTML = `
+    <section class="border border-neutral-800 bg-neutral-900/40 p-4 text-xs text-neutral-400 leading-relaxed">
+      <h2 class="text-xs font-black uppercase tracking-[0.2em] text-yellow-400 mb-3">How it works</h2>
+      <ul class="space-y-2">
+        <li><span class="text-yellow-400/70">Low side</span> should roughly equal ambient temp in °F (e.g. 85°F → ~30–45 PSI).</li>
+        <li><span class="text-yellow-400/70">High side</span> should be ~2.2–2.5× ambient (e.g. 85°F → ~190–230 PSI).</li>
+        <li><span class="text-yellow-400/70">Humidity</span> (optional) — above 60% RH bumps expected high-side up because the condenser has a harder time rejecting heat.</li>
+        <li>Test with engine at 1500 RPM, A/C max, blower high, doors open, condenser fan running.</li>
+        <li>R-1234yf runs slightly lower on both sides than R-134a.</li>
+      </ul>
+    </section>`;
+}
+
+/* ───── GARAGE ───── */
+function renderGarage() {
+  const el = document.getElementById("view-garage");
+  if (state.garageMode === "add" || state.garageMode === "edit") {
+    const initial = state.garageMode === "edit" ? state.vehicles.find(v => v.id === state.editingId) : null;
+    el.innerHTML = `
+      <button id="garage-back-btn" class="flex items-center gap-2 text-xs uppercase tracking-wider text-neutral-400 hover:text-yellow-400 mb-4">← Back</button>
+      <h2 class="text-sm font-black uppercase tracking-[0.2em] text-yellow-400 mb-4">${initial ? "Edit Vehicle" : "New Vehicle"}</h2>
+      <div class="space-y-3">
+        <div class="grid grid-cols-3 gap-2">
+          ${textField("v-year", "Year", initial?.year || "", "2013")}
+          ${textField("v-make", "Make", initial?.make || "", "Toyota")}
+          ${textField("v-model", "Model", initial?.model || "", "RAV4")}
+        </div>
+        <div>
+          <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-2">Refrigerant</p>
+          <div class="flex gap-2" id="form-ref">
+            <button data-ref="R-134a" class="form-ref-btn flex-1 py-2 text-xs font-bold uppercase tracking-wider border">R-134a</button>
+            <button data-ref="R-1234yf" class="form-ref-btn flex-1 py-2 text-xs font-bold uppercase tracking-wider border">R-1234yf</button>
+          </div>
+        </div>
+        ${textField("v-capacity", "Spec Capacity (oz)", initial?.capacity || "", "16.9", "From underhood label")}
+        ${textField("v-plate", "Plate", initial?.plate || "", "ABC-1234")}
+        ${textField("v-customer", "Customer", initial?.customer || "", "Name or phone")}
+        ${textField("v-notes", "Notes", initial?.notes || "", "Any notes…")}
+        <div class="flex gap-2 pt-2">
+          <button id="vehicle-save-btn" class="flex-1 bg-yellow-400 text-black font-black uppercase tracking-wider py-3 text-sm hover:bg-yellow-300">Save Vehicle</button>
+          <button id="vehicle-cancel-btn" class="px-5 border border-neutral-700 text-neutral-400 font-bold uppercase tracking-wider text-sm hover:border-yellow-400 hover:text-yellow-400">Cancel</button>
+        </div>
+      </div>`;
+
+    let formRef = initial?.refrigerant || "R-134a";
+    const renderFormRef = () => {
+      document.querySelectorAll(".form-ref-btn").forEach(b => {
+        const active = b.dataset.ref === formRef;
+        b.className = "form-ref-btn flex-1 py-2 text-xs font-bold uppercase tracking-wider border " +
+          (active ? "bg-yellow-400 text-black border-yellow-400" : "bg-transparent text-neutral-400 border-neutral-700 hover:border-neutral-500");
+      });
+    };
+    renderFormRef();
+    document.querySelectorAll(".form-ref-btn").forEach(b => b.addEventListener("click", () => { formRef = b.dataset.ref; renderFormRef(); }));
+
+    document.getElementById("garage-back-btn").addEventListener("click", () => { state.garageMode = "list"; renderGarage(); });
+    document.getElementById("vehicle-cancel-btn").addEventListener("click", () => { state.garageMode = "list"; renderGarage(); });
+    document.getElementById("vehicle-save-btn").addEventListener("click", () => {
+      const year = document.getElementById("v-year").value.trim();
+      const make = document.getElementById("v-make").value.trim();
+      const model = document.getElementById("v-model").value.trim();
+      if (!year || !make || !model) return;
+      const vehicle = {
+        id: initial?.id || Date.now().toString(),
+        year, make, model,
+        refrigerant: formRef,
+        capacity: document.getElementById("v-capacity").value.trim(),
+        plate: document.getElementById("v-plate").value.trim(),
+        customer: document.getElementById("v-customer").value.trim(),
+        notes: document.getElementById("v-notes").value.trim(),
+      };
+      if (initial) state.vehicles = state.vehicles.map(v => v.id === vehicle.id ? vehicle : v);
+      else state.vehicles.push(vehicle);
+      saveVehicles();
+      state.garageMode = "list";
+      state.editingId = null;
+      renderGarage();
+    });
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="space-y-3">
+      <button id="garage-add-btn" class="w-full bg-yellow-400 text-black font-black uppercase tracking-wider py-3 text-sm hover:bg-yellow-300">+ Add Vehicle</button>
+      ${state.vehicles.length === 0 ? `
+        <div class="border border-neutral-800 bg-neutral-900/40 p-6 text-center">
+          <p class="text-xs text-neutral-500 leading-relaxed">No vehicles saved yet. Add one to track A/C diagnostics over time and store refrigerant specs from the underhood label.</p>
+        </div>` : ""}
+      ${state.vehicles.map(v => `
+        <div class="border ${v.id === state.activeVehicleId ? "border-yellow-400/60" : "border-neutral-800"} bg-neutral-900/40 p-3">
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="min-w-0 flex-1">
+              <p class="text-sm font-bold truncate">${escapeHtml(v.year)} ${escapeHtml(v.make)} ${escapeHtml(v.model)}</p>
+              <p class="text-[10px] text-neutral-400 uppercase tracking-wider mt-0.5">${escapeHtml(v.refrigerant)}${v.capacity ? " · " + escapeHtml(v.capacity) + " oz" : ""}</p>
+              ${v.plate ? `<p class="text-[10px] text-neutral-500 mt-0.5">Plate: ${escapeHtml(v.plate)}</p>` : ""}
+              ${v.customer ? `<p class="text-[10px] text-neutral-500 mt-0.5">${escapeHtml(v.customer)}</p>` : ""}
+              ${v.notes ? `<p class="text-[10px] text-neutral-500 mt-0.5 italic">${escapeHtml(v.notes)}</p>` : ""}
+            </div>
+            ${v.id === state.activeVehicleId ? `<span class="text-[9px] uppercase tracking-wider bg-yellow-400 text-black px-1.5 py-0.5 font-bold shrink-0">Active</span>` : ""}
+          </div>
+          <div class="flex gap-2 pt-2 border-t border-neutral-800">
+            <button data-action="select" data-id="${v.id}" class="flex-1 text-[10px] font-bold uppercase tracking-wider text-yellow-400 hover:bg-yellow-400 hover:text-black py-1.5 border border-yellow-400/40">Select</button>
+            <button data-action="edit" data-id="${v.id}" class="px-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400 hover:text-yellow-400 py-1.5 border border-neutral-700">Edit</button>
+            <button data-action="delete" data-id="${v.id}" class="px-3 text-neutral-500 hover:text-red-400 py-1.5 border border-neutral-700">Del</button>
+          </div>
+        </div>`).join("")}
+    </div>`;
+
+  document.getElementById("garage-add-btn").addEventListener("click", () => { state.garageMode = "add"; renderGarage(); });
+  el.querySelectorAll("[data-action]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      const action = btn.dataset.action;
+      if (action === "select") {
+        state.activeVehicleId = id;
+        saveActive();
+        const av = activeVehicle();
+        if (av?.refrigerant) { state.refrigerant = av.refrigerant; renderRefrigerant(); }
+        switchTab("diagnose");
+      } else if (action === "edit") {
+        state.editingId = id;
+        state.garageMode = "edit";
+        renderGarage();
+      } else if (action === "delete") {
+        const v = state.vehicles.find(x => x.id === id);
+        if (confirm(`Delete ${v.year} ${v.make} ${v.model}?`)) {
+          state.vehicles = state.vehicles.filter(x => x.id !== id);
+          if (state.activeVehicleId === id) { state.activeVehicleId = null; saveActive(); }
+          saveVehicles();
+          renderGarage();
+        }
+      }
+    });
+  });
+}
+
+function textField(id, label, value, placeholder, hint) {
+  return `<label class="block border border-neutral-700 focus-within:border-yellow-400 bg-neutral-900/60 p-3">
+    <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">${escapeHtml(label)}</span>
+    <input id="${id}" type="text" value="${escapeHtml(value)}" placeholder="${escapeHtml(placeholder)}" class="w-full bg-transparent text-base font-bold outline-none placeholder:text-neutral-700 mt-1" />
+    ${hint ? `<p class="text-[9px] text-neutral-500 mt-1 normal-case">${escapeHtml(hint)}</p>` : ""}
+  </label>`;
+}
+
+/* ───── HISTORY ───── */
+function renderHistory() {
+  const el = document.getElementById("view-history");
+  if (state.sessions.length === 0) {
+    el.innerHTML = `<div class="border border-neutral-800 bg-neutral-900/40 p-6 text-center"><p class="text-xs text-neutral-500 leading-relaxed">No saved sessions yet. Run a diagnostic and tap "Save Session" to start tracking before/after readings.</p></div>`;
+    return;
+  }
+  const filtered = state.historyFilter === "all"
+    ? state.sessions
+    : state.sessions.filter(s => s.vehicleId === state.historyFilter);
+
+  el.innerHTML = `
+    <div class="space-y-3">
+      <div class="flex flex-wrap gap-1">
+        <button data-filter="all" class="filter-chip px-3 py-1 text-[10px] font-bold uppercase tracking-wider border">All (${state.sessions.length})</button>
+        ${state.vehicles.map(v => {
+          const count = state.sessions.filter(s => s.vehicleId === v.id).length;
+          return count > 0 ? `<button data-filter="${v.id}" class="filter-chip px-3 py-1 text-[10px] font-bold uppercase tracking-wider border">${escapeHtml(v.year)} ${escapeHtml(v.make)} ${escapeHtml(v.model)} (${count})</button>` : "";
+        }).join("")}
+      </div>
+      ${filtered.map(s => {
+        const date = new Date(s.timestamp);
+        const colorClass = { good: "border-green-500/40 text-green-400", warn: "border-yellow-400/40 text-yellow-400", bad: "border-red-500/40 text-red-400" }[s.color];
+        const [borderC, textC] = colorClass.split(" ");
+        return `
+          <div class="border ${borderC} bg-neutral-900/40 p-3">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="min-w-0 flex-1">
+                <p class="text-xs font-bold truncate">${escapeHtml(s.vehicleLabel)}</p>
+                <p class="text-[10px] text-neutral-500 mt-0.5">${date.toLocaleDateString()} · ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</p>
+              </div>
+              <button data-delete-session="${s.id}" class="text-neutral-600 hover:text-red-400 shrink-0 text-xs">Del</button>
+            </div>
+            <p class="text-[10px] font-black uppercase tracking-wider ${textC} mb-2">${escapeHtml(s.status)}</p>
+            <div class="grid grid-cols-4 gap-2 text-[10px] pt-2 border-t border-neutral-800">
+              <div><p class="text-[9px] uppercase tracking-wider text-neutral-500">Ambient</p><p class="text-sm font-black">${s.ambient}°</p></div>
+              ${s.humidity !== null ? `<div><p class="text-[9px] uppercase tracking-wider text-neutral-500">RH</p><p class="text-sm font-black">${s.humidity}%</p></div>` : `<div></div>`}
+              <div><p class="text-[9px] uppercase tracking-wider text-neutral-500">Low</p><p class="text-sm font-black text-blue-400">${s.lowSide}</p></div>
+              <div><p class="text-[9px] uppercase tracking-wider text-neutral-500">High</p><p class="text-sm font-black text-red-400">${s.highSide}</p></div>
+            </div>
+            <p class="text-[10px] text-neutral-500 mt-2">${escapeHtml(s.refrigerant)}</p>
+          </div>`;
+      }).join("")}
+      <button id="clear-history-btn" class="w-full mt-4 py-2 text-[10px] uppercase tracking-wider text-neutral-500 hover:text-red-400 border border-neutral-800 hover:border-red-400/40">Clear All History</button>
+    </div>`;
+
+  el.querySelectorAll(".filter-chip").forEach(b => {
+    const active = b.dataset.filter === state.historyFilter;
+    b.className = "filter-chip px-3 py-1 text-[10px] font-bold uppercase tracking-wider border " +
+      (active ? "bg-yellow-400 text-black border-yellow-400" : "bg-transparent text-neutral-400 border-neutral-800 hover:border-neutral-600");
+    b.addEventListener("click", () => { state.historyFilter = b.dataset.filter; renderHistory(); });
+  });
+  el.querySelectorAll("[data-delete-session]").forEach(b => {
+    b.addEventListener("click", () => {
+      state.sessions = state.sessions.filter(s => s.id !== b.dataset.deleteSession);
+      saveSessions();
+      renderHistory();
+    });
+  });
+  document.getElementById("clear-history-btn").addEventListener("click", () => {
+    if (confirm("Delete all saved sessions? This cannot be undone.")) {
+      state.sessions = [];
+      saveSessions();
+      renderHistory();
+    }
+  });
+}
+
+/* ───── DIAGNOSTIC LOGIC ───── */
+function diagnose(T, L, H, refrigerant, RH) {
+  const refMult = refrigerant === "R-1234yf" ? 0.92 : 1.0;
+  let humidityMult = 1.0;
+  let humidityNote = null;
+  if (RH !== null && !isNaN(RH)) {
+    if (RH >= 80) { humidityMult = 1.10; humidityNote = `High humidity (${RH}%) — expected high-side adjusted up ~10% (condenser efficiency drops in humid air).`; }
+    else if (RH >= 60) { humidityMult = 1.05; humidityNote = `Moderate-high humidity (${RH}%) — expected high-side adjusted up ~5%.`; }
+    else if (RH < 30) { humidityMult = 0.97; humidityNote = `Low humidity (${RH}%) — condenser efficiency is good; expected high-side trimmed slightly.`; }
+  }
+
+  const expected = {
+    low:  { min: Math.max(25, Math.round((T - 10) * refMult)), max: Math.round((T + 10) * refMult) },
+    high: { min: Math.round(T * 2.2 * refMult * humidityMult), max: Math.round(T * 2.5 * refMult * humidityMult) },
+  };
+
+  const lowState  = L < expected.low.min  ? "low" : L > expected.low.max  ? "high" : "ok";
+  const highState = H < expected.high.min ? "low" : H > expected.high.max ? "high" : "ok";
+
+  const issues = [];
+
+  if (lowState === "ok" && highState === "ok") {
+    return { status: "System Within Spec", color: "good", readings: { low: L, high: H }, expected, humidityNote, issues: [{
+      title: "Pressures look normal",
+      desc: "Both sides fall within expected range for ambient temp. If customer complaint persists, look at non-pressure causes.",
+      checks: ["Blend door actuator function", "Blower motor speed / cabin air filter", "Cabin temp sensor / climate control commands", "Compressor cycling pattern (should not short-cycle)"]
+    }]};
+  }
+
+  if (lowState === "low" && highState === "low") {
+    issues.push({ title: "Refrigerant Undercharge / Leak", desc: "Both sides reading low almost always means low refrigerant. Most common cause by a wide margin.", checks: ["UV dye / electronic leak detect at condenser, evap drain, compressor shaft seal, hose crimps, schrader valves", "Pull vacuum 30+ min, hold test for leak-down", "Recover, evac, charge to spec weight (not pressure)"] });
+    issues.push({ title: "Restriction Before Metering Device", desc: "Less common, but a clogged receiver/drier or kinked liquid line can starve the system.", checks: ["Feel for temp drop across receiver/drier (should be slight, not dramatic)", "Inspect liquid line for kinks or pinch points"] });
+  }
+  if (lowState === "high" && highState === "high") {
+    issues.push({ title: "Overcharge", desc: "Too much refrigerant in the system raises both sides. Common after a DIY recharge.", checks: ["Recover, weigh, recharge to manufacturer spec (underhood label)"] });
+    issues.push({ title: "Condenser Airflow Problem", desc: "Heat isn't being rejected. Condenser can't dump heat → high side climbs, low side rises with it.", checks: ["Cooling fan operation (electric fan should be running at max on A/C)", "Condenser fins blocked by bugs/debris/leaves", "Bent fins or impact damage", "Verify fan commanded ON by PCM"] });
+    issues.push({ title: "Non-Condensables (Air/Moisture)", desc: "If system was opened without proper evacuation, trapped air raises head pressure.", checks: ["Recover, deep vacuum 30–45 min minimum, replace receiver/drier, recharge"] });
+  }
+  if (lowState === "high" && highState === "low") {
+    issues.push({ title: "Failing Compressor", desc: "Low side stays high and high side won't climb — compressor isn't pumping. Classic dying-compressor signature.", checks: ["Listen for compressor noise (rattle, growl, knock)", "Verify compressor clutch engaging and shaft turning", "Check for metal debris in oil", "Replace compressor + condenser + drier, flush evap if contaminated"] });
+    issues.push({ title: "Internal Bypass / Stuck Reed Valves", desc: "Compressor spins but doesn't pump effectively.", checks: ["Same as above — typically full compressor replacement"] });
+  }
+  if (lowState === "low" && highState === "high") {
+    issues.push({ title: "Restricted Orifice Tube or TXV", desc: "Metering device is plugged or stuck closed. High side stacks up, low side drops — sometimes with frost at the restriction point.", checks: ["Feel for ice/frost at orifice tube or TXV inlet", "Look for dark debris from compressor failure (sludge in lines)", "Replace orifice tube / TXV, drier, and flush system"] });
+    issues.push({ title: "TXV Stuck / Failed Sensing Bulb", desc: "On TXV systems, a stuck-closed valve mimics a restriction.", checks: ["Verify sensing bulb secured to suction line with insulation", "Replace TXV if valve doesn't modulate"] });
+    issues.push({ title: "Moisture in System (Frozen Orifice)", desc: "Water in system freezes at the metering device — intermittent symptom that comes and goes.", checks: ["Recover, replace drier, deep vacuum, recharge"] });
+  }
+
+  let color = "warn", status = "Out of Spec";
+  if (issues.some(i => /compressor|restricted|non-condens/i.test(i.title))) { color = "bad"; status = "Likely Component Failure"; }
+
+  return { status, color, readings: { low: L, high: H }, expected, humidityNote, issues };
+}
+</script>
+</body>
+</html>
