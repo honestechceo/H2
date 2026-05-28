@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -26,115 +25,115 @@
   --radius: 6px;
 }
 
-- { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-  font-family: ‘Inter’, -apple-system, sans-serif;
-  background: var(–bg);
-  color: var(–text);
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  }
+}
 
 /* radial yellow glow */
 body::before {
-content: ‘’;
-position: fixed;
-top: -20%;
-right: -10%;
-width: 600px;
-height: 600px;
-background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 60%);
-pointer-events: none;
-z-index: 0;
+  content: '';
+  position: fixed;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ===================== LOGIN ===================== */
 #login-screen {
-position: fixed;
-inset: 0;
-background: var(–bg);
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 1000;
-padding: 24px;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
 }
 #login-screen::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: radial-gradient(circle at 50% 30%, rgba(245,197,24,0.12) 0%, transparent 50%);
-pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(245,197,24,0.12) 0%, transparent 50%);
+  pointer-events: none;
 }
 .login-card {
-position: relative;
-background: var(–bg-2);
-border: 1px solid var(–line);
-border-radius: var(–radius);
-padding: 40px 32px;
-width: 100%;
-max-width: 380px;
-text-align: center;
+  position: relative;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
 }
 .login-card img {
-width: 90px;
-height: 90px;
-object-fit: contain;
-margin-bottom: 16px;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 16px;
 }
 .login-card h1 {
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 2px;
-font-size: 22px;
-margin: 0 0 4px;
-text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 22px;
+  margin: 0 0 4px;
+  text-transform: uppercase;
 }
 .login-card .sub {
-color: var(–muted);
-font-size: 12px;
-letter-spacing: 1.5px;
-text-transform: uppercase;
-margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
 }
 .login-card input {
-width: 100%;
-background: var(–bg);
-border: 1px solid var(–line);
-color: var(–text);
-padding: 12px 14px;
-border-radius: var(–radius);
-font-family: ‘Inter’, sans-serif;
-font-size: 14px;
-margin-bottom: 12px;
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  margin-bottom: 12px;
 }
 .login-card input:focus {
-outline: none;
-border-color: var(–yellow);
+  outline: none;
+  border-color: var(--yellow);
 }
 .login-card button {
-width: 100%;
-background: var(–yellow);
-color: #000;
-border: none;
-padding: 13px;
-border-radius: var(–radius);
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 2px;
-text-transform: uppercase;
-font-size: 14px;
-cursor: pointer;
-margin-top: 8px;
-transition: background 0.15s;
+  width: 100%;
+  background: var(--yellow);
+  color: #000;
+  border: none;
+  padding: 13px;
+  border-radius: var(--radius);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.15s;
 }
 .login-card button:hover { background: #ffd633; }
 .login-error {
-color: var(–red);
-font-size: 12px;
-margin-top: 12px;
-min-height: 16px;
+  color: var(--red);
+  font-size: 12px;
+  margin-top: 12px;
+  min-height: 16px;
 }
 
 /* ===================== APP ===================== */
@@ -142,526 +141,524 @@ min-height: 16px;
 #app.visible { display: block; }
 
 .topbar {
-position: sticky;
-top: 0;
-background: rgba(10,10,10,0.95);
-backdrop-filter: blur(8px);
-border-bottom: 1px solid var(–line);
-padding: 14px 24px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-z-index: 100;
+  position: sticky;
+  top: 0;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
 }
 .topbar .brand {
-display: flex;
-align-items: center;
-gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 .topbar .brand img { width: 36px; height: 36px; object-fit: contain; }
 .topbar .brand-text {
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 2px;
-text-transform: uppercase;
-font-size: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
 }
-.topbar .brand-text span { color: var(–yellow); }
+.topbar .brand-text span { color: var(--yellow); }
 .topbar .actions { display: flex; gap: 8px; }
 .topbar button {
-background: transparent;
-border: 1px solid var(–line);
-color: var(–muted);
-padding: 7px 12px;
-border-radius: var(–radius);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 11px;
-cursor: pointer;
-letter-spacing: 0.5px;
-transition: all 0.15s;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 7px 12px;
+  border-radius: var(--radius);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
 }
-.topbar button:hover { color: var(–text); border-color: var(–line-2); }
+.topbar button:hover { color: var(--text); border-color: var(--line-2); }
 
 .container { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
 
 .page-title {
-font-family: ‘Oswald’, sans-serif;
-text-transform: uppercase;
-letter-spacing: 3px;
-font-size: 28px;
-font-weight: 600;
-margin: 0 0 4px;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 4px;
 }
-.page-title span { color: var(–yellow); }
+.page-title span { color: var(--yellow); }
 .page-sub {
-color: var(–muted);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 12px;
-margin-bottom: 32px;
-letter-spacing: 0.5px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
 }
 
 .section {
-background: var(–bg-2);
-border: 1px solid var(–line);
-border-radius: var(–radius);
-padding: 24px;
-margin-bottom: 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
 }
 .section h2 {
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 2px;
-text-transform: uppercase;
-font-size: 13px;
-color: var(–yellow);
-margin: 0 0 18px;
-padding-bottom: 12px;
-border-bottom: 1px solid var(–line);
-display: flex;
-align-items: center;
-gap: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--yellow);
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .section h2::before {
-content: ‘’;
-width: 4px;
-height: 14px;
-background: var(–yellow);
-display: inline-block;
+  content: '';
+  width: 4px;
+  height: 14px;
+  background: var(--yellow);
+  display: inline-block;
 }
 
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
 @media (max-width: 600px) {
-.grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
 }
 
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 10px;
-color: var(–muted);
-letter-spacing: 1px;
-text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 .field input, .field textarea, .field select {
-background: var(–bg);
-border: 1px solid var(–line);
-color: var(–text);
-padding: 10px 12px;
-border-radius: var(–radius);
-font-family: ‘Inter’, sans-serif;
-font-size: 14px;
-width: 100%;
-font-family: ‘JetBrains Mono’, monospace;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  font-family: 'JetBrains Mono', monospace;
 }
 .field textarea {
-font-family: ‘Inter’, sans-serif;
-resize: vertical;
-min-height: 80px;
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+  min-height: 80px;
 }
 .field input:focus, .field textarea:focus, .field select:focus {
-outline: none;
-border-color: var(–yellow);
+  outline: none;
+  border-color: var(--yellow);
 }
 
 /* labor line items */
 .line-item {
-display: grid;
-grid-template-columns: 1fr 90px 90px 90px 32px;
-gap: 8px;
-margin-bottom: 8px;
-align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 90px 90px 90px 32px;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
 }
 .line-item input {
-background: var(–bg);
-border: 1px solid var(–line);
-color: var(–text);
-padding: 9px 10px;
-border-radius: var(–radius);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 13px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 9px 10px;
+  border-radius: var(--radius);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
 }
 .line-item .total {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 13px;
-color: var(–yellow);
-text-align: right;
-padding: 9px 10px;
-background: var(–bg);
-border: 1px solid var(–line);
-border-radius: var(–radius);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--yellow);
+  text-align: right;
+  padding: 9px 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 .line-item .remove-btn {
-background: transparent;
-border: 1px solid var(–line);
-color: var(–muted);
-border-radius: var(–radius);
-cursor: pointer;
-width: 32px;
-height: 32px;
-font-size: 16px;
-line-height: 1;
-padding: 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
 }
-.line-item .remove-btn:hover { color: var(–red); border-color: var(–red); }
+.line-item .remove-btn:hover { color: var(--red); border-color: var(--red); }
 .line-header {
-display: grid;
-grid-template-columns: 1fr 90px 90px 90px 32px;
-gap: 8px;
-margin-bottom: 8px;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 10px;
-color: var(–muted);
-letter-spacing: 1px;
-text-transform: uppercase;
-padding: 0 10px;
+  display: grid;
+  grid-template-columns: 1fr 90px 90px 90px 32px;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0 10px;
 }
 @media (max-width: 600px) {
-.line-item, .line-header { grid-template-columns: 1fr; }
-.line-header { display: none; }
-.line-item input, .line-item .total { font-size: 14px; }
+  .line-item, .line-header { grid-template-columns: 1fr; }
+  .line-header { display: none; }
+  .line-item input, .line-item .total { font-size: 14px; }
 }
 
 .add-btn {
-background: transparent;
-border: 1px dashed var(–line-2);
-color: var(–muted);
-padding: 10px;
-border-radius: var(–radius);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 11px;
-letter-spacing: 1px;
-text-transform: uppercase;
-cursor: pointer;
-width: 100%;
-margin-top: 8px;
-transition: all 0.15s;
+  background: transparent;
+  border: 1px dashed var(--line-2);
+  color: var(--muted);
+  padding: 10px;
+  border-radius: var(--radius);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  transition: all 0.15s;
 }
-.add-btn:hover { color: var(–yellow); border-color: var(–yellow); }
+.add-btn:hover { color: var(--yellow); border-color: var(--yellow); }
 
 /* totals */
 .totals {
-margin-top: 20px;
-padding-top: 16px;
-border-top: 1px solid var(–line);
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
 }
 .total-row {
-display: flex;
-justify-content: space-between;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 14px;
-padding: 6px 0;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  padding: 6px 0;
 }
 .total-row.grand {
-font-size: 20px;
-color: var(–yellow);
-font-weight: 700;
-border-top: 1px solid var(–line);
-margin-top: 8px;
-padding-top: 14px;
+  font-size: 20px;
+  color: var(--yellow);
+  font-weight: 700;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+  padding-top: 14px;
 }
 
 /* photo upload */
 .photo-upload {
-border: 1px dashed var(–line-2);
-border-radius: var(–radius);
-padding: 24px;
-text-align: center;
-cursor: pointer;
-transition: all 0.15s;
-color: var(–muted);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 11px;
-letter-spacing: 1px;
-text-transform: uppercase;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
-.photo-upload:hover { color: var(–yellow); border-color: var(–yellow); }
+.photo-upload:hover { color: var(--yellow); border-color: var(--yellow); }
 .photo-upload input { display: none; }
 .photo-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-gap: 10px;
-margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
 }
 .photo-thumb {
-position: relative;
-aspect-ratio: 1;
-background: var(–bg);
-border: 1px solid var(–line);
-border-radius: var(–radius);
-overflow: hidden;
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .photo-thumb .x {
-position: absolute;
-top: 4px;
-right: 4px;
-background: rgba(0,0,0,0.8);
-color: #fff;
-border: none;
-width: 22px;
-height: 22px;
-border-radius: 50%;
-cursor: pointer;
-font-size: 13px;
-line-height: 1;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  border: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
 }
 
 /* submit */
 .submit-bar {
-display: flex;
-gap: 10px;
-margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
 }
 .submit-bar button {
-flex: 1;
-padding: 14px;
-border-radius: var(–radius);
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 2px;
-text-transform: uppercase;
-font-size: 14px;
-cursor: pointer;
-border: none;
-transition: all 0.15s;
+  flex: 1;
+  padding: 14px;
+  border-radius: var(--radius);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
 }
 .submit-bar .primary {
-background: var(–yellow);
-color: #000;
+  background: var(--yellow);
+  color: #000;
 }
 .submit-bar .primary:hover { background: #ffd633; }
 .submit-bar .primary:disabled { opacity: 0.5; cursor: wait; }
 .submit-bar .secondary {
-background: transparent;
-color: var(–text);
-border: 1px solid var(–line-2);
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line-2);
 }
-.submit-bar .secondary:hover { border-color: var(–yellow); color: var(–yellow); }
+.submit-bar .secondary:hover { border-color: var(--yellow); color: var(--yellow); }
 
 .status-msg {
-margin-top: 14px;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 12px;
-letter-spacing: 0.5px;
-text-align: center;
-min-height: 20px;
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  min-height: 20px;
 }
-.status-msg.success { color: var(–green); }
-.status-msg.error { color: var(–red); }
+.status-msg.success { color: var(--green); }
+.status-msg.error { color: var(--red); }
 
 /* ===================== PRINT VIEW ===================== */
 .print-view { display: none; }
 .print-view.visible {
-display: block;
-position: fixed;
-inset: 0;
-background: #fff;
-color: #000;
-overflow-y: auto;
-z-index: 200;
-padding: 0;
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  color: #000;
+  overflow-y: auto;
+  z-index: 200;
+  padding: 0;
 }
 .print-controls {
-position: sticky;
-top: 0;
-background: #1c1c1c;
-padding: 12px 24px;
-display: flex;
-gap: 10px;
-justify-content: space-between;
-align-items: center;
-border-bottom: 1px solid #333;
-z-index: 10;
+  position: sticky;
+  top: 0;
+  background: #1c1c1c;
+  padding: 12px 24px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  z-index: 10;
 }
-.print-controls .left { color: #f5c518; font-family: ‘Oswald’, sans-serif; letter-spacing: 2px; font-size: 13px; }
+.print-controls .left { color: #f5c518; font-family: 'Oswald', sans-serif; letter-spacing: 2px; font-size: 13px; }
 .print-controls .right { display: flex; gap: 8px; }
 .print-controls button {
-background: #f5c518;
-color: #000;
-border: none;
-padding: 9px 16px;
-border-radius: 4px;
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 1.5px;
-text-transform: uppercase;
-font-size: 12px;
-cursor: pointer;
+  background: #f5c518;
+  color: #000;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 12px;
+  cursor: pointer;
 }
 .print-controls button.ghost {
-background: transparent;
-color: #fff;
-border: 1px solid #444;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #444;
 }
 
 .invoice-doc {
-max-width: 800px;
-margin: 0 auto;
-padding: 48px 56px;
-font-family: ‘Inter’, sans-serif;
-color: #000;
-background: #fff;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 56px;
+  font-family: 'Inter', sans-serif;
+  color: #000;
+  background: #fff;
 }
 .invoice-header {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-padding-bottom: 24px;
-border-bottom: 3px solid #0a0a0a;
-margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  border-bottom: 3px solid #0a0a0a;
+  margin-bottom: 32px;
 }
 .invoice-header .biz img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px; }
 .invoice-header .biz h1 {
-font-family: ‘Oswald’, sans-serif;
-font-weight: 700;
-letter-spacing: 3px;
-text-transform: uppercase;
-font-size: 22px;
-margin: 0 0 4px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 22px;
+  margin: 0 0 4px;
 }
 .invoice-header .biz h1 span { color: #c99c0a; }
 .invoice-header .biz .tag {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 10px;
-color: #555;
-letter-spacing: 1px;
-text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 .invoice-header .biz .contact {
-font-size: 12px;
-color: #333;
-margin-top: 10px;
-line-height: 1.6;
+  font-size: 12px;
+  color: #333;
+  margin-top: 10px;
+  line-height: 1.6;
 }
 .invoice-header .meta { text-align: right; }
 .invoice-header .meta .label {
-font-family: ‘Oswald’, sans-serif;
-font-weight: 700;
-letter-spacing: 3px;
-text-transform: uppercase;
-font-size: 24px;
-background: #f5c518;
-color: #000;
-padding: 6px 14px;
-display: inline-block;
-margin-bottom: 12px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 24px;
+  background: #f5c518;
+  color: #000;
+  padding: 6px 14px;
+  display: inline-block;
+  margin-bottom: 12px;
 }
 .invoice-header .meta .row {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 11px;
-color: #333;
-margin: 4px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #333;
+  margin: 4px 0;
 }
 .invoice-header .meta .row strong { color: #000; font-weight: 700; }
 
 .inv-section { margin-bottom: 24px; }
 .inv-section h3 {
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 2px;
-text-transform: uppercase;
-font-size: 11px;
-color: #555;
-border-bottom: 1px solid #ddd;
-padding-bottom: 6px;
-margin: 0 0 10px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 6px;
+  margin: 0 0 10px;
 }
 .inv-twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .inv-field { margin-bottom: 8px; font-size: 13px; color: #222; }
-.inv-field strong { display: block; font-size: 10px; color: #777; text-transform: uppercase; letter-spacing: 1px; font-family: ‘JetBrains Mono’, monospace; margin-bottom: 2px; }
+.inv-field strong { display: block; font-size: 10px; color: #777; text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; margin-bottom: 2px; }
 
 .inv-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
 .inv-table th {
-background: #0a0a0a;
-color: #f5c518;
-font-family: ‘Oswald’, sans-serif;
-font-weight: 600;
-letter-spacing: 1.5px;
-text-transform: uppercase;
-font-size: 10px;
-padding: 10px 12px;
-text-align: left;
+  background: #0a0a0a;
+  color: #f5c518;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 10px;
+  padding: 10px 12px;
+  text-align: left;
 }
 .inv-table th.num { text-align: right; }
 .inv-table td {
-padding: 12px;
-border-bottom: 1px solid #eee;
-font-size: 13px;
-vertical-align: top;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  vertical-align: top;
 }
-.inv-table td.num { text-align: right; font-family: ‘JetBrains Mono’, monospace; }
+.inv-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
 
 .inv-totals { margin-top: 16px; display: flex; justify-content: flex-end; }
 .inv-totals-box { min-width: 280px; }
 .inv-totals .row {
-display: flex;
-justify-content: space-between;
-padding: 6px 0;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
 }
 .inv-totals .grand {
-background: #0a0a0a;
-color: #f5c518;
-padding: 12px 16px;
-margin-top: 8px;
-font-family: ‘Oswald’, sans-serif;
-font-weight: 700;
-font-size: 18px;
-letter-spacing: 2px;
-text-transform: uppercase;
-display: flex;
-justify-content: space-between;
+  background: #0a0a0a;
+  color: #f5c518;
+  padding: 12px 16px;
+  margin-top: 8px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
 }
 
 .inv-notes {
-background: #fafafa;
-border-left: 3px solid #f5c518;
-padding: 14px 18px;
-font-size: 13px;
-line-height: 1.6;
-white-space: pre-wrap;
+  background: #fafafa;
+  border-left: 3px solid #f5c518;
+  padding: 14px 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
 }
 .inv-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .inv-photos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border: 1px solid #ddd; }
 
 .inv-footer {
-margin-top: 40px;
-padding-top: 20px;
-border-top: 2px solid #0a0a0a;
-text-align: center;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 10px;
-color: #666;
-letter-spacing: 1.5px;
-text-transform: uppercase;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 2px solid #0a0a0a;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #666;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 .inv-footer .thanks {
-font-family: ‘Oswald’, sans-serif;
-font-size: 14px;
-letter-spacing: 3px;
-color: #000;
-margin-bottom: 6px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #000;
+  margin-bottom: 6px;
 }
 
 @media print {
-body { background: #fff; }
-body::before { display: none; }
-.print-controls, #app, #login-screen { display: none !important; }
-.print-view { position: static; }
-.invoice-doc { padding: 24px; max-width: 100%; }
-.inv-section { page-break-inside: avoid; }
-.inv-photos { page-break-inside: avoid; }
+  body { background: #fff; }
+  body::before { display: none; }
+  .print-controls, #app, #login-screen { display: none !important; }
+  .print-view { position: static; }
+  .invoice-doc { padding: 24px; max-width: 100%; }
+  .inv-section { page-break-inside: avoid; }
+  .inv-photos { page-break-inside: avoid; }
 }
 </style>
-
 </head>
 <body>
 
 <!-- ============ LOGIN ============ -->
-
 <div id="login-screen">
   <div class="login-card">
     <img src="https://i.postimg.cc/YCyfQcDp/IMG-8479.png" alt="HonesTech" />
@@ -675,7 +672,6 @@ body::before { display: none; }
 </div>
 
 <!-- ============ APP ============ -->
-
 <div id="app">
   <div class="topbar">
     <div class="brand">
@@ -690,146 +686,142 @@ body::before { display: none; }
 
   <div class="container">
     <h1 class="page-title">Repair <span>Order</span></h1>
-    <div class="page-sub"></div>
+    <div class="page-sub">// Internal tool · not indexed · session only</div>
 
+    <form id="order-form" autocomplete="off">
 
-<form id="order-form" autocomplete="off">
+      <!-- Order info -->
+      <div class="section">
+        <h2>Order Info</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label>Order #</label>
+            <input type="text" id="order-num" name="order_num" readonly />
+          </div>
+          <div class="field">
+            <label>Date</label>
+            <input type="date" id="order-date" name="order_date" />
+          </div>
+          <div class="field">
+            <label>Technician</label>
+            <input type="text" id="technician" name="technician" placeholder="Juan" />
+          </div>
+        </div>
+      </div>
 
-  <!-- Order info -->
-  <div class="section">
-    <h2>Order Info</h2>
-    <div class="grid-3">
-      <div class="field">
-        <label>Order #</label>
-        <input type="text" id="order-num" name="order_num" readonly />
+      <!-- Customer -->
+      <div class="section">
+        <h2>Customer</h2>
+        <div class="grid-2">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" name="customer_name" required />
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <input type="tel" name="customer_phone" />
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="customer_email" />
+          </div>
+          <div class="field">
+            <label>Service Address</label>
+            <input type="text" name="customer_address" />
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label>Date</label>
-        <input type="date" id="order-date" name="order_date" />
-      </div>
-      <div class="field">
-        <label>Technician</label>
-        <input type="text" id="technician" name="technician" placeholder="Juan" />
-      </div>
-    </div>
-  </div>
 
-  <!-- Customer -->
-  <div class="section">
-    <h2>Customer</h2>
-    <div class="grid-2">
-      <div class="field">
-        <label>Name</label>
-        <input type="text" name="customer_name" required />
+      <!-- Vehicle -->
+      <div class="section">
+        <h2>Vehicle</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label>Year</label>
+            <input type="text" name="vehicle_year" />
+          </div>
+          <div class="field">
+            <label>Make</label>
+            <input type="text" name="vehicle_make" />
+          </div>
+          <div class="field">
+            <label>Model</label>
+            <input type="text" name="vehicle_model" />
+          </div>
+          <div class="field">
+            <label>Mileage</label>
+            <input type="text" name="vehicle_mileage" />
+          </div>
+          <div class="field">
+            <label>License Plate</label>
+            <input type="text" name="vehicle_plate" />
+          </div>
+          <div class="field">
+            <label>VIN (optional)</label>
+            <input type="text" name="vehicle_vin" />
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label>Phone</label>
-        <input type="tel" name="customer_phone" />
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input type="email" name="customer_email" />
-      </div>
-      <div class="field">
-        <label>Service Address</label>
-        <input type="text" name="customer_address" />
-      </div>
-    </div>
-  </div>
 
-  <!-- Vehicle -->
-  <div class="section">
-    <h2>Vehicle</h2>
-    <div class="grid-3">
-      <div class="field">
-        <label>Year</label>
-        <input type="text" name="vehicle_year" />
+      <!-- Service -->
+      <div class="section">
+        <h2>Repair / Service Performed</h2>
+        <div class="field">
+          <label>Description of work</label>
+          <textarea name="service_description" rows="4" placeholder="e.g. Front brake pad replacement, rotor resurfacing, brake fluid top-off..." required></textarea>
+        </div>
       </div>
-      <div class="field">
-        <label>Make</label>
-        <input type="text" name="vehicle_make" />
+
+      <!-- Labor lines -->
+      <div class="section">
+        <h2>Labor Line Items</h2>
+        <div class="line-header">
+          <div>Description</div>
+          <div style="text-align:right">Hours</div>
+          <div style="text-align:right">Rate</div>
+          <div style="text-align:right">Total</div>
+          <div></div>
+        </div>
+        <div id="lines"></div>
+        <button type="button" class="add-btn" id="add-line">+ Add Line</button>
+
+        <div class="totals">
+          <div class="total-row grand">
+            <span>Total</span>
+            <span id="grand-total">$0.00</span>
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label>Model</label>
-        <input type="text" name="vehicle_model" />
+
+      <!-- Notes -->
+      <div class="section">
+        <h2>Notes &amp; Recommendations</h2>
+        <div class="field">
+          <label>Visible to customer</label>
+          <textarea name="notes" rows="4" placeholder="e.g. Recommend rear brake service within next 5,000 mi. Tires showing inner wear — suggest alignment check."></textarea>
+        </div>
       </div>
-      <div class="field">
-        <label>Mileage</label>
-        <input type="text" name="vehicle_mileage" />
+
+      <!-- Photos -->
+      <div class="section">
+        <h2>Photos of Work</h2>
+        <label class="photo-upload" id="photo-upload-btn">
+          <span>+ Tap to add photos</span>
+          <input type="file" id="photo-input" accept="image/*" multiple capture="environment" />
+        </label>
+        <div class="photo-grid" id="photo-grid"></div>
       </div>
-      <div class="field">
-        <label>License Plate</label>
-        <input type="text" name="vehicle_plate" />
+
+      <div class="submit-bar">
+        <button type="button" class="secondary" id="preview-btn">Preview</button>
+        <button type="submit" class="primary" id="submit-btn">Submit &amp; Generate</button>
       </div>
-      <div class="field">
-        <label>VIN (optional)</label>
-        <input type="text" name="vehicle_vin" />
-      </div>
-    </div>
-  </div>
-
-  <!-- Service -->
-  <div class="section">
-    <h2>Repair / Service Performed</h2>
-    <div class="field">
-      <label>Description of work</label>
-      <textarea name="service_description" rows="4" placeholder="e.g. Front brake pad replacement, rotor resurfacing, brake fluid top-off..." required></textarea>
-    </div>
-  </div>
-
-  <!-- Labor lines -->
-  <div class="section">
-    <h2>Labor Line Items</h2>
-    <div class="line-header">
-      <div>Description</div>
-      <div style="text-align:right">Hours</div>
-      <div style="text-align:right">Rate</div>
-      <div style="text-align:right">Total</div>
-      <div></div>
-    </div>
-    <div id="lines"></div>
-    <button type="button" class="add-btn" id="add-line">+ Add Line</button>
-
-    <div class="totals">
-      <div class="total-row grand">
-        <span>Total</span>
-        <span id="grand-total">$0.00</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Notes -->
-  <div class="section">
-    <h2>Notes &amp; Recommendations</h2>
-    <div class="field">
-      <label>Visible to customer</label>
-      <textarea name="notes" rows="4" placeholder="e.g. Recommend rear brake service within next 5,000 mi. Tires showing inner wear — suggest alignment check."></textarea>
-    </div>
-  </div>
-
-  <!-- Photos -->
-  <div class="section">
-    <h2>Photos of Work</h2>
-    <label class="photo-upload" id="photo-upload-btn">
-      <span>+ Tap to add photos</span>
-      <input type="file" id="photo-input" accept="image/*" multiple capture="environment" />
-    </label>
-    <div class="photo-grid" id="photo-grid"></div>
-  </div>
-
-  <div class="submit-bar">
-    <button type="button" class="secondary" id="preview-btn">Preview</button>
-    <button type="submit" class="primary" id="submit-btn">Submit &amp; Generate</button>
-  </div>
-  <div class="status-msg" id="status-msg"></div>
-</form>
-
-
+      <div class="status-msg" id="status-msg"></div>
+    </form>
   </div>
 </div>
 
 <!-- ============ PRINT VIEW ============ -->
-
 <div class="print-view" id="print-view">
   <div class="print-controls">
     <div class="left">HonesTech · Repair Order Preview</div>
@@ -845,15 +837,15 @@ body::before { display: none; }
 /* ===================== CONFIG ===================== */
 const AUTH = {
   // change these to whatever you like
-  user: 'juan',
-  pass: 'honestech2026$'
+  user: 'Tech253',
+  pass: 'Honestech123'
 };
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoewzve';
 
 const BUSINESS = {
   name: 'HonesTech Mobile Mechanic',
-  phone: '(732) 937-3734',          // <-- update
-  email: 'honestechservice@gmail.com',
+  phone: '(732) 937-3734',
+  email: 'info@honestechmobilemechanic.com',
   web:   'honestechmobilemechanic.com',
   area:  'Middlesex County, NJ'
 };
@@ -1182,6 +1174,5 @@ async function handleSubmit(e) {
   }
 }
 </script>
-
 </body>
 </html>
