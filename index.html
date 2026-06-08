@@ -702,6 +702,240 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ── AI CHAT WIDGET ── */
+    #ht-chat-bubble {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 64px;
+      height: 64px;
+      background: var(--orange);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(245,200,0,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 9998;
+    }
+    #ht-chat-bubble:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 32px rgba(245,200,0,0.5);
+    }
+    #ht-chat-bubble.open svg.icon-chat { display: none; }
+    #ht-chat-bubble.open svg.icon-close { display: block !important; }
+
+    .ht-bubble-ping {
+      position: absolute;
+      top: -3px; right: -3px;
+      width: 14px; height: 14px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid var(--black);
+      animation: htPing 1.6s ease-in-out infinite;
+    }
+    @keyframes htPing {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    #ht-chat-panel {
+      position: fixed;
+      bottom: 104px;
+      right: 28px;
+      width: min(420px, calc(100vw - 40px));
+      height: min(580px, calc(100vh - 130px));
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 9997;
+      transform: translateY(20px) scale(0.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), opacity 0.2s;
+    }
+    #ht-chat-panel.visible {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .ht-chat-header {
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .ht-chat-avatar {
+      width: 40px; height: 40px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ht-chat-header-text h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .ht-chat-header-text p {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .ht-online-dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .ht-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .ht-msg {
+      display: flex;
+      gap: 8px;
+      max-width: 90%;
+      animation: htFadeUp 0.25s ease;
+    }
+    @keyframes htFadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ht-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+    .ht-msg.bot  { align-self: flex-start; }
+
+    .ht-msg-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .ht-msg.user .ht-msg-avatar { background: #2a2a2a; }
+
+    .ht-msg-bubble {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .ht-msg.user .ht-msg-bubble {
+      background: var(--orange);
+      color: #000;
+      border-color: var(--orange);
+      font-weight: 500;
+    }
+    .ht-msg-bubble a { color: var(--orange); text-decoration: underline; }
+    .ht-msg.user .ht-msg-bubble a { color: #000; }
+
+    .ht-typing-bubble {
+      display: flex; gap: 5px;
+      padding: 12px 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      width: fit-content;
+    }
+    .ht-typing-dot {
+      width: 7px; height: 7px;
+      background: var(--muted);
+      border-radius: 50%;
+      animation: htBounce 1.2s ease-in-out infinite;
+    }
+    .ht-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .ht-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes htBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+
+    .ht-quick-replies {
+      display: flex; flex-wrap: wrap; gap: 7px;
+      padding: 0 14px 10px;
+      flex-shrink: 0;
+    }
+    .ht-quick-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .ht-quick-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: rgba(245,200,0,0.07);
+    }
+
+    .ht-chat-input-row {
+      display: flex; gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      background: var(--black);
+      flex-shrink: 0;
+    }
+    #ht-user-input {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      padding: 10px 14px;
+      outline: none;
+      resize: none;
+      transition: border-color 0.15s;
+      height: 42px;
+      max-height: 100px;
+    }
+    #ht-user-input:focus { border-color: var(--orange); }
+    #ht-user-input::placeholder { color: var(--muted); }
+    #ht-send-btn {
+      width: 42px; height: 42px;
+      background: var(--orange);
+      border: none; border-radius: 10px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, transform 0.1s;
+      color: #000;
+    }
+    #ht-send-btn:hover { background: var(--orange-light); }
+    #ht-send-btn:active { transform: scale(0.95); }
+    #ht-send-btn:disabled { background: var(--border); cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -719,6 +953,9 @@
     <li><a href="#quote">Get a Quote</a></li>
     <li><a href="tel:+17329373734" class="nav-phone">732-937-3734</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- MOBILE MENU -->
@@ -812,7 +1049,8 @@
       <a href="#quote" class="service-card fade-up">
         <div class="service-icon"><img src="https://i.postimg.cc/rFQ3T9ps/IMG-4242.jpg" alt="Brake Repair" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" /></div>
         <div class="service-name">Brake Repair &amp; Replacement</div>
-        <div class="service-desc">Pads, rotors, calipers &amp; more. We inspect and replace your brakes on the spot so you can stop with confidence.</div>        <div style="margin-top:0.5rem; padding:0.75rem 1rem; background:rgba(245,200,0,0.06); border-left:3px solid var(--orange); border-radius:0 4px 4px 0; font-size:0.78rem; color:var(--muted); line-height:1.6;">
+        <div class="service-desc">Pads, rotors, calipers &amp; more. We inspect and replace your brakes on the spot so you can stop with confidence.</div>
+        <div style="margin-top:0.5rem; padding:0.75rem 1rem; background:rgba(245,200,0,0.06); border-left:3px solid var(--orange); border-radius:0 4px 4px 0; font-size:0.78rem; color:var(--muted); line-height:1.6;">
           <strong style="color:var(--orange);">⚠️ Rust Caution:</strong> On vehicles with heavy rusting, brake line damage is possible after caliper compression. Rusted lines may split open during or after brake replacement. This will be assessed and communicated before work begins.
         </div>
         <div class="service-arrow">→</div>
@@ -842,7 +1080,7 @@
         <div class="service-arrow">→</div>
       </a>
     </div>
-  
+
     <div style="margin-top:2rem; padding:1rem 1.25rem; background:rgba(245,200,0,0.06); border:1px solid rgba(245,200,0,0.25); border-radius:6px; font-size:0.88rem; color:var(--text); line-height:1.7;">
       <strong style="color:var(--white);">ℹ️ Please Note:</strong> Honestech Mobile Mechanic currently services <strong style="color:var(--white);">passenger vehicles only</strong>. We do not service heavy-duty trucks or construction equipment at this time. We appreciate your understanding.
     </div>
@@ -873,7 +1111,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- GIG DRIVER CALLOUT -->
 <div style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--dark);">
@@ -1009,7 +1246,6 @@
   </div>
 </div>
 
-
 <!-- BLOG -->
 <div class="section-full" id="blog" style="border-top: 1px solid var(--border);">
   <div class="section-inner">
@@ -1018,47 +1254,36 @@
     <p class="section-desc fade-up">Straight talk from a mechanic — no fluff, just useful info to keep your car running right.</p>
 
     <div class="blog-grid">
-
-      <!-- Blog 1 -->
       <div class="blog-card fade-up" onclick="openBlog('blog1')">
         <div class="blog-tag">Maintenance</div>
         <h3 class="blog-title">Vehicle Service Intervals</h3>
         <p class="blog-excerpt">Not sure when to service your car? Here's a simple breakdown of what needs attention and when — so nothing sneaks up on you.</p>
         <div class="blog-read">Read more →</div>
       </div>
-
-      <!-- Blog 2 -->
       <div class="blog-card fade-up" onclick="openBlog('blog2')">
         <div class="blog-tag">Engine</div>
         <h3 class="blog-title">Engine Air Filters</h3>
         <p class="blog-excerpt">Your engine needs clean air to run efficiently. A clogged air filter can hurt fuel economy and performance more than you'd think.</p>
         <div class="blog-read">Read more →</div>
       </div>
-
-      <!-- Blog 3 -->
       <div class="blog-card fade-up" onclick="openBlog('blog3')">
         <div class="blog-tag">Comfort</div>
         <h3 class="blog-title">Cabin Air Filters</h3>
         <p class="blog-excerpt">The filter most people forget about. It affects the air you breathe inside your car — and it's one of the easiest things to replace.</p>
         <div class="blog-read">Read more →</div>
       </div>
-
-      <!-- Blog 4 -->
       <div class="blog-card fade-up" onclick="openBlog('blog4')">
         <div class="blog-tag">Tune-Up</div>
         <h3 class="blog-title">When to Replace Spark Plugs</h3>
         <p class="blog-excerpt">Copper, platinum, iridium — they all wear out at different rates. Know which type your car uses and when to swap them out.</p>
         <div class="blog-read">Read more →</div>
       </div>
-
-      <!-- Blog 5 -->
       <div class="blog-card fade-up" onclick="openBlog('blog5')">
         <div class="blog-tag">Fuel System</div>
         <h3 class="blog-title">Should You Use a Fuel Additive?</h3>
         <p class="blog-excerpt">Fuel additives get a lot of hype. Here's the honest truth about when they actually help — and when they're just marketing.</p>
         <div class="blog-read">Read more →</div>
       </div>
-
     </div>
   </div>
 </div>
@@ -1091,37 +1316,91 @@
   <div class="footer-copy">© 2025 Honestech Mobile Mechanic · New Jersey</div>
 </footer>
 
+<!-- ═══════════════════════════════════════
+     AI CHAT WIDGET
+     ═══════════════════════════════════════ -->
+
+<!-- Bubble button -->
+<button id="ht-chat-bubble" aria-label="Open chat">
+  <div class="ht-bubble-ping"></div>
+  <svg class="icon-chat" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <svg class="icon-close" style="display:none" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<!-- Chat panel -->
+<div id="ht-chat-panel" role="dialog" aria-label="Honestech AI Assistant">
+  <div class="ht-chat-header">
+    <div class="ht-chat-avatar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+      </svg>
+    </div>
+    <div class="ht-chat-header-text">
+      <h3>Honestech AI</h3>
+      <p><span class="ht-online-dot"></span>Ask me about your vehicle</p>
+    </div>
+  </div>
+
+  <div class="ht-chat-messages" id="ht-chat-messages"></div>
+
+  <div class="ht-quick-replies" id="ht-quick-replies">
+    <button class="ht-quick-btn" onclick="htSendQuick('What services do you offer?')">🔧 Services</button>
+    <button class="ht-quick-btn" onclick="htSendQuick('How much does a diagnostic cost?')">💰 Pricing</button>
+    <button class="ht-quick-btn" onclick="htSendQuick('My car won\'t start')">🚗 Won't start</button>
+    <button class="ht-quick-btn" onclick="htSendQuick('How do I book?')">📅 Book</button>
+  </div>
+
+  <div class="ht-chat-input-row">
+    <textarea id="ht-user-input" placeholder="Describe your issue or ask a question…" rows="1"></textarea>
+    <button id="ht-send-btn" aria-label="Send">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+
 <script>
   // Scroll fade-in
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
   }, { threshold: 0.1 });
   document.body.classList.add('js-ready');
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // Formspree AJAX + thank-you message
+  // Hamburger
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobile-menu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobile-menu').classList.remove('open');
+  }
+
+  // Formspree AJAX
   const quoteForm = document.querySelector('form[action*="formspree"]');
   const thankYou = document.getElementById('thank-you');
-
   if (quoteForm) {
     quoteForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = quoteForm.querySelector('.form-submit');
       btn.textContent = 'Sending...';
       btn.disabled = true;
-
       try {
         const response = await fetch(quoteForm.action, {
           method: 'POST',
           body: new FormData(quoteForm),
           headers: { 'Accept': 'application/json' }
         });
-
         if (response.ok) {
           quoteForm.style.display = 'none';
           thankYou.style.display = 'block';
@@ -1139,119 +1418,242 @@
 </script>
 
 <script>
+  // Blog content
   const blogs = {
     blog1: {
-      tag: 'Maintenance',
-      title: 'Vehicle Service Intervals',
       content: `
         <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Maintenance</span>
         <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Vehicle Service Intervals</h2>
         <p style="color:var(--text); margin-bottom:1.25rem;">Staying on top of your service schedule is the single best thing you can do for your car's longevity. Here's a simple breakdown:</p>
         <div style="background:var(--black); border:1px solid var(--border); border-radius:8px; padding:1.5rem; margin-bottom:1.25rem;">
-          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); color:var(--white); font-weight:600; font-size:0.85rem;">
-            <span>Service</span><span style="color:var(--orange);">Interval</span>
-          </div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); color:var(--white); font-weight:600; font-size:0.85rem;"><span>Service</span><span style="color:var(--orange);">Interval</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Oil change & tire rotation</span><span style="color:var(--white);">Every 3k–10k mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Engine & cabin air filters</span><span style="color:var(--white);">Around 15k mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Fluid checks (brake, coolant, trans)</span><span style="color:var(--white);">Every 30k mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Spark plugs</span><span style="color:var(--white);">40k, 60k, or 120k mi</span></div>
         </div>
-        <p style="color:var(--text);">Always check your owner's manual for your specific vehicle — service intervals vary depending on make, model, and whether you use conventional or synthetic oil.</p>
-      `
+        <p style="color:var(--text);">Always check your owner's manual for your specific vehicle — service intervals vary depending on make, model, and whether you use conventional or synthetic oil.</p>`
     },
     blog2: {
-      tag: 'Engine',
-      title: 'Engine Air Filters',
       content: `
         <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Engine</span>
         <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Engine Air Filters</h2>
         <p style="color:var(--text); margin-bottom:1.25rem;">Your engine mixes air and fuel to create combustion. That air has to pass through a filter first — and when that filter gets clogged, your engine works harder than it needs to.</p>
         <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">Signs your engine air filter needs replacing:</strong></p>
         <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
-          <li>Decreased fuel economy</li>
-          <li>Sluggish acceleration</li>
-          <li>Engine misfires or rough idle</li>
-          <li>Black smoke from the exhaust</li>
-          <li>Filter looks visibly dirty or gray</li>
+          <li>Decreased fuel economy</li><li>Sluggish acceleration</li><li>Engine misfires or rough idle</li><li>Black smoke from the exhaust</li><li>Filter looks visibly dirty or gray</li>
         </ul>
-        <p style="color:var(--text); margin-bottom:1.25rem;">Engine air filters should be replaced around every 15,000 miles. If you drive on dusty roads or in heavy stop-and-go traffic, check it sooner.</p>
-        <p style="color:var(--text);">It's one of the cheapest maintenance items you can do — and skipping it can lead to much bigger problems down the road.</p>
-      `
+        <p style="color:var(--text);">Engine air filters should be replaced around every 15,000 miles. If you drive on dusty roads or in heavy stop-and-go traffic, check it sooner.</p>`
     },
     blog3: {
-      tag: 'Comfort',
-      title: 'Cabin Air Filters',
       content: `
         <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Comfort</span>
         <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Cabin Air Filters</h2>
         <p style="color:var(--text); margin-bottom:1.25rem;">The cabin air filter cleans the air coming through your vents — the air you and your passengers breathe. It catches dust, pollen, mold spores, and other pollutants before they enter the cabin.</p>
         <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">Signs your cabin filter is overdue:</strong></p>
         <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
-          <li>Musty or unpleasant smell from the vents</li>
-          <li>Reduced airflow from AC or heat</li>
-          <li>More dust accumulating on your dashboard</li>
-          <li>Allergy symptoms worse than usual while driving</li>
+          <li>Musty or unpleasant smell from the vents</li><li>Reduced airflow from AC or heat</li><li>More dust on your dashboard</li><li>Allergy symptoms worse while driving</li>
         </ul>
-        <p style="color:var(--text); margin-bottom:1.25rem;">Replace your cabin air filter every 10,000–15,000 miles, or once a year if you drive in a heavily polluted area.</p>
-        <p style="color:var(--text);">It's a quick, inexpensive swap — and it makes a noticeable difference in how your car smells and how well your HVAC system works.</p>
-      `
+        <p style="color:var(--text);">Replace every 10,000–15,000 miles, or once a year if you drive in a heavily polluted area.</p>`
     },
     blog4: {
-      tag: 'Tune-Up',
-      title: 'When to Replace Spark Plugs',
       content: `
         <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Tune-Up</span>
         <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">When to Replace Spark Plugs</h2>
-        <p style="color:var(--text); margin-bottom:1.25rem;">Spark plugs ignite the air-fuel mixture in your engine. Worn plugs mean incomplete combustion — which means worse fuel economy, rough idling, and hard starts.</p>
+        <p style="color:var(--text); margin-bottom:1.25rem;">Spark plugs ignite the air-fuel mixture in your engine. Worn plugs mean incomplete combustion — worse fuel economy, rough idling, and hard starts.</p>
         <div style="background:var(--black); border:1px solid var(--border); border-radius:8px; padding:1.5rem; margin-bottom:1.25rem;">
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); color:var(--white); font-weight:600; font-size:0.85rem;"><span>Type</span><span style="color:var(--orange);">Lifespan</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Copper</span><span style="color:var(--white);">~40,000 mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Platinum</span><span style="color:var(--white);">~60,000 mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Iridium</span><span style="color:var(--white);">~120,000 mi</span></div>
         </div>
-        <p style="color:var(--text); margin-bottom:1.25rem;">Always use the plug type specified in your owner's manual. Installing the wrong type can cause misfires or even engine damage.</p>
-        <p style="color:var(--text);">Always use the plug type and interval specified in your owner's manual — don't push it past the manufacturer's recommendation.</p>
-      `
+        <p style="color:var(--text);">Always use the plug type and interval specified in your owner's manual.</p>`
     },
     blog5: {
-      tag: 'Fuel System',
-      title: 'Should You Use a Fuel Additive?',
       content: `
         <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Fuel System</span>
         <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Should You Use a Fuel Additive?</h2>
         <p style="color:var(--text); margin-bottom:1.25rem;">Walk into any auto parts store and you'll see a wall of fuel additives promising better mileage, cleaner engines, and more power. Here's the honest answer: some work, most don't matter, and none are a substitute for real maintenance.</p>
         <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">When a fuel additive can actually help:</strong></p>
         <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
-          <li>Fuel injector cleaners (like Techron) every 5,000–10,000 miles can reduce light carbon deposits</li>
-          <li>Fuel stabilizer if your car sits unused for more than 30 days</li>
-          <li>Octane boosters if you're running high-compression or forced-induction engines</li>
+          <li>Fuel injector cleaners (like Techron) every 5k–10k miles</li><li>Fuel stabilizer if your car sits unused for 30+ days</li><li>Octane boosters for high-compression or forced-induction engines</li>
         </ul>
         <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">When they won't help:</strong></p>
         <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
-          <li>If your check engine light is on — that's a mechanical problem, not a chemical one</li>
-          <li>If your injectors are heavily clogged — at that point you need a professional cleaning</li>
-          <li>If you're chasing better fuel economy — fix your tire pressure and air filter first</li>
+          <li>Check engine light on — that's a mechanical problem</li><li>Heavily clogged injectors — needs professional cleaning</li><li>Chasing better fuel economy — fix your tire pressure and air filter first</li>
         </ul>
-        <p style="color:var(--text);">Bottom line: use a reputable cleaner occasionally as preventive maintenance. Don't expect miracles — and don't skip your actual service intervals hoping a bottle will cover for it.</p>
-      `
+        <p style="color:var(--text);">Bottom line: use a reputable cleaner occasionally as preventive maintenance. Don't skip your actual service intervals hoping a bottle will cover for it.</p>`
     }
   };
 
   function openBlog(id) {
-    const blog = blogs[id];
-    document.getElementById('blog-modal-content').innerHTML = blog.content;
+    document.getElementById('blog-modal-content').innerHTML = blogs[id].content;
     document.getElementById('blog-modal').style.display = 'block';
     document.body.style.overflow = 'hidden';
   }
-
   function closeBlog() {
     document.getElementById('blog-modal').style.display = 'none';
     document.body.style.overflow = '';
   }
-
   document.getElementById('blog-modal').addEventListener('click', function(e) {
     if (e.target === this) closeBlog();
   });
+</script>
+
+<script>
+  // ── AI CHAT WIDGET LOGIC ──────────────────────────────────
+  const HT_SYSTEM = `You are the AI assistant for Honestech Mobile Mechanic, a mobile auto repair business serving Middlesex, Monmouth, and Ocean County in New Jersey. The owner/mechanic is Juan. Phone: 732-937-3734. Website: honestechmobilemechanic.com.
+
+TONE: Friendly, direct, no fluff. You're a knowledgeable mechanic's assistant — not a corporate chatbot.
+
+SERVICES WE PERFORM (yes):
+- Pre-purchase inspections, oil changes & fluid services, brake pads & rotors, battery testing & replacement, tire rotation & pressure check, spark plug replacement, air & cabin filter replacement, serpentine belt replacement, coolant flush / thermostat replacement, check engine light / OBD-II diagnostics, AC diagnostics (pressure check, leak check), alternator & starter replacement, suspension inspections, oxygen sensor replacement, throttle body cleaning, minor electrical diagnosis, fuel filter replacement (external/accessible)
+
+SERVICES WE DO NOT PERFORM (no):
+- Transmission rebuilds/replacements (can diagnose, refer out), engine rebuilds/replacements, timing belt/chain, AC recharge / refrigerant (not EPA certified), windshield replacement, bodywork/paint/collision, emissions/state inspections, tire mounting & balancing, diesel engines, hybrid/EV high-voltage systems, welding
+
+PRICING (estimates — final quote after inspection):
+- Diagnostic fee: $75 (waived/credited if repair booked)
+- Oil change conventional: $60–$80 | synthetic: $80–$110
+- Brake pads per axle: $150–$250 | rotors per axle: $200–$350
+- Battery replacement: $120–$200
+- Spark plugs (4-cyl): $100–$160
+- Serpentine belt: $120–$180
+- Thermostat/coolant flush: $130–$200
+- Alternator: $250–$450 | Starter: $220–$380
+- Oxygen sensor: $130–$220
+- Suspension component: $150–$350
+- Pre-purchase inspection: $100
+
+SERVICE AREA: Middlesex (primary), Monmouth & Ocean counties NJ. Small travel fee may apply.
+
+HOW TO BOOK: Text or use the contact form at honestechmobilemechanic.com. Phone: 732-937-3734.
+
+RULES:
+1. Answer YES or NO clearly when asked if we can do a service.
+2. If NO, briefly explain why and suggest they still call to confirm.
+3. For pricing, give the range and note it's an estimate — diagnostic confirms the exact quote.
+4. For symptoms, help identify what it might be and whether we can address it.
+5. Keep responses concise — 2–4 sentences max unless a list helps.
+6. Never make up info. Direct to website/phone for contact.`;
+
+  const htMessages = [];
+  let htOpen = false;
+  let htTyping = false;
+
+  const htPanel   = document.getElementById('ht-chat-panel');
+  const htBubble  = document.getElementById('ht-chat-bubble');
+  const htMsgBox  = document.getElementById('ht-chat-messages');
+  const htInput   = document.getElementById('ht-user-input');
+  const htSendBtn = document.getElementById('ht-send-btn');
+
+  htBubble.addEventListener('click', () => {
+    htOpen = !htOpen;
+    htPanel.classList.toggle('visible', htOpen);
+    htBubble.classList.toggle('open', htOpen);
+    const ping = htBubble.querySelector('.ht-bubble-ping');
+    if (ping) ping.remove();
+    if (htOpen && htMessages.length === 0) htGreet();
+  });
+
+  function htGreet() {
+    htAddBot("Hey! I'm the Honestech AI assistant. I can tell you what services we offer, give you a pricing estimate, help you figure out what's going on with your vehicle, or help you get in touch. What's going on?");
+  }
+
+  function htAddBot(text) {
+    const d = document.createElement('div');
+    d.className = 'ht-msg bot';
+    d.innerHTML = `
+      <div class="ht-msg-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      </div>
+      <div class="ht-msg-bubble">${htFormat(text)}</div>`;
+    htMsgBox.appendChild(d);
+    htScroll();
+    htMessages.push({ role: 'assistant', content: text });
+  }
+
+  function htAddUser(text) {
+    const d = document.createElement('div');
+    d.className = 'ht-msg user';
+    d.innerHTML = `
+      <div class="ht-msg-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="ht-msg-bubble">${htEsc(text)}</div>`;
+    htMsgBox.appendChild(d);
+    htScroll();
+    htMessages.push({ role: 'user', content: text });
+  }
+
+  function htShowTyping() {
+    const d = document.createElement('div');
+    d.className = 'ht-msg bot'; d.id = 'ht-typing';
+    d.innerHTML = `
+      <div class="ht-msg-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      </div>
+      <div class="ht-typing-bubble"><div class="ht-typing-dot"></div><div class="ht-typing-dot"></div><div class="ht-typing-dot"></div></div>`;
+    htMsgBox.appendChild(d);
+    htScroll();
+  }
+
+  function htRemoveTyping() {
+    const el = document.getElementById('ht-typing');
+    if (el) el.remove();
+  }
+
+  async function htSend(text) {
+    if (!text.trim() || htTyping) return;
+    text = text.trim();
+    htAddUser(text);
+    htInput.value = '';
+    htInput.style.height = '42px';
+    document.getElementById('ht-quick-replies').style.display = 'none';
+    htTyping = true;
+    htSendBtn.disabled = true;
+    htShowTyping();
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: HT_SYSTEM,
+          messages: htMessages.filter(m => m.role !== 'system')
+        })
+      });
+      const data = await res.json();
+      htRemoveTyping();
+      const reply = data?.content?.[0]?.text || "Sorry, I had trouble with that. Reach us at honestechmobilemechanic.com or call 732-937-3734.";
+      htAddBot(reply);
+    } catch(e) {
+      htRemoveTyping();
+      htAddBot("Connection issue — please try again or call us at <a href='tel:+17329373734'>732-937-3734</a>.");
+    }
+
+    htTyping = false;
+    htSendBtn.disabled = false;
+  }
+
+  function htSendQuick(text) { if (!htTyping) htSend(text); }
+
+  htSendBtn.addEventListener('click', () => htSend(htInput.value));
+  htInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); htSend(htInput.value); }
+  });
+  htInput.addEventListener('input', () => {
+    htInput.style.height = '42px';
+    htInput.style.height = Math.min(htInput.scrollHeight, 100) + 'px';
+  });
+
+  function htScroll() { setTimeout(() => htMsgBox.scrollTop = htMsgBox.scrollHeight, 60); }
+  function htEsc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function htFormat(s) {
+    return htEsc(s).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  }
 </script>
 
 </body>
