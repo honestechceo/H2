@@ -781,18 +781,16 @@
 <!-- NAV -->
 
 <!-- CLOSURE POPUP -->
-<div class="popup-overlay" id="closure-popup" style="display:none;">
-  <div class="popup-box">
-    <div class="popup-icon">🔧</div>
-    <span class="popup-label">Important Notice</span>
-    <div class="popup-title">WE'LL BE CLOSED<br>JULY 3 – JULY 11</div>
-    <p class="popup-body">
-      Honestech Mobile Mechanic will be closed from <strong>July 3rd through July 11th, 2026</strong>.<br><br>
-      You're still welcome to <strong>schedule an appointment</strong> — we'll get you booked for <strong>July 12th or later</strong>. We appreciate your patience and look forward to serving you!
-    </p>
-    <div class="popup-actions">
-      <button class="popup-btn-primary" onclick="goToQuote()" style="width:100%; cursor:pointer; border:none; font-family:'DM Sans',sans-serif; font-size:0.95rem; letter-spacing:0.04em;">Schedule for After July 11th →</button>
-      <button class="popup-btn-dismiss" onclick="dismissPopup()">Got it, continue to site</button>
+<div id="closure-popup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:#111; border:1px solid #f5c800; border-radius:12px; padding:2.5rem 2rem; max-width:460px; width:100%; text-align:center; position:relative;">
+    <button onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="position:absolute; top:1rem; right:1rem; background:#272727; border:none; color:#f5f5f0; width:32px; height:32px; border-radius:50%; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+    <div style="font-size:2.2rem; margin-bottom:0.75rem;">🔧</div>
+    <div style="font-family:'DM Mono',monospace; font-size:0.7rem; color:#f5c800; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.5rem;">Important Notice</div>
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:#f5f5f0; letter-spacing:0.03em; line-height:1.1; margin-bottom:1rem;">WE'LL BE CLOSED<br>JULY 3 – JULY 11</div>
+    <p style="font-size:0.92rem; color:#c0c0bc; line-height:1.7; margin-bottom:1.5rem;">Honestech Mobile Mechanic will be closed from <strong style="color:#f5f5f0;">July 3rd through July 11th, 2026</strong>.<br><br>You are still welcome to <strong style="color:#f5f5f0;">schedule an appointment</strong> for <strong style="color:#f5f5f0;">July 12th or later</strong>. We appreciate your patience!</p>
+    <div style="display:flex; flex-direction:column; gap:0.75rem;">
+      <a href="#quote" onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="background:#f5c800; color:#000; padding:0.9rem 1.5rem; border-radius:4px; font-weight:700; font-size:0.95rem; text-decoration:none; display:block;">Schedule for After July 11th →</a>
+      <button onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="background:none; border:1px solid #272727; color:#888; padding:0.75rem; border-radius:4px; font-size:0.88rem; cursor:pointer; font-family:'DM Sans',sans-serif;">Got it, continue to site</button>
     </div>
   </div>
 </div>
@@ -1375,10 +1373,12 @@
     var closeDate = new Date('2026-07-12T00:00:00');
     var dismissed = sessionStorage.getItem('popupDismissed');
     var popup = document.getElementById('closure-popup');
-    if (!dismissed && now < closeDate) {
-      popup.style.display = 'flex';
-    } else {
-      popup.style.display = 'none';
+    if (popup) {
+      if (!dismissed && now < closeDate) {
+        popup.style.display = 'flex';
+      } else {
+        popup.style.display = 'none';
+      }
     }
   })();
 </script>
