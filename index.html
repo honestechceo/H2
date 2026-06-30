@@ -688,6 +688,78 @@
       .nav-links { display: none !important; }
     }
 
+
+    /* ── CLOSURE POPUP ── */
+    .popup-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    .popup-overlay.hidden { display: none; }
+    .popup-box {
+      background: var(--dark);
+      border: 1px solid var(--yellow);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    .popup-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .popup-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--yellow);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .popup-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--white);
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .popup-body {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+    .popup-body strong { color: var(--white); }
+    .popup-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+    .popup-btn-primary {
+      background: var(--yellow);
+      color: #000;
+      padding: 0.9rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+      display: block;
+    }
+    .popup-btn-primary:hover { background: var(--yellow-light); }
+    .popup-btn-dismiss {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .popup-btn-dismiss:hover { border-color: var(--white); color: var(--white); }
+
     /* ── SCROLL FADE-IN ── */
     .fade-up {
       opacity: 1;
@@ -707,6 +779,24 @@
 <body>
 
 <!-- NAV -->
+
+<!-- CLOSURE POPUP -->
+<div class="popup-overlay" id="closure-popup">
+  <div class="popup-box">
+    <div class="popup-icon">🔧</div>
+    <span class="popup-label">Important Notice</span>
+    <div class="popup-title">WE'LL BE CLOSED<br>JULY 3 – JULY 11</div>
+    <p class="popup-body">
+      Honestech Mobile Mechanic will be closed from <strong>July 3rd through July 11th, 2026</strong>.<br><br>
+      You're still welcome to <strong>schedule an appointment</strong> — we'll get you booked for <strong>July 12th or later</strong>. We appreciate your patience and look forward to serving you!
+    </p>
+    <div class="popup-actions">
+      <a href="#quote" class="popup-btn-primary" onclick="dismissPopup()">Schedule for After July 11th →</a>
+      <button class="popup-btn-dismiss" onclick="dismissPopup()">Got it, continue to site</button>
+    </div>
+  </div>
+</div>
+
 <nav>
   <a class="nav-logo" href="#">
     <img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:72px; width:auto; max-width:260px; object-fit:contain; display:block;" />
