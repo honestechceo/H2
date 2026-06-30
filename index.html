@@ -697,7 +697,7 @@
       display: flex; align-items: center; justify-content: center;
       padding: 1.5rem;
     }
-    .popup-overlay.hidden { display: none; }
+
     .popup-box {
       background: var(--dark);
       border: 1px solid var(--yellow);
@@ -781,7 +781,7 @@
 <!-- NAV -->
 
 <!-- CLOSURE POPUP -->
-<div class="popup-overlay" id="closure-popup">
+<div class="popup-overlay" id="closure-popup" style="display:none;">
   <div class="popup-box">
     <div class="popup-icon">🔧</div>
     <span class="popup-label">Important Notice</span>
@@ -1348,6 +1348,39 @@
   document.getElementById('blog-modal').addEventListener('click', function(e) {
     if (e.target === this) closeBlog();
   });
+</script>
+
+
+<script>
+  // Popup functions
+  function dismissPopup() {
+    var popup = document.getElementById('closure-popup');
+    popup.style.display = 'none';
+    sessionStorage.setItem('popupDismissed', '1');
+  }
+
+  function goToQuote() {
+    var popup = document.getElementById('closure-popup');
+    popup.style.display = 'none';
+    sessionStorage.setItem('popupDismissed', '1');
+    setTimeout(function() {
+      var el = document.getElementById('quote');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  }
+
+  // Show or hide popup on load
+  (function() {
+    var now = new Date();
+    var closeDate = new Date('2026-07-12T00:00:00');
+    var dismissed = sessionStorage.getItem('popupDismissed');
+    var popup = document.getElementById('closure-popup');
+    if (!dismissed && now < closeDate) {
+      popup.style.display = 'flex';
+    } else {
+      popup.style.display = 'none';
+    }
+  })();
 </script>
 
 </body>
