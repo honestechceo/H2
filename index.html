@@ -791,7 +791,7 @@
       You're still welcome to <strong>schedule an appointment</strong> — we'll get you booked for <strong>July 12th or later</strong>. We appreciate your patience and look forward to serving you!
     </p>
     <div class="popup-actions">
-      <a href="#quote" class="popup-btn-primary" onclick="dismissPopup(); setTimeout(()=>{ document.getElementById('quote').scrollIntoView({behavior:'smooth'}) }, 50)">Schedule for After July 11th →</a>
+      <button class="popup-btn-primary" onclick="goToQuote()" style="width:100%; cursor:pointer; border:none; font-family:'DM Sans',sans-serif; font-size:0.95rem; letter-spacing:0.04em;">Schedule for After July 11th →</button>
       <button class="popup-btn-dismiss" onclick="dismissPopup()">Got it, continue to site</button>
     </div>
   </div>
