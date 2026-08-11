@@ -8,14 +8,14 @@
   <meta name="keywords" content="mobile mechanic Port Reading NJ, auto repair Port Reading, mobile mechanic Middlesex County NJ, car repair at home Port Reading"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root{--black:#0a0a0a;--dark:#111111;--card:#181818;--border:#272727;--yellow:#f5c800;--yellow-light:#ffe033;--white:#f5f5f0;--muted:#888;--text:#c0c0bc;}
+    :root{--black: #ffffff;--dark: #f4f6fb;--card: #eef1f8;--border: #dde2ef;--yellow:#f5c800;--yellow-light:#ffe033;--white: #0f1c3f;--muted: #6b7a99;--text: #334166;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:70px;background:rgba(10,10,10,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    body{background:#ffffff;color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:70px;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
     .nav-links{display:flex;gap:2rem;list-style:none;}
     .nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s;}
-    .nav-links a:hover{color:var(--white);}
+    .nav-links a:hover{color:#0f1c3f;}
     .nav-cta{background:var(--yellow);color:#000!important;padding:0.5rem 1.2rem;border-radius:4px;font-weight:700!important;}
     .nav-phone{font-family:'DM Mono',monospace;font-size:0.9rem;color:var(--yellow)!important;}
     main{max-width:900px;margin:0 auto;padding:7rem 2rem 5rem;}
@@ -24,8 +24,8 @@
     .breadcrumb a:hover{color:var(--yellow);}
     .breadcrumb span{margin:0 0.4rem;}
     .label{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--yellow);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;display:block;}
-    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);color:var(--white);letter-spacing:0.03em;line-height:1;margin-bottom:1rem;}
-    h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white);letter-spacing:0.03em;margin-bottom:0.5rem;}
+    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);color:#0f1c3f;letter-spacing:0.03em;line-height:1;margin-bottom:1rem;}
+    h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#0f1c3f;letter-spacing:0.03em;margin-bottom:0.5rem;}
     p{margin-bottom:1rem;}
     .subtitle{font-size:1.1rem;color:var(--text);max-width:600px;margin-bottom:2.5rem;}
     .btn-primary{background:var(--yellow);color:#000;padding:0.9rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;letter-spacing:0.04em;transition:background 0.2s,transform 0.2s;display:inline-flex;align-items:center;gap:0.5rem;}
@@ -45,7 +45,8 @@
     .cta-box{background:var(--dark);border:1px solid var(--yellow);border-radius:8px;padding:2.5rem;text-align:center;margin-top:3rem;}
     .cta-box h2{margin-bottom:0.75rem;}
     .cta-box p{color:var(--text);margin-bottom:1.5rem;}
-    footer{border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    footer{border-top:1px solid var(--border);
+      background: #0f1c3f;padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
     .footer-links{display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap;}
     .footer-links a{font-size:0.82rem;color:var(--muted);text-decoration:none;}
     .footer-links a:hover{color:var(--white);}
@@ -53,13 +54,13 @@
     @media(max-width:768px){nav{padding:0 1.25rem;} .nav-links{display:none;} main{padding:6rem 1.25rem 4rem;} footer{flex-direction:column;padding:1.5rem 1.25rem;}}
 
     .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:200;}
-    .hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+    .hamburger span{display:block;width:24px;height:2px;background:#0f1c3f;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
     .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
     .hamburger.open span:nth-child(2){opacity:0;}
     .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-    .mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;bottom:0;background:rgba(10,10,10,0.98);backdrop-filter:blur(16px);z-index:99;flex-direction:column;align-items:flex-start;padding:2.5rem 2rem;gap:0;border-top:1px solid var(--border);overflow-y:auto;}
+    .mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;bottom:0;background:rgba(255,255,255,0.99);backdrop-filter:blur(16px);z-index:99;flex-direction:column;align-items:flex-start;padding:2.5rem 2rem;gap:0;border-top:1px solid var(--border);overflow-y:auto;}
     .mobile-menu.open{display:flex;}
-    .mobile-menu a{display:block;color:var(--white);text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.05em;padding:0.6rem 0;border-bottom:1px solid var(--border);width:100%;transition:color 0.2s;}
+    .mobile-menu a{display:block;color:#0f1c3f;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.05em;padding:0.6rem 0;border-bottom:1px solid var(--border);width:100%;transition:color 0.2s;}
     .mobile-menu a:hover{color:var(--yellow);}
     .mobile-menu a.highlight{color:var(--yellow);}
     .mobile-menu .mobile-phone{font-family:'DM Mono',monospace;font-size:1.1rem;color:var(--yellow);margin-top:2rem;border-bottom:none;letter-spacing:0.05em;}

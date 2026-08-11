@@ -7,15 +7,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --black: #0a0a0a;
-      --dark: #111111;
-      --card: #181818;
-      --border: #272727;
+      --black: #ffffff;
+      --dark: #f4f6fb;
+      --card: #eef1f8;
+      --border: #dde2ef;
       --orange: #f5c800;
       --orange-light: #ffe033;
-      --white: #f5f5f0;
-      --muted: #888;
-      --text: #c0c0bc;
+      --white: #0f1c3f;
+      --muted: #6b7a99;
+      --text: #334166;
+      --navy: #0f1c3f;
+      --navy-mid: #1a3266;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,7 +25,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--black);
+      background: #ffffff;
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
@@ -37,7 +39,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem;
       height: 64px;
-      background: rgba(10,10,10,0.93);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -45,7 +47,7 @@
     .nav-logo {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.6rem;
-      color: var(--white);
+      color: #0f1c3f;
       letter-spacing: 0.08em;
       text-decoration: none;
     }
@@ -55,7 +57,7 @@
       display: flex; gap: 2rem; list-style: none;
     }
     .nav-links a {
-      color: var(--muted);
+      color: #334166;
       text-decoration: none;
       font-size: 0.85rem;
       font-weight: 500;
@@ -63,7 +65,7 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover { color: #0f1c3f; }
 
     .nav-cta {
       background: var(--orange);
@@ -92,17 +94,17 @@
     .hero-bg {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(245,200,0,0.10) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(245,200,0,0.06) 0%, transparent 60%),
-        linear-gradient(160deg, #0a0a0a 0%, #111111 100%);
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(245,200,0,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(15,28,63,0.08) 0%, transparent 60%),
+        linear-gradient(160deg, #f4f6fb 0%, #eef1f8 100%);
     }
 
     /* Animated grid lines */
     .hero-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        linear-gradient(rgba(15,28,63,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,28,63,0.05) 1px, transparent 1px);
       background-size: 60px 60px;
       animation: gridShift 20s linear infinite;
     }
@@ -139,7 +141,7 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(4rem, 12vw, 10rem);
       line-height: 0.9;
-      color: var(--white);
+      color: #0f1c3f;
       letter-spacing: 0.02em;
       margin-bottom: 1.5rem;
     }
@@ -148,7 +150,7 @@
     .hero-sub {
       position: relative;
       font-size: 1.15rem;
-      color: var(--text);
+      color: #334166;
       max-width: 480px;
       margin-bottom: 2.5rem;
       font-weight: 300;
@@ -185,7 +187,7 @@
       transition: border-color 0.2s, transform 0.2s;
       display: inline-flex; align-items: center; gap: 0.5rem;
     }
-    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .btn-secondary:hover { border-color: var(--orange); color: #0f1c3f; transform: translateY(-2px); }
 
     .hero-stats {
       position: absolute;
@@ -198,7 +200,7 @@
     .stat-num {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 2.4rem;
-      color: var(--white);
+      color: #0f1c3f;
       line-height: 1;
     }
     .stat-num span { color: var(--orange); }
@@ -240,7 +242,7 @@
     .section-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2.5rem, 5vw, 4rem);
-      color: var(--white);
+      color: #0f1c3f;
       letter-spacing: 0.03em;
       line-height: 1;
       margin-bottom: 1rem;
@@ -266,11 +268,11 @@
     }
 
     .why-card {
-      background: var(--dark);
+      background: #f4f6fb;
       padding: 2.5rem 2rem;
       transition: background 0.3s;
     }
-    .why-card:hover { background: var(--card); }
+    .why-card:hover { background: #eef1f8; }
 
     .why-icon {
       font-size: 1.8rem;
@@ -279,7 +281,7 @@
 
     .why-title {
       font-weight: 600;
-      color: var(--white);
+      color: #0f1c3f;
       font-size: 1rem;
       margin-bottom: 0.5rem;
     }
@@ -292,9 +294,9 @@
 
     /* ── SERVICES ── */
     .services-section {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      background: #f4f6fb;
+      border-top: 1px solid #dde2ef;
+      border-bottom: 1px solid #dde2ef;
     }
 
     .services-grid {
@@ -305,8 +307,8 @@
     }
 
     .service-card {
-      background: var(--black);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid #dde2ef;
       border-radius: 8px;
       padding: 2rem 1.5rem;
       text-decoration: none;
@@ -330,7 +332,7 @@
 
     .service-name {
       font-weight: 600;
-      color: var(--white);
+      color: #0f1c3f;
       font-size: 0.95rem;
       line-height: 1.3;
     }
@@ -358,9 +360,10 @@
     }
 
     .location-card {
-      border: 1px solid var(--border);
+      border: 1px solid #dde2ef;
       border-radius: 8px;
       padding: 2rem;
+      background: #f4f6fb;
     }
 
     .location-county {
@@ -379,8 +382,8 @@
 
     /* ── QUOTE FORM ── */
     .quote-section {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
+      background: #f4f6fb;
+      border-top: 1px solid #dde2ef;
     }
 
     .quote-layout {
@@ -407,7 +410,7 @@
     }
 
     .promise-icon {
-      color: var(--orange);
+      color: #0f1c3f;
       flex-shrink: 0;
       margin-top: 2px;
     }
@@ -434,10 +437,10 @@
     .form-group input,
     .form-group select,
     .form-group textarea {
-      background: var(--black);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid #dde2ef;
       border-radius: 4px;
-      color: var(--white);
+      color: #0f1c3f;
       padding: 0.75rem 1rem;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.95rem;
@@ -490,7 +493,9 @@
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #dde2ef;
+      background: #0f1c3f;
+      background: #0f1c3f;
       padding: 3rem 2.5rem;
       display: flex;
       justify-content: space-between;
@@ -503,7 +508,7 @@
     .footer-logo {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.4rem;
-      color: var(--white);
+      color: #0f1c3f;
       letter-spacing: 0.08em;
     }
     .footer-logo span { color: var(--orange); }
@@ -513,15 +518,15 @@
     }
     .footer-links a {
       font-size: 0.85rem;
-      color: var(--muted);
+      color: #a0aec0;
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: var(--white); }
+    .footer-links a:hover { color: #ffffff; }
 
     .footer-copy {
       font-size: 0.78rem;
-      color: var(--muted);
+      color: #a0aec0;
     }
 
     /* ── DIVIDER ── */
@@ -556,8 +561,8 @@
     }
 
     .blog-card {
-      background: var(--dark);
-      border: 1px solid var(--border);
+      background: #f4f6fb;
+      border: 1px solid #dde2ef;
       border-radius: 8px;
       padding: 2rem 1.75rem;
       cursor: pointer;
@@ -582,7 +587,7 @@
     .blog-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.4rem;
-      color: var(--white);
+      color: #0f1c3f;
       letter-spacing: 0.03em;
       line-height: 1.1;
     }
@@ -622,7 +627,7 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: var(--white);
+      background: #0f1c3f;
       border-radius: 2px;
       transition: transform 0.3s, opacity 0.3s;
     }
@@ -637,7 +642,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(10,10,10,0.98);
+      background: rgba(255,255,255,0.99);
       backdrop-filter: blur(16px);
       z-index: 99;
       flex-direction: column;
@@ -645,23 +650,23 @@
       justify-content: flex-start;
       padding: 2.5rem 2rem;
       gap: 0;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #dde2ef;
       overflow-y: auto;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
       display: block;
-      color: var(--white);
+      color: #0f1c3f;
       text-decoration: none;
       font-family: 'Bebas Neue', sans-serif;
       font-size: 2.2rem;
       letter-spacing: 0.05em;
       padding: 0.6rem 0;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #dde2ef;
       width: 100%;
       transition: color 0.2s;
     }
-    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-menu a:hover { color: var(--orange); }
     .mobile-menu a.highlight { color: var(--yellow); }
     .mobile-menu .mobile-phone {
       font-family: 'DM Mono', monospace;
@@ -721,7 +726,7 @@
     .popup-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 2.2rem;
-      color: var(--white);
+      color: #0f1c3f;
       letter-spacing: 0.03em;
       line-height: 1.1;
       margin-bottom: 1rem;
@@ -782,15 +787,15 @@
 
 <!-- CLOSURE POPUP -->
 <div id="closure-popup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; padding:1.5rem;">
-  <div style="background:#111; border:1px solid #f5c800; border-radius:12px; padding:2.5rem 2rem; max-width:460px; width:100%; text-align:center; position:relative;">
-    <button onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="position:absolute; top:1rem; right:1rem; background:#272727; border:none; color:#f5f5f0; width:32px; height:32px; border-radius:50%; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+  <div style="background:#ffffff; border:2px solid #f5c800; border-radius:12px; padding:2.5rem 2rem; max-width:460px; width:100%; text-align:center; position:relative;">
+    <button onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="position:absolute; top:1rem; right:1rem; background:#dde2ef; border:none; color:#0f1c3f; width:32px; height:32px; border-radius:50%; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
     <div style="font-size:2.2rem; margin-bottom:0.75rem;">🔧</div>
-    <div style="font-family:'DM Mono',monospace; font-size:0.7rem; color:#f5c800; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.5rem;">Important Notice</div>
-    <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:#f5f5f0; letter-spacing:0.03em; line-height:1.1; margin-bottom:1rem;">WE'LL BE CLOSED<br>JULY 3 – JULY 11</div>
-    <p style="font-size:0.92rem; color:#c0c0bc; line-height:1.7; margin-bottom:1.5rem;">Honestech Mobile Mechanic will be closed from <strong style="color:#f5f5f0;">July 3rd through July 11th, 2026</strong>.<br><br>You are still welcome to <strong style="color:#f5f5f0;">schedule an appointment</strong> for <strong style="color:#f5f5f0;">July 12th or later</strong>. We appreciate your patience!</p>
+    <div style="font-family:'DM Mono',monospace; font-size:0.7rem; color:#0f1c3f; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.5rem;">Important Notice</div>
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:#0f1c3f; letter-spacing:0.03em; line-height:1.1; margin-bottom:1rem;">WE'LL BE CLOSED<br>JULY 3 – JULY 11</div>
+    <p style="font-size:0.92rem; color:#334166; line-height:1.7; margin-bottom:1.5rem;">Honestech Mobile Mechanic will be closed from <strong style="color:#0f1c3f;">July 3rd through July 11th, 2026</strong>.<br><br>You are still welcome to <strong style="color:#0f1c3f;">schedule an appointment</strong> for <strong style="color:#0f1c3f;">July 12th or later</strong>. We appreciate your patience!</p>
     <div style="display:flex; flex-direction:column; gap:0.75rem;">
       <a href="#quote" onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="background:#f5c800; color:#000; padding:0.9rem 1.5rem; border-radius:4px; font-weight:700; font-size:0.95rem; text-decoration:none; display:block;">Schedule for After July 11th →</a>
-      <button onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="background:none; border:1px solid #272727; color:#888; padding:0.75rem; border-radius:4px; font-size:0.88rem; cursor:pointer; font-family:'DM Sans',sans-serif;">Got it, continue to site</button>
+      <button onclick="document.getElementById('closure-popup').style.display='none'; sessionStorage.setItem('popupDismissed','1');" style="background:none; border:1px solid #dde2ef; color:#888; padding:0.75rem; border-radius:4px; font-size:0.88rem; cursor:pointer; font-family:'DM Sans',sans-serif;">Got it, continue to site</button>
     </div>
   </div>
 </div>
@@ -968,12 +973,12 @@
 
 
 <!-- GIG DRIVER CALLOUT -->
-<div style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--dark);">
+<div style="border-top:1px solid #dde2ef; border-bottom:1px solid #dde2ef; background:#0f1c3f;">
   <div style="max-width:1200px; margin:0 auto; padding:3.5rem 2.5rem; display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap;">
     <div>
-      <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase; display:block; margin-bottom:0.5rem;">For Gig Drivers</span>
-      <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--white); letter-spacing:0.03em; line-height:1; margin-bottom:0.5rem;">UBER · LYFT · DOORDASH · AMAZON FLEX</h2>
-      <p style="color:var(--muted); font-size:0.95rem; max-width:500px; margin:0;">Your car is your paycheck. We come to you fast — no shop wait, no lost income. <strong style="color:var(--white);">$25 off brake service</strong> for gig drivers.</p>
+      <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:#f5c800; letter-spacing:0.15em; text-transform:uppercase; display:block; margin-bottom:0.5rem;">For Gig Drivers</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:#ffffff; letter-spacing:0.03em; line-height:1; margin-bottom:0.5rem;">UBER · LYFT · DOORDASH · AMAZON FLEX</h2>
+      <p style="color:#a0aec0; font-size:0.95rem; max-width:500px; margin:0;">Your car is your paycheck. We come to you fast — no shop wait, no lost income. <strong style="color:#f5c800;">$25 off brake service</strong> for gig drivers.</p>
     </div>
     <a href="/gig-drivers.html" style="background:var(--orange); color:#000; padding:1rem 2rem; border-radius:4px; font-weight:700; font-size:0.95rem; text-decoration:none; letter-spacing:0.04em; white-space:nowrap; flex-shrink:0;">See Gig Driver Offer →</a>
   </div>
@@ -1160,7 +1165,7 @@
 <!-- BLOG MODAL -->
 <div id="blog-modal" style="display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); overflow-y:auto; padding:2rem 1rem;">
   <div style="max-width:680px; margin:0 auto; background:var(--dark); border:1px solid var(--border); border-radius:12px; padding:3rem 2.5rem; position:relative;">
-    <button onclick="closeBlog()" style="position:absolute; top:1.25rem; right:1.25rem; background:var(--border); border:none; color:var(--white); width:36px; height:36px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+    <button onclick="closeBlog()" style="position:absolute; top:1.25rem; right:1.25rem; background:var(--border); border:none; color:#0f1c3f; width:36px; height:36px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
     <div id="blog-modal-content"></div>
     <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--border);">
       <a href="#quote" onclick="closeBlog()" class="btn-primary" style="display:inline-flex;">Book a Service →</a>
@@ -1248,7 +1253,7 @@
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Oil change & tire rotation</span><span style="color:var(--white);">Every 3k–10k mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Engine & cabin air filters</span><span style="color:var(--white);">Around 15k mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Fluid checks (brake, coolant, trans)</span><span style="color:var(--white);">Every 30k mi</span></div>
-          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Spark plugs</span><span style="color:var(--white);">40k, 60k, or 120k mi</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Spark plugs</span><span style="color:#0f1c3f;">40k, 60k, or 120k mi</span></div>
         </div>
         <p style="color:var(--text);">Always check your owner's manual for your specific vehicle — service intervals vary depending on make, model, and whether you use conventional or synthetic oil.</p>
       `
@@ -1260,7 +1265,7 @@
         <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Engine</span>
         <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Engine Air Filters</h2>
         <p style="color:var(--text); margin-bottom:1.25rem;">Your engine mixes air and fuel to create combustion. That air has to pass through a filter first — and when that filter gets clogged, your engine works harder than it needs to.</p>
-        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">Signs your engine air filter needs replacing:</strong></p>
+        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:#0f1c3f;">Signs your engine air filter needs replacing:</strong></p>
         <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
           <li>Decreased fuel economy</li>
           <li>Sluggish acceleration</li>
@@ -1279,7 +1284,7 @@
         <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--orange); letter-spacing:0.15em; text-transform:uppercase;">Comfort</span>
         <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--white); margin:0.5rem 0 1.25rem; letter-spacing:0.03em;">Cabin Air Filters</h2>
         <p style="color:var(--text); margin-bottom:1.25rem;">The cabin air filter cleans the air coming through your vents — the air you and your passengers breathe. It catches dust, pollen, mold spores, and other pollutants before they enter the cabin.</p>
-        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">Signs your cabin filter is overdue:</strong></p>
+        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:#0f1c3f;">Signs your cabin filter is overdue:</strong></p>
         <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
           <li>Musty or unpleasant smell from the vents</li>
           <li>Reduced airflow from AC or heat</li>
@@ -1301,7 +1306,7 @@
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); color:var(--white); font-weight:600; font-size:0.85rem;"><span>Type</span><span style="color:var(--orange);">Lifespan</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Copper</span><span style="color:var(--white);">~40,000 mi</span></div>
           <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.9rem;"><span style="color:var(--text);">Platinum</span><span style="color:var(--white);">~60,000 mi</span></div>
-          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Iridium</span><span style="color:var(--white);">~120,000 mi</span></div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.9rem;"><span style="color:var(--text);">Iridium</span><span style="color:#0f1c3f;">~120,000 mi</span></div>
         </div>
         <p style="color:var(--text); margin-bottom:1.25rem;">Always use the plug type specified in your owner's manual. Installing the wrong type can cause misfires or even engine damage.</p>
         <p style="color:var(--text);">Always use the plug type and interval specified in your owner's manual — don't push it past the manufacturer's recommendation.</p>
@@ -1320,7 +1325,7 @@
           <li>Fuel stabilizer if your car sits unused for more than 30 days</li>
           <li>Octane boosters if you're running high-compression or forced-induction engines</li>
         </ul>
-        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:var(--white);">When they won't help:</strong></p>
+        <p style="color:var(--text); margin-bottom:1.25rem;"><strong style="color:#0f1c3f;">When they won't help:</strong></p>
         <ul style="color:var(--text); padding-left:1.5rem; margin-bottom:1.25rem; line-height:2;">
           <li>If your check engine light is on — that's a mechanical problem, not a chemical one</li>
           <li>If your injectors are heavily clogged — at that point you need a professional cleaning</li>
