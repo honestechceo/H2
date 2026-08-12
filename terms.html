@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#ffffff;">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms & Conditions | Honestech Mobile Mechanic</title>
+  <meta name="description" content="Terms and Conditions for Honestech Mobile Mechanic Service in New Jersey."/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #ffffff;
+      --dark: #f4f6fb;
+      --card: #eef1f8;
+      --border: #dde2ef;
+      --yellow: #f5c800;
+      --yellow-light: #ffe033;
+      --navy: #0f1c3f;
+      --navy-mid: #1a3266;
+      --white: #0f1c3f;
+      --muted: #6b7a99;
+      --text: #334166;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { background: #ffffff !important; background-color: #ffffff !important; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: #334166; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: #0f1c3f; }
+    .nav-cta { background: var(--yellow); color: #000 !important; padding: 0.5rem 1.2rem; border-radius: 4px; font-weight: 700 !important; }
+    .nav-phone { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--yellow) !important; }
+
+    /* HAMBURGER */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; z-index: 200; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #0f1c3f; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.99); backdrop-filter: blur(16px); z-index: 99; flex-direction: column; align-items: flex-start; padding: 2.5rem 2rem; gap: 0; border-top: 1px solid #dde2ef; overflow-y: auto; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { display: block; color: #0f1c3f; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.05em; padding: 0.6rem 0; border-bottom: 1px solid #dde2ef; width: 100%; transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-menu a.highlight { color: var(--yellow); }
+    .mobile-menu .mobile-phone { font-family: 'DM Mono', monospace; font-size: 1.1rem; color: var(--yellow); margin-top: 2rem; border-bottom: none; }
+    .mobile-menu .mobile-cta { background: var(--yellow); color: #000 !important; padding: 1rem 2rem; border-radius: 4px; font-size: 1.2rem; text-align: center; margin-top: 1.5rem; border-bottom: none !important; font-weight: 700; }
+    @media (max-width: 900px) { .hamburger { display: flex; } .nav-links { display: none !important; } }
+
+    /* MAIN */
+    main { max-width: 780px; margin: 0 auto; padding: 7rem 2rem 5rem; }
+
+    .breadcrumb { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--yellow); }
+    .breadcrumb span { margin: 0 0.4rem; }
+
+    .label { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--yellow); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
+
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: #0f1c3f; letter-spacing: 0.03em; line-height: 1; margin-bottom: 0.5rem; }
+
+    .intro { font-size: 1rem; color: var(--muted); margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+
+    .terms-section { margin-bottom: 2rem; padding: 1.75rem 2rem; background: #f4f6fb; border: 1px solid var(--border); border-radius: 8px; }
+    .terms-section:hover { border-color: var(--yellow); }
+    .terms-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: #0f1c3f; letter-spacing: 0.05em; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+    .terms-section h3::before { content: ''; display: inline-block; width: 3px; height: 1.1rem; background: var(--yellow); border-radius: 2px; flex-shrink: 0; }
+    .terms-section p { font-size: 0.92rem; color: var(--text); line-height: 1.75; }
+
+    .terms-footer { margin-top: 3rem; padding: 2rem; background: #0f1c3f; border-radius: 8px; text-align: center; }
+    .terms-footer p { color: #a0aec0; font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .terms-footer strong { color: #ffffff; }
+    .btn-primary { background: var(--yellow); color: #000; padding: 0.9rem 2rem; border-radius: 4px; font-weight: 700; font-size: 0.95rem; text-decoration: none; letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--yellow-light); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid #dde2ef; background: #0f1c3f; padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: #a0aec0; text-decoration: none; }
+    .footer-links a:hover { color: #ffffff; }
+    .footer-copy { font-size: 0.78rem; color: #a0aec0; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.25rem; }
+      main { padding: 6rem 1.25rem 4rem; }
+      footer { flex-direction: column; padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body style="background:#ffffff !important; color:#334166 !important;">
+
+<!-- NAV -->
+<nav>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="/index.html"><img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:58px;width:auto;max-width:200px;object-fit:contain;display:block;"/></a>
+  <ul class="nav-links">
+    <li><a href="/index.html#services">Services</a></li>
+    <li><a href="/index.html#locations">Locations</a></li>
+    <li><a href="/gig-drivers.html" style="color:var(--yellow);">Gig Drivers</a></li>
+    <li><a href="/index.html#blog">Blog</a></li>
+    <li><a href="tel:+17329373734" class="nav-phone">732-937-3734</a></li>
+    <li><a href="/index.html#quote" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/index.html#services" onclick="closeMenu()">Services</a>
+  <a href="/index.html#locations" onclick="closeMenu()">Locations</a>
+  <a href="/gig-drivers.html" class="highlight" onclick="closeMenu()">Gig Drivers 🎉</a>
+  <a href="/index.html#blog" onclick="closeMenu()">Blog</a>
+  <a href="/index.html#quote" onclick="closeMenu()">Get a Quote</a>
+  <a href="tel:+17329373734" class="mobile-phone">📞 732-937-3734</a>
+  <a href="/index.html#quote" class="mobile-cta" onclick="closeMenu()">Get a Free Quote →</a>
+</div>
+
+<main>
+  <div class="breadcrumb">
+    <a href="/index.html">Home</a><span>›</span> Terms &amp; Conditions
+  </div>
+
+  <span class="label">Legal</span>
+  <h1 style="color:#0f1c3f !important;">Terms &amp; Conditions</h1>
+  <p class="intro" style="color:#6b7a99 !important;">By requesting or authorizing service from <strong>Honestech Mobile Mechanic Service ("Honestech")</strong>, the customer acknowledges and agrees to the following terms.</p>
+
+  <div class="terms-section">
+    <h3>Service Coverage &amp; Referrals</h3>
+    <p>Within Middlesex County, services are performed by the owner when available. Outside of Middlesex County, or when unavailable, work may be referred to a trusted independent technician. Honestech is not responsible for the workmanship or outcomes of third-party technicians.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Diagnostics &amp; Inspections</h3>
+    <p>Diagnostics and inspections are limited to visible and accessible components at the time of service. Hidden, intermittent, or pre-existing conditions may not be detectable.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Pre-Existing Conditions</h3>
+    <p>Honestech is not responsible for failures or damage caused by pre-existing conditions, prior repairs, worn components, corrosion, contamination, or manufacturer defects.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Fluid Contamination &amp; Mechanical Risk</h3>
+    <p>Honestech is not liable for damage caused by incorrect, contaminated, or low fluids, including but not limited to oil, coolant, brake fluid, transmission fluid, or fuel.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Customer-Supplied Parts</h3>
+    <p>Customers are responsible for providing correct parts verified by VIN. Honestech does not warranty customer-supplied parts. Labor related to customer-supplied parts is non-refundable.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Authorization to Perform Work</h3>
+    <p>The customer authorizes Honestech to perform the requested services and understands that additional issues may be discovered once work begins.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Payment Policy</h3>
+    <p>Payment is due upon completion of services unless otherwise agreed in writing. Payments processed through Stripe are subject to a 3% processing fee.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>No-Show &amp; Cancellation</h3>
+    <p>Missed appointments or cancellations without reasonable notice may result in a service fee.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Limitation of Liability</h3>
+    <p>Honestech's liability is strictly limited to the amount paid for the service performed. Honestech is not responsible for incidental, indirect, or consequential damages.</p>
+  </div>
+
+  <div class="terms-section">
+    <h3>Jurisdiction</h3>
+    <p>These Terms &amp; Conditions are governed by the laws of the State of New Jersey.</p>
+  </div>
+
+  <div class="terms-footer">
+    <p><strong>By proceeding with service, the customer confirms they have read, understood, and agreed to these Terms &amp; Conditions.</strong></p>
+    <a href="/index.html#quote" class="btn-primary">Back to Booking →</a>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <img src="https://i.postimg.cc/dtPXsgsf/Untitled-design.png" alt="Honestech" style="height:36px;width:auto;object-fit:contain;"/>
+  <ul class="footer-links">
+    <li><a href="/index.html#services">Services</a></li>
+    <li><a href="/index.html#locations">Locations</a></li>
+    <li><a href="/index.html#blog">Blog</a></li>
+    <li><a href="/index.html#quote">Get a Quote</a></li>
+    <li><a href="tel:+17329373734">732-937-3734</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Honestech Mobile Mechanic · New Jersey</div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  function closeMenu() { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); document.body.style.overflow = ''; }
+  hamburger.addEventListener('click', () => { const isOpen = mobileMenu.classList.toggle('open'); hamburger.classList.toggle('open'); document.body.style.overflow = isOpen ? 'hidden' : ''; });
+</script>
+
+</body>
+</html>
