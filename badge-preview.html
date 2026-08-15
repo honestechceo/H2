@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@600&display=swap" rel="stylesheet"/>
+<style>
+  body { background: #eef1f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; flex-direction: column; gap: 2rem; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: #0f1c3f;
+    border: 1px solid #0f1c3f;
+    color: #f5c800;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.5rem 1.2rem; border-radius: 100px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #f5c800;
+    display: inline-block;
+  }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: #0f1c3f; line-height: 0.9; text-align: left; }
+  h1 span { color: #f5c800; }
+  .note { font-size: 0.85rem; color: #6b7a99; }
+</style>
+</head>
+<body>
+  <div class="note">This is exactly how the badge will look on your site:</div>
+  <div class="hero-badge">Serving Middlesex County — Coming Soon to Monmouth &amp; Ocean</div>
+  <h1>WE COME<br>TO <span>YOU.</span></h1>
+</body>
+</html>
